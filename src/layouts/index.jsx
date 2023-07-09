@@ -11,8 +11,8 @@ const Layout = (Child) => {
       <div className="flex h-screen">
         {/* Sidebar */}
         <section
-          className={`w-80 shadow-2xl p-2 absolute h-full border-r transition-all duration-50 ${
-            drawer ? " top-0 -left-full" : "-left-full   md:left-0"
+          className={`w-80 shadow-2xl bg-white p-2 md:static absolute h-full border-r transition-all duration-50 ${
+            drawer ? "md:hidden left-0" : "-left-full"
           }`}
         >
           <Sidebar />
