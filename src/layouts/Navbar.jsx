@@ -6,7 +6,7 @@ import { HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 const Navbar = (props) => {
   const { handleToggle, drawer } = props;
   return (
-    <div className="sm:p-4 p-3 bg-white shadow flex items-center">
+    <div className="sm:p-4 p-3 bg-white shadow-sm flex items-center">
       <HiOutlineMenu
         onClick={handleToggle}
         className="text-color text-xl cursor-pointer"
