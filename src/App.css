@@ -4,3 +4,11 @@
 .icon-bg {
   background: rgb(248, 248, 252);
 }
+.text-hover:hover {
+  color: rgb(60, 57, 212);
+}
+
+/* ------------------------ Scroll Bar ------------------------ */
+#sidebar::-webkit-scrollbar {
+  width: 0px;
+}

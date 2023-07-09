@@ -54,7 +54,6 @@ const UserAnalytics = () => {
           );
         })}
       </section>
-
       {/* Table */}
       <div className={CustomCard}>
         <h3 className="text-lg">Recent Costumer</h3>

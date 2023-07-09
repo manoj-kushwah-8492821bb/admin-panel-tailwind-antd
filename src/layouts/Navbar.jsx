@@ -3,16 +3,18 @@ import { BsChatDots, BsChevronDown } from "react-icons/bs";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 
+import Logo from "../assets/Logo.png";
+
 const Navbar = (props) => {
   const { handleToggle, drawer } = props;
   return (
-    <div className="sm:p-4 p-3 bg-white shadow-sm flex items-center">
+    <div className="p-4 bg-white shadow-sm flex items-center">
       <HiOutlineMenu
         onClick={handleToggle}
         className="text-color text-xl cursor-pointer"
       />
       <div className={`ml-5 ${drawer ? "hidden md:flex" : "flex md:hidden"}`}>
-        Logo
+        <img src={Logo} alt="navbar-logo" className=" w-32 sm:w-36" />
       </div>
 
       {/* Left Portion */}
