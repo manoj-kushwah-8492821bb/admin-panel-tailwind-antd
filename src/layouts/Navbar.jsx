@@ -4,14 +4,16 @@ import { MdOutlineNotificationsActive } from "react-icons/md";
 import { HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 
 const Navbar = (props) => {
-  const { handleToggle } = props;
+  const { handleToggle, drawer } = props;
   return (
     <div className="sm:p-4 p-3 bg-white shadow flex items-center">
       <HiOutlineMenu
         onClick={handleToggle}
         className="text-color text-xl cursor-pointer"
       />
-      <div className="ml-5">Logo</div>
+      <div className={`ml-5 ${drawer ? "hidden md:flex" : "flex md:hidden"}`}>
+        Logo
+      </div>
 
       {/* Left Portion */}
       <section className="flex ml-auto gap-4 sm:gap-5">

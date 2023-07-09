@@ -20,7 +20,7 @@ const Layout = (Child) => {
 
         {/* Navbar & Child */}
         <section className=" h-full w-full bg-[rgb(247,245,250)]">
-          <Navbar handleToggle={handleToggle} />
+          <Navbar handleToggle={handleToggle} drawer={drawer} />
           <div className="p-4">
             <Child />
           </div>
