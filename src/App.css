@@ -1,6 +1,10 @@
 .text-color {
   color: rgb(60, 57, 212);
 }
+.bg-color {
+  background-color: rgb(60, 57, 212);
+  color: white;
+}
 .icon-bg {
   background: rgb(248, 248, 252);
 }

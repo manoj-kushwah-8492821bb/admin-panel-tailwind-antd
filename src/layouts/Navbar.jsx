@@ -13,12 +13,16 @@ const Navbar = (props) => {
         onClick={handleToggle}
         className="text-color text-xl cursor-pointer"
       />
-      <div className={`ml-5 ${drawer ? "hidden md:flex" : "flex md:hidden"}`}>
+      <div
+        className={`sm:ml-5 ml-2.5 ${
+          drawer ? "hidden md:flex" : "flex md:hidden"
+        }`}
+      >
         <img src={Logo} alt="navbar-logo" className=" w-32 sm:w-36" />
       </div>
 
       {/* Left Portion */}
-      <section className="flex ml-auto gap-4 sm:gap-5">
+      <section className="flex ml-auto gap-3 sm:gap-4 md:gap-5">
         <div className="icon-bg text-color text-lg sm:text-xl  w-8 h-8 md:w-9 md:h-9 flex justify-center items-center rounded-full p-1.5 cursor-pointer">
           <HiOutlineSearch />
         </div>
