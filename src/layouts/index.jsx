@@ -11,11 +11,11 @@ const Layout = (Child) => {
       <div className="flex h-screen">
         {/* Sidebar */}
         <section
-          className={`w-80 shadow-2xl bg-white p-2 md:static absolute h-full border-r transition-all duration-50 ${
+          className={`w-80 lg:w-80 md:w-96 shadow-2xl bg-white p-2 md:static absolute h-full border-r transition-all duration-50 ${
             drawer ? "md:hidden left-0" : "-left-full"
           }`}
         >
-          <Sidebar />
+          <Sidebar handleToggle={handleToggle} />
         </section>
 
         {/* Navbar & Child */}
