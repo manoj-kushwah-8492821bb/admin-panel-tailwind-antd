@@ -15,12 +15,22 @@ import ServiceAnalytics from "../pages/dashboard/ServiceAnalytics";
 import EarningAnalytics from "../pages/dashboard/EarningAnalytics";
 import Convenience from "../pages/convenience";
 import Coupon from "../pages/coupon";
+import Login from "../pages/auth/Login";
+import Users from "../pages/manage-users/List/index";
+import KYC from "../pages/manage-users/KYC";
+import Withdraw from "../pages/manage-users/Withdraw";
 
 const AllRoutes = [
+  {
+    name: "Login",
+    path: "/",
+    element: <Login />,
+    private: false,
+  },
   // -------------Dashboard Routes--------------//
   {
     name: "Dashboard",
-    path: "/",
+    path: "/dashboard",
     element: <Dashboard />,
     private: true,
   },
@@ -54,6 +64,27 @@ const AllRoutes = [
     name: "Master Operators",
     path: "/master/operators",
     element: <Operators />,
+    private: true,
+  },
+
+  // ------------------- Users --------------- //
+  {
+    name: "User List",
+    path: "/users/list",
+    element: <Users />,
+    private: true,
+  },
+  {
+    name: "KYC Request",
+    path: "/users/kyc-list",
+    element: <KYC />,
+    private: true,
+  },
+
+  {
+    name: "Withdraw Requests",
+    path: "/users/withdraw",
+    element: <Withdraw />,
     private: true,
   },
 

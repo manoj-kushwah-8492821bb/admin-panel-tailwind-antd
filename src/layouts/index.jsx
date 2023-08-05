@@ -8,7 +8,7 @@ const Layout = (Child) => {
     const [drawer, setDrawer] = useState(false);
     const handleToggle = () => setDrawer(!drawer);
     return (
-      <div className="flex h-screen">
+      <div className="flex relative h-screen overflow-hidden">
         {/* Sidebar */}
         <section
           id="sidebar"
@@ -20,9 +20,9 @@ const Layout = (Child) => {
         </section>
 
         {/* Navbar & Child */}
-        <section className=" h-full w-full bg-[rgb(247,245,250)]">
+        <section className="overflow-auto h-full w-full bg-[rgb(247,245,250)]">
           <Navbar handleToggle={handleToggle} drawer={drawer} />
-          <div className="p-4">
+          <div className="p-4 h-auto">
             <Child />
           </div>
         </section>

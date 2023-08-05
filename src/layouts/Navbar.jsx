@@ -8,7 +8,7 @@ import Logo from "../assets/Logo.png";
 const Navbar = (props) => {
   const { handleToggle, drawer } = props;
   return (
-    <div className="p-4 bg-white shadow-sm flex items-center">
+    <div className="p-4 bg-white sticky z-40 border-b top-0 left-0 shadow-sm flex items-center">
       <HiOutlineMenu
         onClick={handleToggle}
         className="text-color text-xl cursor-pointer"

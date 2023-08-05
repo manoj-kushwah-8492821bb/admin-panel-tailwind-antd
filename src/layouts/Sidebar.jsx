@@ -46,6 +46,7 @@ const Sidebar = (props) => {
         { name: "Services", path: "/master/services" },
         { name: "Operators", path: "/master/operators" },
         { name: "Commission / API Setting", path: "/master/commission" },
+        { name: "Banners", path: "/master/commission" },
       ],
     },
 
@@ -68,6 +69,11 @@ const Sidebar = (props) => {
       name: "Manage User",
       icon: <FaUsers />,
       path: "/manage-users",
+      child: [
+        { name: "List", path: "/users/list" },
+        { name: "KYC Requests", path: "/users/kyc-list" },
+        { name: "Withdraw Requests", path: "/users/withdraw" },
+      ],
     },
 
     // Wallet
