@@ -5,11 +5,12 @@ import Layout from "../../../layouts/index";
 import Pagination from "../../../common/Pagination";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import { userList } from "../../../toolkit/action/userAction";
+import Loader from "../../../common/Loader";
 
 const Users = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const { users } = useSelector((state) => state.userReducer);
+  const { users, fetchLoad } = useSelector((state) => state.userReducer);
 
   // Pagination Logic
   const perPageItems = 10;
@@ -60,41 +61,47 @@ const Users = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y">
-              {users?.slice(trimStart, trimEnd).map((item) => {
-                return (
-                  <tr key={item._id} className="text-xs ">
-                    <td class="px-4 py-3">{item.referalId}</td>
+            {fetchLoad ? (
+              <td colSpan={6} className="py-6">
+                <Loader />
+              </td>
+            ) : (
+              <tbody className="divide-y">
+                {users?.slice(trimStart, trimEnd).map((item) => {
+                  return (
+                    <tr key={item._id} className="text-xs ">
+                      <td class="px-4 py-3">{item.referalId}</td>
 
-                    <td class="px-4 py-3">
-                      <div className="flex items-center gap-2.5">
-                        <img
-                          alt={item._id}
-                          src={
-                            item.avatar
-                              ? `${IMAGE_URL}${item.avatar}`
-                              : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
-                          }
-                          className="w-8 h-8 rounded-full"
-                        />
-                        <div>
-                          {item.firstName} {item.lastName}
+                      <td class="px-4 py-3">
+                        <div className="flex items-center gap-2.5">
+                          <img
+                            alt={item._id}
+                            src={
+                              item.avatar
+                                ? `${IMAGE_URL}${item.avatar}`
+                                : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
+                            }
+                            className="w-8 h-8 rounded-full"
+                          />
+                          <div>
+                            {item.firstName} {item.lastName}
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3">{item.phone}</td>
-                    <td class="px-4 py-3">{item.email}</td>
-                    <td class="px-4 py-3">
-                      <div className=" flex-col flex">
-                        <span>Level : {item.level}</span>
-                        <span>Balance : ₹ {item.wallet.balance}</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3">Action</td>
-                  </tr>
-                );
-              })}
-            </tbody>
+                      </td>
+                      <td class="px-4 py-3">{item.phone}</td>
+                      <td class="px-4 py-3">{item.email}</td>
+                      <td class="px-4 py-3">
+                        <div className=" flex-col flex">
+                          <span>Level : {item.level}</span>
+                          <span>Balance : ₹ {item.wallet.balance}</span>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3">Action</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            )}
           </table>
           <Pagination
             handlePrev={handlePrev}

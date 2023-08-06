@@ -44,30 +44,31 @@ export const withdrawList = createAsyncThunk("getWithdraw", async () => {
 });
 
 // manage kyc
-export const manageKYC = createAsyncThunk(
-  "postKYC",
-  async (payload, callBack) => {
-    try {
-      await API.post(kyc_manage, payload);
-      callBack && callBack();
-    } catch (error) {
-      if (error?.response?.status === 500) {
-        toast.error(error.Remarks);
-      } else {
-        const { Remarks } = error?.response?.data;
-        toast.error(Remarks);
-      }
+export const manageKYC = createAsyncThunk("postKYC", async (payload) => {
+  try {
+    const response = await API.post(kyc_manage, payload);
+    const { Remarks } = response.data;
+    toast.success(Remarks);
+    return response.data;
+  } catch (error) {
+    if (error?.response?.status === 500) {
+      toast.error(error.Remarks);
+    } else {
+      const { Remarks } = error?.response?.data;
+      toast.error(Remarks);
     }
   }
-);
+});
 
 // manage withdraw
 export const manageWithdraw = createAsyncThunk(
   "postWithdraw",
-  async (payload, callBack) => {
+  async (payload) => {
     try {
-      await API.post(withdraw_manage, payload);
-      callBack && callBack();
+      const response = await API.post(withdraw_manage, payload);
+      const { Remarks } = response.data;
+      toast.success(Remarks);
+      return response.data;
     } catch (error) {
       if (error?.response?.status === 500) {
         toast.error(error.Remarks);

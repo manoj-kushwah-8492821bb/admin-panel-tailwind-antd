@@ -24,12 +24,14 @@ const Login = () => {
   };
 
   // handleSubmit
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (validator.allValid()) {
-      const callBack = () => navigate("/dashboard");
-      dispatch(authLogin(formInput, callBack));
+      const response = await dispatch(authLogin(formInput));
+      if (response?.payload?.Status) {
+        navigate("/dashboard");
+        window.location.reload();
+      }
     } else {
       validator.showMessages();
       setErrors(validator.errorMessages);

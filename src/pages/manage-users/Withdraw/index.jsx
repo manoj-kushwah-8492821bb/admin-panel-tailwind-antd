@@ -10,20 +10,24 @@ import {
   manageWithdraw,
   withdrawList,
 } from "../../../toolkit/action/userAction";
+import Loader from "../../../common/Loader";
 
 const Withdraw = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState();
-  const { withdraws } = useSelector((state) => state.userReducer);
+  const { withdraws, fetchLoad } = useSelector((state) => state.userReducer);
 
   // handle status update
-  const handleStatusUpdate = (id, value) => {
+  const handleStatusUpdate = async (id, value) => {
     const payload = { withdrawId: id, status: value, message: "" };
     if (value === "reject") {
       setShowModal(payload);
     } else {
-      dispatch(manageWithdraw(payload));
+      const response = await dispatch(manageWithdraw(payload));
+      if (response?.payload?.Status) {
+        dispatch(withdrawList());
+      }
     }
   };
 
@@ -65,77 +69,99 @@ const Withdraw = () => {
                   Amount
                 </th>
 
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                {/* <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Status
-                </th>
+                </th> */}
 
                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
-                  Action
+                  Status
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y">
-              {withdraws?.slice(trimStart, trimEnd).map((item) => {
-                return (
-                  <tr key={item._id} className="text-sm ">
-                    <td class="px-4 py-3">
-                      <div className="flex items-center gap-2.5">
-                        <img
-                          src={
-                            item.userId.avatar
-                              ? `${IMAGE_URL}${item.userId.avatar}`
-                              : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
-                          }
-                          className="w-8 h-8 rounded-full"
-                        />{" "}
-                        <div>
-                          {item.userId.firstName} {item.userId.lastName}
+            {fetchLoad ? (
+              <td colSpan={6} className="py-6">
+                <Loader />
+              </td>
+            ) : (
+              <tbody className="divide-y">
+                {withdraws?.slice(trimStart, trimEnd).map((item) => {
+                  return (
+                    <tr key={item._id} className="text-sm ">
+                      <td class="px-4 py-3">
+                        <div className="flex items-center gap-2.5">
+                          <img
+                            src={
+                              item.userId.avatar
+                                ? `${IMAGE_URL}${item.userId.avatar}`
+                                : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
+                            }
+                            className="w-8 h-8 rounded-full"
+                          />{" "}
+                          <div>
+                            {item.userId.firstName} {item.userId.lastName}
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td class="px-4 flex flex-col text-xs py-3">
-                      <div className="flex gap-3">
-                        <span className="font-semibold">Bank :</span>
-                        <span>{item.bankId.bankName}</span>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="font-semibold">Account :</span>
-                        <span>{item.bankId.accountNo}</span>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="font-semibold">Branch :</span>
-                        <span>{item.bankId.branchName}</span>
-                      </div>
-                      <div className="flex gap-3">
-                        <span className="font-semibold">Holder :</span>
-                        <span>{item.bankId.holderName}</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3">
-                      <div className="flex gap-3">₹ {item.amount}</div>
-                    </td>
+                      </td>
+                      <td class="px-4 flex flex-col text-xs py-3">
+                        <div className="flex gap-3">
+                          <span className="font-semibold">Bank :</span>
+                          <span>{item.bankId.bankName}</span>
+                        </div>
+                        <div className="flex gap-3">
+                          <span className="font-semibold">Account :</span>
+                          <span>{item.bankId.accountNo}</span>
+                        </div>
+                        <div className="flex gap-3">
+                          <span className="font-semibold">Branch :</span>
+                          <span>{item.bankId.branchName}</span>
+                        </div>
+                        <div className="flex gap-3">
+                          <span className="font-semibold">Holder :</span>
+                          <span>{item.bankId.holderName}</span>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3">
+                        <div className="flex gap-3">₹ {item.amount}</div>
+                      </td>
 
-                    <td class="px-4 py-3 text-xs uppercase">{item.status}</td>
-                    <td class="px-4 py-3">
-                      <div className="flex gap-2.5 text-2xl">
-                        <MdCancel
-                          title="Reject"
-                          className="cursor-pointer text-rose-500"
-                          onClick={() => handleStatusUpdate(item._id, "reject")}
-                        />
-                        <MdOutlineCheckCircle
-                          title="Approve"
-                          className="cursor-pointer text-emerald-500"
-                          onClick={() =>
-                            handleStatusUpdate(item._id, "approved")
-                          }
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
+                      {/* <td class="px-4 py-3 text-xs uppercase">{item.status}</td> */}
+                      <td class="px-4 py-3">
+                        {item.status === "requested" ? (
+                          <div className="flex gap-2.5 text-2xl">
+                            <MdCancel
+                              title="Reject"
+                              className="cursor-pointer text-rose-500"
+                              onClick={() =>
+                                handleStatusUpdate(item._id, "reject")
+                              }
+                            />
+                            <MdOutlineCheckCircle
+                              title="Approve"
+                              className="cursor-pointer text-emerald-500"
+                              onClick={() =>
+                                handleStatusUpdate(item._id, "approved")
+                              }
+                            />
+                          </div>
+                        ) : (
+                          <>
+                            {item.status === "approved" ? (
+                              <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 ">
+                                Approved
+                              </div>
+                            ) : (
+                              <div class="inline px-3 py-1 text-sm font-normal rounded-full text-red-500 gap-x-2 bg-red-100/60 ">
+                                Rejected
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            )}
           </table>
           <Pagination
             handlePrev={handlePrev}
@@ -152,8 +178,12 @@ const Withdraw = () => {
         isOpen={showModal}
         title="Withdraw"
         handleCancel={() => setShowModal()}
-        handleConfirm={(payload) => {
-          dispatch(manageWithdraw(payload, () => setShowModal()));
+        handleConfirm={async (payload) => {
+          const response = await dispatch(manageWithdraw(payload));
+          if (response?.payload?.Status) {
+            setShowModal();
+            dispatch(withdrawList());
+          }
         }}
       />
     </>

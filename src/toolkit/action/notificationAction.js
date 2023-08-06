@@ -19,14 +19,13 @@ export const notificationList = createAsyncThunk(
 
 // push notification
 export const pushNotification = createAsyncThunk(
-  "postService",
-  async (payload, callBack) => {
+  "pushNotification",
+  async (payload) => {
     try {
       const response = await API.post(notification_create, payload);
       const { Remarks } = response.data;
-      // dispatch(serviceList());
       toast.success(Remarks);
-      callBack();
+      return response.data;
     } catch (error) {
       if (error.response.status === 500) {
         toast.error(error.message);

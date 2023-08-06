@@ -124,6 +124,13 @@ const Sidebar = (props) => {
       path: "/notification",
     },
 
+    // Notification
+    {
+      name: "Transactions",
+      icon: <MdNotifications />,
+      path: "/notification",
+    },
+
     // Admin
     {
       name: "Admin",

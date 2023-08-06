@@ -5,7 +5,10 @@ import SimpleReactValidator from "simple-react-validator";
 
 import ShowError from "../../common/ShowError";
 import ButtonLoader from "../../common/ButtonLoader";
-import { pushNotification } from "../../toolkit/action/notificationAction";
+import {
+  notificationList,
+  pushNotification,
+} from "../../toolkit/action/notificationAction";
 
 const Form = ({ handleCloseModal, isOpen }) => {
   const dispatch = useDispatch();
@@ -24,11 +27,15 @@ const Form = ({ handleCloseModal, isOpen }) => {
   };
 
   // handle Submit
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validator.allValid()) {
-      dispatch(pushNotification(formInput, handleCloseModal));
+      const response = await dispatch(pushNotification(formInput));
+      if (response?.payload?.Status) {
+        dispatch(notificationList());
+        handleCloseModal();
+      }
     } else {
       validator.showMessages();
       setErrors(validator.errorMessages);

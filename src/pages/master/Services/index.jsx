@@ -15,6 +15,7 @@ import Options from "../../../common/Options";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import Pagination from "../../../common/Pagination";
 import Confrimation from "../../../common/Confirmation";
+import Loader from "../../../common/Loader";
 
 const Services = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,9 @@ const Services = () => {
   });
   const [editData, setEditData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const { services, loading } = useSelector((state) => state.serviceReducer);
+  const { services, fetchLoad, loading } = useSelector(
+    (state) => state.serviceReducer
+  );
 
   // handle modals
   const handleOpenModal = (name) => setModals({ ...modals, [name]: true });
@@ -34,16 +37,21 @@ const Services = () => {
   };
 
   // handle status update
-  const handleStatusUpdate = (event) => {
+  const handleStatusUpdate = async (event) => {
     const payload = { status: event.target.checked };
-    dispatch(updateService(event.target.id, payload));
+    const response = await dispatch(updateService(event.target.id, payload));
+    if (response?.payload?.Status) {
+      dispatch(serviceList());
+    }
   };
 
   // handle remove service
-  const handleDeleteService = () => {
-    dispatch(
-      removeService(editData._id, () => handleCloseModal("deleteModal"))
-    );
+  const handleDeleteService = async () => {
+    const response = await dispatch(removeService(editData._id));
+    if (response?.payload?.Status) {
+      dispatch(serviceList());
+      handleCloseModal("deleteModal");
+    }
   };
 
   // Pagination Logic
@@ -99,48 +107,57 @@ const Services = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y">
-              {services?.slice(trimStart, trimEnd).map((item) => {
-                return (
-                  <tr key={item._id} className="text-sm ">
-                    <td class="px-4 py-3">
-                      <div className="flex items-center gap-2.5">
-                        <img
-                          alt={item._id}
-                          src={`${IMAGE_URL}${item.icon}`}
-                          className="w-9 h-9 rounded-full"
-                        />{" "}
-                        {item.name}
-                      </div>
-                    </td>
-                    <td class="px-4 py-3">{item.percent}%</td>
-                    <td class="px-4 py-3">{item.type}</td>
-                    <td class="px-4 py-3">
-                      <Toggle
-                        _id={item._id}
-                        value={item.status}
-                        handleChange={handleStatusUpdate}
-                      />
-                    </td>
-                    <td class="px-4 py-3">
-                      <Toggle _id={item._id + item._id} value={item.isCoupon} />
-                    </td>
-                    <td class="px-4 py-3">
-                      <Options
-                        handleEdit={() => {
-                          setEditData(item);
-                          handleOpenModal("formModal");
-                        }}
-                        handleDelete={() => {
-                          setEditData(item);
-                          handleOpenModal("deleteModal");
-                        }}
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
+            {fetchLoad ? (
+              <td colSpan={6} className="py-6">
+                <Loader />
+              </td>
+            ) : (
+              <tbody className="divide-y">
+                {services?.slice(trimStart, trimEnd).map((item) => {
+                  return (
+                    <tr key={item._id} className="text-sm ">
+                      <td class="px-4 py-3">
+                        <div className="flex items-center gap-2.5">
+                          <img
+                            alt={item._id}
+                            src={`${IMAGE_URL}${item.icon}`}
+                            className="w-9 h-9 rounded-full"
+                          />{" "}
+                          {item.name}
+                        </div>
+                      </td>
+                      <td class="px-4 py-3">{item.percent}%</td>
+                      <td class="px-4 py-3">{item.type}</td>
+                      <td class="px-4 py-3">
+                        <Toggle
+                          _id={item._id}
+                          value={item.status}
+                          handleChange={handleStatusUpdate}
+                        />
+                      </td>
+                      <td class="px-4 py-3">
+                        <Toggle
+                          _id={item._id + item._id}
+                          value={item.isCoupon}
+                        />
+                      </td>
+                      <td class="px-4 py-3">
+                        <Options
+                          handleEdit={() => {
+                            setEditData(item);
+                            handleOpenModal("formModal");
+                          }}
+                          handleDelete={() => {
+                            setEditData(item);
+                            handleOpenModal("deleteModal");
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            )}
           </table>
           <Pagination
             handlePrev={handlePrev}

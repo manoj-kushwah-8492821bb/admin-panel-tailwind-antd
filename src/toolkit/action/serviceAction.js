@@ -15,34 +15,31 @@ export const serviceList = createAsyncThunk("getService", async () => {
 });
 
 // create service
-export const addService = createAsyncThunk(
-  "postService",
-  async (payload, callBack) => {
-    try {
-      const response = await API.post(service_create, payload);
-      const { Remarks } = response.data;
-      // dispatch(serviceList());
-      toast.success(Remarks);
-      callBack();
-    } catch (error) {
-      if (error.response.status === 500) {
-        toast.error(error.message);
-      } else {
-        const { Remarks } = error?.response?.data;
-        toast.error(Remarks);
-      }
+export const addService = createAsyncThunk("postService", async (payload) => {
+  try {
+    const response = await API.post(service_create, payload);
+    const { Remarks } = response.data;
+    toast.success(Remarks);
+    return response.data;
+  } catch (error) {
+    if (error.response.status === 500) {
+      toast.error(error.message);
+    } else {
+      const { Remarks } = error?.response?.data;
+      toast.error(Remarks);
     }
   }
-);
+});
 
 // update service
 export const updateService = createAsyncThunk(
   "updateService",
-  async (serviceId, payload, callBack) => {
+  async (serviceId, payload) => {
     try {
-      await API.patch(`service/${serviceId}`, payload);
-      // dispatch(serviceList());
-      callBack && callBack();
+      const response = await API.patch(`service/${serviceId}`, payload);
+      const { Remarks } = response.data;
+      toast.success(Remarks);
+      return response.data;
     } catch (error) {
       if (error.response.status === 500) {
         toast.error(error.message);
@@ -57,13 +54,12 @@ export const updateService = createAsyncThunk(
 // remove service
 export const removeService = createAsyncThunk(
   "removeService",
-  async (serviceId, callBack) => {
+  async (serviceId) => {
     try {
       const response = await API.delete(`service/${serviceId}`);
       const { Remarks } = response.data;
-      // dispatch(serviceList());
       toast.success(Remarks);
-      callBack();
+      return response.data;
     } catch (error) {
       if (error.response.status === 500) {
         toast.error(error.message);
@@ -71,7 +67,6 @@ export const removeService = createAsyncThunk(
         const { Remarks } = error?.response?.data;
         toast.error(Remarks);
       }
-      callBack();
     }
   }
 );

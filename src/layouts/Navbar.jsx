@@ -1,12 +1,17 @@
-import React from "react";
-import { BsChatDots, BsChevronDown } from "react-icons/bs";
+import React, { useState } from "react";
+import { BsChatDots, BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 
 import Logo from "../assets/Logo.png";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Navbar = (props) => {
+  const navigate = useNavigate();
+  const [pop, setPop] = useState(false);
   const { handleToggle, drawer } = props;
+
   return (
     <div className="p-4 bg-white sticky z-40 border-b top-0 left-0 shadow-sm flex items-center">
       <HiOutlineMenu
@@ -42,8 +47,32 @@ const Navbar = (props) => {
             <span className="text-color font-semibold">Admin</span>
             <span className="text-gray-500 text-xs">apkistore.in</span>
           </div>
-          <BsChevronDown className="text-color text-sm cursor-pointer" />
+          <button onClick={() => setPop(!pop)}>
+            {pop ? (
+              <BsChevronUp className="text-color text-sm cursor-pointer" />
+            ) : (
+              <BsChevronDown className="text-color text-sm cursor-pointer" />
+            )}
+          </button>
         </section>
+
+        {/* Popup */}
+        {pop && (
+          <div className="rounded p-3  gap-1.5 w-36 z-30 absolute top-16 sm:top-20 right-3   bg-white text-xs  grid text-left shadow">
+            <span className="cursor-pointer">My Profile</span>
+            <span className="cursor-pointer">Update Profile</span>
+            <span
+              onClick={() => {
+                localStorage.clear();
+                navigate("/");
+                toast.success("LogOut Success!");
+              }}
+              className="cursor-pointer"
+            >
+              Sign Out
+            </span>
+          </div>
+        )}
       </section>
     </div>
   );

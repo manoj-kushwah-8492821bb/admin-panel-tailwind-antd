@@ -7,6 +7,7 @@ import ButtonLoader from "../../../common/ButtonLoader";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import {
   addService,
+  serviceList,
   updateService,
 } from "../../../toolkit/action/serviceAction";
 
@@ -48,7 +49,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
   };
 
   // handle Submit
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const payload = new FormData();
     payload.append("icon", formInput.icon);
@@ -59,12 +60,20 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     if (validator.allValid()) {
       if (editData) {
         if (isEdit) {
-          dispatch(updateService(editData._id, payload, handleCloseModal));
+          const response = await dispatch(updateService(editData._id, payload));
+          if (response?.payload?.Status) {
+            dispatch(serviceList());
+            handleCloseModal();
+          }
         } else {
           handleCloseModal();
         }
       } else {
-        dispatch(addService(payload, handleCloseModal));
+        const response = dispatch(addService(payload, handleCloseModal));
+        if (response?.payload?.Status) {
+          dispatch(serviceList());
+          handleCloseModal();
+        }
       }
     } else {
       validator.showMessages();

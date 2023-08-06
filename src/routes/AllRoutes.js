@@ -1,5 +1,4 @@
 import Admin from "../pages/admin";
-import Wallet from "../pages/wallet";
 import Dashboard from "../pages/dashboard";
 import GoPoint from "../pages/wallet/GoPoint";
 import Services from "../pages/master/Services";
@@ -19,6 +18,7 @@ import Login from "../pages/auth/Login";
 import Users from "../pages/manage-users/List/index";
 import KYC from "../pages/manage-users/KYC";
 import Withdraw from "../pages/manage-users/Withdraw";
+import Balance from "../pages/wallet/Balance";
 
 const AllRoutes = [
   {
@@ -98,8 +98,8 @@ const AllRoutes = [
   // ------------------- Wallet --------------- //
   {
     name: "Apki Store Wallet",
-    path: "/wallet",
-    element: <Wallet />,
+    path: "/wallet/balance",
+    element: <Balance />,
     private: true,
   },
   {
