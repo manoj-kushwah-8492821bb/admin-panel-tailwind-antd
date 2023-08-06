@@ -19,6 +19,10 @@ import Users from "../pages/manage-users/List/index";
 import KYC from "../pages/manage-users/KYC";
 import Withdraw from "../pages/manage-users/Withdraw";
 import Balance from "../pages/wallet/Balance";
+import Recharge from "../pages/reports/recharge";
+import DthRecharge from "../pages/reports/dthRecharge";
+import Transactions from "../pages/transactions";
+import RechargeRefund from "../pages/refunds/rechargeRefund";
 
 const AllRoutes = [
   {
@@ -145,9 +149,9 @@ const AllRoutes = [
   },
 
   {
-    name: "Global Configuration",
-    path: "/global-configuration",
-    element: <GlobalConfig />,
+    name: "Recharge Refund",
+    path: "/recharge-refund-requets",
+    element: <RechargeRefund />,
     private: true,
   },
 
@@ -159,9 +163,30 @@ const AllRoutes = [
   },
 
   {
+    name: "Transaction",
+    path: "/transaction",
+    element: <Transactions />,
+    private: true,
+  },
+
+  {
     name: "Admin",
     path: "/admin",
     element: <Admin />,
+    private: true,
+  },
+
+  // ----------- Reports ------------ //
+  {
+    name: "Recharge Report",
+    path: "/report/recharge",
+    element: <Recharge />,
+    private: true,
+  },
+  {
+    name: "DTH Recharge Report",
+    path: "/report/dth",
+    element: <DthRecharge />,
     private: true,
   },
 ];

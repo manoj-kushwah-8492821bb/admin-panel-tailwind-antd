@@ -115,10 +115,10 @@ const Withdraw = () => {
                           <span className="font-semibold">Branch :</span>
                           <span>{item.bankId.branchName}</span>
                         </div>
-                        <div className="flex gap-3">
+                        {/* <div className="flex gap-3">
                           <span className="font-semibold">Holder :</span>
                           <span>{item.bankId.holderName}</span>
-                        </div>
+                        </div> */}
                       </td>
                       <td class="px-4 py-3">
                         <div className="flex gap-3">₹ {item.amount}</div>

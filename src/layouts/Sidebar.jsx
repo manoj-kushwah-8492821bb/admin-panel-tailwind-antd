@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TbReportSearch } from "react-icons/tb";
 import { GiReceiveMoney } from "react-icons/gi";
-import { AiOutlineGlobal } from "react-icons/ai";
+import { AiOutlineGlobal, AiOutlineTransaction } from "react-icons/ai";
 import { FaUsers, FaWallet } from "react-icons/fa";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
@@ -96,7 +96,8 @@ const Sidebar = (props) => {
       path: "",
       child: [
         { name: "Service", path: "" },
-        { name: "Live Recharge", path: "" },
+        { name: "Mobile Recharge", path: "/report/recharge" },
+        { name: "Dth Recharge", path: "/report/dth" },
         { name: "API Sales", path: "" },
         { name: "Pending Recharge", path: "" },
         { name: "Update Recharge", path: "" },
@@ -112,9 +113,9 @@ const Sidebar = (props) => {
 
     // Global Configuration
     {
-      name: "Global Configuration",
+      name: "Refund Requests",
       icon: <AiOutlineGlobal />,
-      path: "/global-configuration",
+      path: "/recharge-refund-requets",
     },
 
     // Notification
@@ -127,8 +128,8 @@ const Sidebar = (props) => {
     // Notification
     {
       name: "Transactions",
-      icon: <MdNotifications />,
-      path: "/notification",
+      icon: <AiOutlineTransaction />,
+      path: "/transaction",
     },
 
     // Admin

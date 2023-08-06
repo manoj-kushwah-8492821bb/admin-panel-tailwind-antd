@@ -1,20 +1,20 @@
+import Moment from "react-moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "../../../layouts/index";
-import Pagination from "../../../common/Pagination";
-import { IMAGE_URL } from "../../../utils/endpoints";
-import { userList } from "../../../toolkit/action/userAction";
 import Loader from "../../../common/Loader";
+import Pagination from "../../../common/Pagination";
+import { rechargeHistory } from "../../../toolkit/action/reportAction";
 
-const Users = () => {
+const Recharge = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const { users, fetchLoad } = useSelector((state) => state.userReducer);
+  const { recharges, fetchLoad } = useSelector((state) => state.reportReducer);
 
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = users?.length;
+  const totalItems = recharges?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -22,42 +22,67 @@ const Users = () => {
     trimEnd <= totalItems && setCurrentPage(currentPage + 1);
   };
 
+  // text color
+  const colors = (value) => {
+    switch (value) {
+      case "Failure":
+        return "text-red-500";
+
+      case "FAILURE":
+        return "text-red-500";
+
+      case "Success":
+        return "text-green-500";
+
+      case "Pending":
+        return "text-yellow-500";
+
+      default:
+        break;
+    }
+  };
+
   // useffect
   useEffect(() => {
-    dispatch(userList());
+    dispatch(rechargeHistory());
   }, [dispatch]);
 
   return (
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div>Users</div>
+        <div>Mobile Recharges</div>
       </div>
 
       {/* Table */}
       <div class="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
-          <table class="table-auto divide-y w-full text-left whitespace-nowrap">
+          <table class="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
               <tr>
                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
-                  #id
+                  UserId
                 </th>
                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Name
+                  Operator
                 </th>
                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Phone
+                  Circle
                 </th>
                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Email
+                  Number
                 </th>
                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Other
+                  Amount
                 </th>
-
+                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                  Api TxnId
+                </th>
+                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                  Status
+                </th>
                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
-                  Action
+                  Req. Time
                 </th>
               </tr>
             </thead>
@@ -66,37 +91,28 @@ const Users = () => {
                 <Loader />
               </td>
             ) : (
-              <tbody className="divide-y">
-                {users?.slice(trimStart, trimEnd).map((item) => {
+              <tbody>
+                {recharges?.slice(trimStart, trimEnd).map((item) => {
                   return (
-                    <tr key={item._id} className="text-xs ">
-                      <td class="px-4 py-3">{item._id}</td>
-
-                      <td class="px-4 py-3">
-                        <div className="flex items-center gap-2.5">
-                          <img
-                            alt={item._id}
-                            src={
-                              item.avatar
-                                ? `${IMAGE_URL}${item.avatar}`
-                                : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
-                            }
-                            className="w-8 h-8 rounded-full"
-                          />
-                          <div>
-                            {item.firstName} {item.lastName}
-                          </div>
-                        </div>
+                    <tr key={item._id} className="text-xs">
+                      <td className="px-4 py-3">{item.userId._id}</td>
+                      <td className="px-4 py-3">{item.operator}</td>
+                      <td className="px-4 py-3">{item.circle}</td>
+                      <td className="px-4 py-3">{item.number}</td>
+                      <td className="px-4 py-3">{item.amount}</td>
+                      <td className="px-4 py-3">{item.apiTransID}</td>
+                      <td
+                        className={`px-4 py-3 ${colors(
+                          item.status
+                        )} uppercase font-bold`}
+                      >
+                        {item.status}
                       </td>
-                      <td class="px-4 py-3">{item.phone}</td>
-                      <td class="px-4 py-3">{item.email}</td>
-                      <td class="px-4 py-3">
-                        <div className=" flex-col flex">
-                          <span>Level : {item.level}</span>
-                          <span>Balance : ₹ {item.wallet.balance}</span>
-                        </div>
+                      <td className="px-4 py-3">
+                        <Moment format="YYYY/MM/DD HH:mm:ss">
+                          {item.createdAt}
+                        </Moment>
                       </td>
-                      <td class="px-4 py-3">Action</td>
                     </tr>
                   );
                 })}
@@ -116,4 +132,4 @@ const Users = () => {
   );
 };
 
-export default Layout(Users);
+export default Layout(Recharge);

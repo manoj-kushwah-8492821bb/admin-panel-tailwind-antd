@@ -1,56 +1,62 @@
-import Form from "../Form";
-import Layout from "../../../layouts";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { adminProfile, txn_list } from "../../../toolkit/action/authAction";
-import Loader from "../../../common/Loader";
+
+import Layout from "../../layouts/index";
+import Loader from "../../common/Loader";
+import Pagination from "../../common/Pagination";
+import { txn_list } from "../../toolkit/action/authAction";
 import Moment from "react-moment";
 
-const GoPoint = () => {
+const Transaction = () => {
   const dispatch = useDispatch();
-  const [active, setActive] = useState("credit");
-  const handleActive = (value) => setActive(value);
-  const { transactions, fetchLoad, profileData } = useSelector(
-    (state) => state.authReducer
-  );
+  const [currentPage, setCurrentPage] = useState(1);
+  const { transactions, fetchLoad } = useSelector((state) => state.authReducer);
 
+  // Pagination Logic
+  const perPageItems = 10;
+  const totalItems = transactions?.length;
+  const trimStart = (currentPage - 1) * perPageItems;
+  const trimEnd = trimStart + perPageItems;
+  const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
+  const handleForw = () => {
+    trimEnd <= totalItems && setCurrentPage(currentPage + 1);
+  };
+
+  // text color
+  const colors = (value) => {
+    switch (value) {
+      case "Failure":
+        return "text-red-500";
+
+      case "FAILURE":
+        return "text-red-500";
+
+      case "Success":
+        return "text-green-500";
+
+      case "Pending":
+        return "text-yellow-500";
+
+      default:
+        break;
+    }
+  };
+
+  // useffect
   useEffect(() => {
-    dispatch(adminProfile());
-    dispatch(txn_list("GoPoints"));
+    dispatch(txn_list());
   }, [dispatch]);
 
   return (
     <>
       {/* Top */}
-      <section className="flex items-center justify-between">
-        <div className="flex gap-3">
-          <button
-            onClick={() => handleActive("credit")}
-            className={` ${
-              active === "credit" ? "bg-color" : "bg-white text-color"
-            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
-          >
-            Credit
-          </button>
-          <button
-            onClick={() => handleActive("debit")}
-            className={` ${
-              active === "debit" ? "bg-color" : "bg-white  text-color"
-            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
-          >
-            Debit
-          </button>
-        </div>
-        <span>Total Go Points : {profileData?.wallet?.goPoints}</span>
-      </section>
-      <Form active={active} title="GoPoints" profileData={profileData} />
+      <div className="flex justify-between">
+        <div>Transaction</div>
+      </div>
 
       {/* Table */}
       <div class="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
-          <div className="p-3 text-color tracking-wider font-semibold">
-            Recent History
-          </div>
           <table class="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
               <tr>
@@ -63,12 +69,14 @@ const GoPoint = () => {
                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Remarks
                 </th>
-
                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Amount
                 </th>
                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Api TxnId
+                  Amount Type
+                </th>
+                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                  Txn Id
                 </th>
                 <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Status
@@ -84,13 +92,14 @@ const GoPoint = () => {
               </td>
             ) : (
               <tbody>
-                {transactions?.slice(0, 5).map((item) => {
+                {transactions?.slice(trimStart, trimEnd).map((item) => {
                   return (
                     <tr key={item._id} className="text-xs capitalize">
                       <td className="px-4 py-3">{item.recipientId}</td>
                       <td className="px-4 py-3">{item.txnType}</td>
                       <td className="px-4 py-3">{item.remarks}</td>
                       <td className="px-4 py-3">{item.txnAmount}</td>
+                      <td className="px-4 py-3">{item.txnResource}</td>
                       <td className="px-4 py-3">{item.txnId}</td>
                       <td
                         className={`px-4 py-3 text-green-500 uppercase font-bold`}
@@ -108,10 +117,17 @@ const GoPoint = () => {
               </tbody>
             )}
           </table>
+          <Pagination
+            handlePrev={handlePrev}
+            from={trimStart}
+            to={trimEnd}
+            total={totalItems}
+            handleForw={handleForw}
+          />
         </div>
       </div>
     </>
   );
 };
 
-export default Layout(GoPoint);
+export default Layout(Transaction);
