@@ -85,7 +85,7 @@ const Sidebar = (props) => {
         { name: "ApkiStore Wallet", path: "/wallet/balance" },
         { name: "Go Point", path: "/wallet/go-points" },
         { name: "Prime Point", path: "/wallet/prime-points" },
-        { name: "ApkiStore Merchant", path: "/wallet/merchant" },
+        // { name: "ApkiStore Merchant", path: "/wallet/merchant" },
       ],
     },
 
