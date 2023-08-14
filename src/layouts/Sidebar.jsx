@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { TbReportSearch } from "react-icons/tb";
 import { GiReceiveMoney } from "react-icons/gi";
-import { AiOutlineGlobal, AiOutlineTransaction } from "react-icons/ai";
+import {
+  AiFillShopping,
+  AiOutlineGlobal,
+  AiOutlineTransaction,
+} from "react-icons/ai";
 import { FaUsers, FaWallet } from "react-icons/fa";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BiSolidCoupon, BiSolidHome } from "react-icons/bi";
 import { MdClose, MdNotifications, MdTouchApp } from "react-icons/md";
+import { PiUsersThreeThin } from "react-icons/pi";
 
 import Logo from "../assets/Logo.png";
 
@@ -51,17 +56,30 @@ const Sidebar = (props) => {
     },
 
     // Coupon Master
-    {
-      name: "Coupon Master",
-      icon: <BiSolidCoupon />,
-      path: "/coupon-master",
-    },
+    // {
+    //   name: "Coupon Master",
+    //   icon: <BiSolidCoupon />,
+    //   path: "/coupon-master",
+    // },
 
     // Convenience Master
+    // {
+    //   name: "Convenience Master",
+    //   icon: <GiReceiveMoney />,
+    //   path: "/convenience-master",
+    // },
+
+    // Shopping
     {
-      name: "Convenience Master",
-      icon: <GiReceiveMoney />,
-      path: "/convenience-master",
+      name: "Shopping",
+      icon: <AiFillShopping />,
+      path: "/shopping",
+      child: [
+        { name: "Category", path: "/shopping/categories" },
+        { name: "Sub Category", path: "/shopping/sub-categories" },
+        { name: "Products", path: "/shopping/products" },
+        { name: "Orders", path: "/shopping/orders" },
+      ],
     },
 
     // Manage User
@@ -73,6 +91,17 @@ const Sidebar = (props) => {
         { name: "List", path: "/users/list" },
         { name: "KYC Requests", path: "/users/kyc-list" },
         { name: "Withdraw Requests", path: "/users/withdraw" },
+      ],
+    },
+
+    // Manage Merchants
+    {
+      name: "Merchants",
+      icon: <PiUsersThreeThin />,
+      path: "/merchants",
+      child: [
+        { name: "List", path: "/merchants/list" },
+        { name: "Request List", path: "/merchants/request-list" },
       ],
     },
 
@@ -133,11 +162,11 @@ const Sidebar = (props) => {
     },
 
     // Admin
-    {
-      name: "Admin",
-      icon: <RiUserSettingsLine />,
-      path: "/admin",
-    },
+    // {
+    //   name: "Admin",
+    //   icon: <RiUserSettingsLine />,
+    //   path: "/admin",
+    // },
   ];
 
   return (

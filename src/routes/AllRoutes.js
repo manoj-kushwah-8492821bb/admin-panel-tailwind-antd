@@ -23,6 +23,12 @@ import Recharge from "../pages/reports/recharge";
 import DthRecharge from "../pages/reports/dthRecharge";
 import Transactions from "../pages/transactions";
 import RechargeRefund from "../pages/refunds/rechargeRefund";
+import Merchants from "../pages/merchants";
+import RequestList from "../pages/merchants/request-list";
+import Categories from "../pages/shoppings/categories";
+import SubCategories from "../pages/shoppings/sub-categories";
+import Orders from "../pages/shoppings/orders";
+import Products from "../pages/shoppings/products";
 
 const AllRoutes = [
   {
@@ -122,6 +128,57 @@ const AllRoutes = [
     name: "ApkiStore Merchant",
     path: "/wallet/merchant",
     element: <Merchant />,
+    private: true,
+  },
+
+  // ----------- Shopping ------------ //
+  {
+    name: "Category List",
+    path: "/shopping/categories",
+    element: <Categories />,
+    private: true,
+  },
+
+  {
+    name: "Sub Category List",
+    path: "/shopping/sub-categories",
+    element: <SubCategories />,
+    private: true,
+  },
+
+  {
+    name: "Orders",
+    path: "/shopping/orders",
+    element: <Orders />,
+    private: true,
+  },
+
+  {
+    name: "Products",
+    path: "/shopping/products",
+    element: <Products />,
+    private: true,
+  },
+
+  // ----------- Merchants ------------ //
+  {
+    name: "Merchants List",
+    path: "/merchants/list",
+    element: <Merchants />,
+    private: true,
+  },
+
+  {
+    name: "Merchants Request List",
+    path: "/merchants/request-list",
+    element: <RequestList />,
+    private: true,
+  },
+
+  {
+    name: "Merchants Request List",
+    path: "/merchants/request-list",
+    element: <RequestList />,
     private: true,
   },
 
