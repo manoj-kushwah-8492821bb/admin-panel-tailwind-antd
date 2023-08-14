@@ -29,6 +29,7 @@ import Categories from "../pages/shoppings/categories";
 import SubCategories from "../pages/shoppings/sub-categories";
 import Orders from "../pages/shoppings/orders";
 import Products from "../pages/shoppings/products";
+import Setting from "../pages/setting";
 
 const AllRoutes = [
   {
@@ -233,6 +234,12 @@ const AllRoutes = [
     private: true,
   },
 
+  {
+    name: "Setting",
+    path: "/setting",
+    element: <Setting />,
+    private: true,
+  },
   // ----------- Reports ------------ //
   {
     name: "Recharge Report",

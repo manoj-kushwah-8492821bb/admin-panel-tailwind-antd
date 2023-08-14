@@ -8,7 +8,7 @@ import {
 } from "react-icons/ai";
 import { FaUsers, FaWallet } from "react-icons/fa";
 import { RiUserSettingsLine } from "react-icons/ri";
-import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { BsChevronDown, BsChevronUp, BsGear } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BiSolidCoupon, BiSolidHome } from "react-icons/bi";
 import { MdClose, MdNotifications, MdTouchApp } from "react-icons/md";
@@ -147,6 +147,13 @@ const Sidebar = (props) => {
       path: "/recharge-refund-requets",
     },
 
+    // Transactions
+    {
+      name: "Transactions",
+      icon: <AiOutlineTransaction />,
+      path: "/transaction",
+    },
+
     // Notification
     {
       name: "Notification",
@@ -156,9 +163,9 @@ const Sidebar = (props) => {
 
     // Notification
     {
-      name: "Transactions",
-      icon: <AiOutlineTransaction />,
-      path: "/transaction",
+      name: "Setting",
+      icon: <BsGear />,
+      path: "/setting",
     },
 
     // Admin
@@ -181,12 +188,17 @@ const Sidebar = (props) => {
       </section>
 
       {/* NavLinks */}
-      <nav className="my-7 grid gap-5 tracking-wide text-sm px-4 text-[rgb(145,145,145)]">
+      <nav className="my-7 grid gap-4 tracking-wide text-sm px-4 text-[rgb(145,145,145)]">
         {navLinks.map((item) => {
           return (
             <div key={item.name}>
               <div
-                onClick={() => !item.child && handleNavigate(item.path)}
+                type="button"
+                onClick={() =>
+                  !item.child
+                    ? handleNavigate(item.path)
+                    : handleDrop(item.name)
+                }
                 className={`flex cursor-pointer font-medium  text-hover items-center gap-4 ${
                   (item.name === dropValue || item.path === pathname) &&
                   "text-color"
@@ -195,10 +207,7 @@ const Sidebar = (props) => {
                 <span className="text-lg">{item.icon}</span>
                 <span>{item.name}</span>
                 {item.child && (
-                  <span
-                    onClick={() => handleDrop(item.name)}
-                    className="ml-auto"
-                  >
+                  <span className="ml-auto">
                     {item.name === dropValue ? (
                       <BsChevronUp />
                     ) : (
