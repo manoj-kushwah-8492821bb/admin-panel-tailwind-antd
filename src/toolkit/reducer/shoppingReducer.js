@@ -5,6 +5,9 @@ import {
   fetchProducts,
   createCategory,
   createSubCategory,
+  removeCategory,
+  removeSubCategory,
+  publishProduct,
 } from "../action/shoppingAction";
 
 const initialState = {
@@ -44,6 +47,20 @@ const shoppingReducer = createSlice({
       state.loading = false;
     });
 
+    // remove category
+    builder.addCase(removeCategory.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(removeCategory.fulfilled, (state, action) => {
+      state.categoriesList = state.categoriesList.filter(
+        (item) => item._id != action.payload.Data._id
+      );
+      state.loading = false;
+    });
+    builder.addCase(removeCategory.rejected, (state) => {
+      state.loading = false;
+    });
+
     // sub category list
     builder.addCase(subCategoryList.pending, (state) => {
       state.fetchLoad = true;
@@ -68,6 +85,20 @@ const shoppingReducer = createSlice({
       state.loading = false;
     });
 
+    // remove sub category
+    builder.addCase(removeSubCategory.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(removeSubCategory.fulfilled, (state, action) => {
+      state.subCategoriesList = state.subCategoriesList.filter(
+        (item) => item._id != action.payload.Data._id
+      );
+      state.loading = false;
+    });
+    builder.addCase(removeSubCategory.rejected, (state) => {
+      state.loading = false;
+    });
+
     // products list
     builder.addCase(fetchProducts.pending, (state) => {
       state.fetchLoad = true;
@@ -78,6 +109,24 @@ const shoppingReducer = createSlice({
     });
     builder.addCase(fetchProducts.rejected, (state) => {
       state.fetchLoad = false;
+    });
+
+    // products publish
+    builder.addCase(publishProduct.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(publishProduct.fulfilled, (state, action) => {
+      state.productsList = state.productsList.map((item) => {
+        {
+          return action.payload.Data._id == item._id
+            ? action.payload.Data
+            : item;
+        }
+      });
+      state.loading = false;
+    });
+    builder.addCase(publishProduct.rejected, (state) => {
+      state.loading = false;
     });
   },
 });

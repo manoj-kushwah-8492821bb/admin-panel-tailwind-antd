@@ -29,12 +29,26 @@ export const createCategory = createAsyncThunk(
 
 export const updateCategory = createAsyncThunk(
   "updateCategory",
-  async (payload) => {
+  async (categoryId, payload) => {
     try {
-      const response = await API.post("category/create", payload);
+      const response = await API.patch(`category/${categoryId}`, payload);
       const { Data, Remarks } = response.data;
       toast.success(Remarks);
       return Data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const removeCategory = createAsyncThunk(
+  "removeCategory",
+  async (categoryId) => {
+    try {
+      const response = await API.delete(`category/${categoryId}`);
+      const { Remarks } = response.data;
+      toast.success(Remarks);
+      return response.data;
     } catch (error) {
       throw error;
     }
@@ -66,6 +80,37 @@ export const createSubCategory = createAsyncThunk(
   }
 );
 
+export const updateSubCategory = createAsyncThunk(
+  "updateSubCategory",
+  async (subCategoryId, payload) => {
+    try {
+      const response = await API.patch(
+        `sub-category/${subCategoryId}`,
+        payload
+      );
+      const { Data, Remarks } = response.data;
+      toast.success(Remarks);
+      return Data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const removeSubCategory = createAsyncThunk(
+  "removeSubCategory",
+  async (subCategoryId) => {
+    try {
+      const response = await API.delete(`sub-category/${subCategoryId}`);
+      const { Remarks } = response.data;
+      toast.success(Remarks);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
 // -------------- Products
 export const fetchProducts = createAsyncThunk("fetchProducts", async () => {
   try {
@@ -76,3 +121,17 @@ export const fetchProducts = createAsyncThunk("fetchProducts", async () => {
     throw error;
   }
 });
+
+export const publishProduct = createAsyncThunk(
+  "publishProduct",
+  async (payload) => {
+    try {
+      const response = await API.patch("product/publish", payload);
+      const { Remarks } = response.data;
+      toast.success(Remarks);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);

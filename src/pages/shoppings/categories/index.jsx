@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../../layouts";
 import { useDispatch, useSelector } from "react-redux";
-import { categoryList } from "../../../toolkit/action/shoppingAction";
+import {
+  categoryList,
+  removeCategory,
+} from "../../../toolkit/action/shoppingAction";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import TopBar from "../../../common/TopBar";
 import { BsPlus } from "react-icons/bs";
 import Form from "./Form";
 import Pagination from "../../../common/Pagination";
+import Options from "../../../common/Options";
+import Confrimation from "../../../common/Confirmation";
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -14,8 +19,11 @@ const Categories = () => {
     form: false,
     deleteModal: false,
   });
+  const [editData, setEditData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const { categoriesList } = useSelector((state) => state.shoppingReducer);
+  const { categoriesList, loading, fetchLoad } = useSelector(
+    (state) => state.shoppingReducer
+  );
 
   // handle modals
   const handleOpenModal = (name) => {
@@ -23,6 +31,14 @@ const Categories = () => {
   };
   const handleCloseModal = (name) => {
     setModal({ ...modal, [name]: false });
+  };
+
+  // handle delete
+  const handleDelete = async () => {
+    const response = await dispatch(removeCategory(editData._id));
+    if (response?.payload?.Status) {
+      handleCloseModal("deleteModal");
+    }
   };
 
   // Pagination Logic
@@ -75,7 +91,18 @@ const Categories = () => {
                     <td class="px-4 py-3">{item.name}</td>
                     <td class="px-4 py-3">{item.description}</td>
                     <td class="px-4 py-3">{item.commission}%</td>
-                    <td class="px-4 py-3"></td>
+                    <td class="px-4 py-3">
+                      <Options
+                        handleDelete={() => {
+                          setEditData(item);
+                          handleOpenModal("deleteModal");
+                        }}
+                        handleEdit={() => {
+                          setEditData(item);
+                          handleOpenModal("form");
+                        }}
+                      />
+                    </td>
                   </tr>
                 );
               })}
@@ -87,14 +114,28 @@ const Categories = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>
 
       {/* Form Modal */}
       <Form
+        editData={editData}
         isOpen={modal.form}
         handleCloseModal={() => handleCloseModal("form")}
+      />
+
+      {/* Confirmation Modal */}
+      <Confrimation
+        title="Category"
+        isOpen={modal.deleteModal}
+        handleCancel={() => {
+          setEditData({});
+          handleCloseModal("deleteModal");
+        }}
+        handleConfirm={handleDelete}
+        loading={loading}
       />
     </>
   );

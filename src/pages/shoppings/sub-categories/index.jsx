@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../../layouts";
 import { useDispatch, useSelector } from "react-redux";
-import { subCategoryList } from "../../../toolkit/action/shoppingAction";
+import {
+  removeSubCategory,
+  subCategoryList,
+} from "../../../toolkit/action/shoppingAction";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import Form from "./Form";
 import { BsPlus } from "react-icons/bs";
 import TopBar from "../../../common/TopBar";
 import Pagination from "../../../common/Pagination";
+import Options from "../../../common/Options";
+import Confrimation from "../../../common/Confirmation";
 
 const SubCategories = () => {
   const dispatch = useDispatch();
@@ -14,8 +19,11 @@ const SubCategories = () => {
     form: false,
     deleteModal: false,
   });
+  const [editData, setEditData] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const { subCategoriesList } = useSelector((state) => state.shoppingReducer);
+  const { subCategoriesList, loading, fetchLoad } = useSelector(
+    (state) => state.shoppingReducer
+  );
 
   // handle modals
   const handleOpenModal = (name) => {
@@ -23,6 +31,14 @@ const SubCategories = () => {
   };
   const handleCloseModal = (name) => {
     setModal({ ...modal, [name]: false });
+  };
+
+  // handle delete
+  const handleDelete = async () => {
+    const response = await dispatch(removeSubCategory(editData._id));
+    if (response?.payload?.Status) {
+      handleCloseModal("deleteModal");
+    }
   };
 
   // Pagination Logic
@@ -74,7 +90,18 @@ const SubCategories = () => {
                     </td>
                     <td class="px-4 py-3">{item.name}</td>
                     <td class="px-4 py-3">{item.description}</td>
-                    <td class="px-4 py-3"></td>
+                    <td class="px-4 py-3">
+                      <Options
+                        handleDelete={() => {
+                          setEditData(item);
+                          handleOpenModal("deleteModal");
+                        }}
+                        handleEdit={() => {
+                          setEditData(item);
+                          handleOpenModal("form");
+                        }}
+                      />
+                    </td>
                   </tr>
                 );
               })}
@@ -86,6 +113,7 @@ const SubCategories = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>
@@ -93,7 +121,20 @@ const SubCategories = () => {
       {/* Form Modal */}
       <Form
         isOpen={modal.form}
+        editData={editData}
         handleCloseModal={() => handleCloseModal("form")}
+      />
+
+      {/* Confirmation Modal */}
+      <Confrimation
+        title="Sub Category"
+        isOpen={modal.deleteModal}
+        handleCancel={() => {
+          setEditData({});
+          handleCloseModal("deleteModal");
+        }}
+        handleConfirm={handleDelete}
+        loading={loading}
       />
     </>
   );

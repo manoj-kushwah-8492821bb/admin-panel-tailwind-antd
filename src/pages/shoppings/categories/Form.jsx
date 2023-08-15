@@ -5,8 +5,10 @@ import SimpleReactValidator from "simple-react-validator";
 import ShowError from "../../../common/ShowError";
 import ButtonLoader from "../../../common/ButtonLoader";
 import { IMAGE_URL } from "../../../utils/endpoints";
-import { updateService } from "../../../toolkit/action/serviceAction";
-import { createCategory } from "../../../toolkit/action/shoppingAction";
+import {
+  createCategory,
+  updateCategory,
+} from "../../../toolkit/action/shoppingAction";
 
 const Form = ({ handleCloseModal, isOpen, editData }) => {
   const dispatch = useDispatch();
@@ -14,7 +16,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
   const [preview, setPreview] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [formInput, setFormInput] = useState({});
-  const { loading } = useSelector((state) => state.serviceReducer);
+  const { loading } = useSelector((state) => state.shoppingReducer);
 
   // validator
   const validator = new SimpleReactValidator({
@@ -57,7 +59,9 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     if (validator.allValid()) {
       if (editData) {
         if (isEdit) {
-          const response = await dispatch(updateService(editData._id, payload));
+          const response = await dispatch(
+            updateCategory(editData._id, payload)
+          );
           if (response?.payload?.Status) {
             setFormInput({});
             setPreview("");
@@ -69,7 +73,6 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
       } else {
         const response = await dispatch(createCategory(payload));
         if (response?.payload?.Status) {
-          event.target.reset();
           setFormInput({});
           setPreview("");
           handleCloseModal();

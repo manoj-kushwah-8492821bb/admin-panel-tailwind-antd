@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../../layouts";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../../../toolkit/action/shoppingAction";
+import {
+  fetchProducts,
+  publishProduct,
+} from "../../../toolkit/action/shoppingAction";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import Toggle from "../../../common/Toggle";
 import TopBar from "../../../common/TopBar";
@@ -10,7 +13,16 @@ import Pagination from "../../../common/Pagination";
 const Products = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const { productsList } = useSelector((state) => state.shoppingReducer);
+  const { productsList, fetchLoad } = useSelector(
+    (state) => state.shoppingReducer
+  );
+
+  const handlePublish = async (payload) => {
+    const result = await dispatch(publishProduct(payload));
+    if (result.payload.Status) {
+      dispatch(fetchProducts());
+    }
+  };
 
   // Pagination Logic
   const perPageItems = 10;
@@ -46,15 +58,15 @@ const Products = () => {
             <tbody className="divide-y">
               {productsList?.slice(trimStart, trimEnd).map((item) => {
                 return (
-                  <tr key={item._id} className="text-sm ">
+                  <tr key={item._id} className="text-sm">
                     <td class="px-4 py-3">
                       {item.productImage.length > 0 ? (
                         <div class="flex items-center">
                           {item.productImage.slice(0, 3).map((image) => {
                             return (
                               <img
-                                class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full border-blue-500 shrink-0"
-                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
+                                class="object-cover w-6 h-6 -mx-1 border rounded-full border-blue-500 shrink-0"
+                                src={`${IMAGE_URL}/${image}`}
                                 alt=""
                               />
                             );
@@ -84,7 +96,16 @@ const Products = () => {
                       </div>
                     </td>
                     <td class="px-4 py-3">
-                      <Toggle id={item._id} value={item.isPublish} />
+                      <Toggle
+                        id={item._id}
+                        handleChange={(event) =>
+                          handlePublish({
+                            productId: item._id,
+                            isPublish: event.target.checked ? "1" : "0",
+                          })
+                        }
+                        value={item.isPublish}
+                      />
                     </td>
                     <td class="px-4 py-3"></td>
                   </tr>
@@ -99,6 +120,7 @@ const Products = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>
