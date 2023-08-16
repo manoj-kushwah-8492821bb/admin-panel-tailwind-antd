@@ -1,4 +1,4 @@
-export const IMAGE_URL = "https://dev.kanhape.com/";
+export const IMAGE_URL = "https://demo.kanhape.com/";
 
 // Authorization
 export const send = "admin/send";

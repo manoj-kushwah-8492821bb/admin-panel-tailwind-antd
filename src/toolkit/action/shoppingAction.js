@@ -135,3 +135,14 @@ export const publishProduct = createAsyncThunk(
     }
   }
 );
+
+// -------------- Orders
+export const fetchOrders = createAsyncThunk("orderList", async () => {
+  try {
+    const response = await API.get("order/list");
+    const { Data } = response.data;
+    return Data;
+  } catch (error) {
+    throw error;
+  }
+});

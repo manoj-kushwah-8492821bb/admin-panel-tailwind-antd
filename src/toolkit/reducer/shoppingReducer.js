@@ -8,6 +8,7 @@ import {
   removeCategory,
   removeSubCategory,
   publishProduct,
+  fetchOrders,
 } from "../action/shoppingAction";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   categoriesList: [],
   subCategoriesList: [],
   productsList: [],
+  ordersList: [],
 };
 
 const shoppingReducer = createSlice({
@@ -127,6 +129,18 @@ const shoppingReducer = createSlice({
     });
     builder.addCase(publishProduct.rejected, (state) => {
       state.loading = false;
+    });
+
+    // order list
+    builder.addCase(fetchOrders.pending, (state) => {
+      state.fetchLoad = true;
+    });
+    builder.addCase(fetchOrders.fulfilled, (state, action) => {
+      state.ordersList = action.payload;
+      state.fetchLoad = false;
+    });
+    builder.addCase(fetchOrders.rejected, (state) => {
+      state.fetchLoad = false;
     });
   },
 });
