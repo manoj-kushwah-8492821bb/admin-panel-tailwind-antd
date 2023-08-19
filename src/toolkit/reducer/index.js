@@ -2,8 +2,9 @@ import authReducer from "./authReducer";
 import userReducer from "./userReducer";
 import reportReducer from "./reportReducer";
 import serviceReducer from "./serviceReducer";
-import shoppingReducer from "./shoppingReducer";
 import rechargeReducer from "./rechargeReducer";
+import shoppingReducer from "./shoppingReducer";
+import affiliateReducer from "./affiliateReducer";
 import notificationReducer from "./notificationReducer";
 
 const rootReducer = {
@@ -14,6 +15,7 @@ const rootReducer = {
   reportReducer,
   rechargeReducer,
   shoppingReducer,
+  affiliateReducer,
 };
 
 export default rootReducer;

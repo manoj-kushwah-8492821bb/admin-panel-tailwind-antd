@@ -55,16 +55,16 @@ const Notifications = () => {
       </div>
 
       {/* Table */}
-      <div class="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+      <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
-          <table class="table-auto divide-y whitespace-nowrap w-full text-left">
+          <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
               <tr>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
                   Title
                 </th>
 
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
                   Content
                 </th>
               </tr>
@@ -73,8 +73,8 @@ const Notifications = () => {
               {notifications?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-sm ">
-                    <td class="px-4 py-3">{item.title}</td>
-                    <td class="px-4 py-3">{item.body}</td>
+                    <td className="px-4 py-3">{item.title}</td>
+                    <td className="px-4 py-3">{item.body}</td>
                   </tr>
                 );
               })}

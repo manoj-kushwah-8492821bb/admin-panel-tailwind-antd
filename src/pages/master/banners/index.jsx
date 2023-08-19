@@ -6,18 +6,16 @@ import Form from "./Form";
 import Layout from "../../../layouts/index";
 import Button from "../../../common/Button";
 import {
-  removeService,
-  serviceList,
-  updateService,
+  bannerList,
+  removeBanner,
 } from "../../../toolkit/action/serviceAction";
-import Toggle from "../../../common/Toggle";
 import Options from "../../../common/Options";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import Pagination from "../../../common/Pagination";
 import Confrimation from "../../../common/Confirmation";
 import Loader from "../../../common/Loader";
 
-const Services = () => {
+const Banners = () => {
   const dispatch = useDispatch();
   const [modals, setModals] = useState({
     formModal: false,
@@ -25,7 +23,7 @@ const Services = () => {
   });
   const [editData, setEditData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const { services, fetchLoad, loading } = useSelector(
+  const { banners, fetchLoad, loading } = useSelector(
     (state) => state.serviceReducer
   );
 
@@ -36,27 +34,17 @@ const Services = () => {
     setModals({ ...modals, [name]: false });
   };
 
-  // handle status update
-  const handleStatusUpdate = async (event) => {
-    const payload = { status: event.target.checked };
-    const response = await dispatch(updateService(event.target.id, payload));
-    if (response?.payload?.Status) {
-      dispatch(serviceList());
-    }
-  };
-
   // handle remove service
   const handleDeleteService = async () => {
-    const response = await dispatch(removeService(editData._id));
-    if (response?.payload?.Status) {
-      dispatch(serviceList());
+    const response = await dispatch(removeBanner(editData._id));
+    if (response?.payload?.ResponseStatus == 1) {
       handleCloseModal("deleteModal");
     }
   };
 
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = services?.length;
+  const totalItems = banners?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -66,18 +54,18 @@ const Services = () => {
 
   // useffect
   useEffect(() => {
-    dispatch(serviceList());
+    dispatch(bannerList());
   }, [dispatch]);
 
   return (
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div> Services</div>
+        <div> Banners</div>
         <Button
           icon={<BsPlus />}
           action={() => handleOpenModal("formModal")}
-          text="New Service"
+          text="New Banner"
         />
       </div>
 
@@ -88,20 +76,19 @@ const Services = () => {
             <thead>
               <tr>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
-                  Name
+                  Image
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Percent
+                  Section
                 </th>
+
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Type
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Status
+                  Link
                 </th>
-                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Coupon Applicable
-                </th>
+
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
                   Action
                 </th>
@@ -113,33 +100,25 @@ const Services = () => {
               </td>
             ) : (
               <tbody className="divide-y">
-                {services?.slice(trimStart, trimEnd).map((item) => {
+                {banners?.slice(trimStart, trimEnd).map((item) => {
                   return (
-                    <tr key={item._id} className="text-sm ">
+                    <tr key={item._id} className="text-sm  ">
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2.5">
                           <img
                             alt={item._id}
-                            src={`${IMAGE_URL}${item.icon}`}
+                            src={`${IMAGE_URL}${item.image}`}
                             className="w-9 h-9 rounded-full"
                           />{" "}
                           {item.name}
                         </div>
                       </td>
-                      <td className="px-4 py-3">{item.percent}%</td>
-                      <td className="px-4 py-3">{item.type}</td>
+                      <td className="px-4 py-3 capitalize">{item.section}</td>
                       <td className="px-4 py-3">
-                        <Toggle
-                          _id={item._id}
-                          value={item.status}
-                          handleChange={handleStatusUpdate}
-                        />
+                        {item.type == "undefined" ? "---" : item.type}
                       </td>
                       <td className="px-4 py-3">
-                        <Toggle
-                          _id={item._id + item._id}
-                          value={item.isCoupon}
-                        />
+                        {item.link == "undefined" ? "---" : item.link}
                       </td>
                       <td className="px-4 py-3">
                         <Options
@@ -181,6 +160,7 @@ const Services = () => {
         isOpen={modals.deleteModal}
         editData={editData}
         loading={loading}
+        text="Banner"
         handleConfirm={handleDeleteService}
         handleCancel={() => handleCloseModal("deleteModal")}
       />
@@ -188,4 +168,4 @@ const Services = () => {
   );
 };
 
-export default Layout(Services);
+export default Layout(Banners);

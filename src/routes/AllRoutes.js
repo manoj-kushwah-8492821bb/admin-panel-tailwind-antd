@@ -8,7 +8,6 @@ import Notification from "../pages/notification";
 import Operators from "../pages/master/Operators";
 import Commission from "../pages/master/Commission";
 import PrimePoint from "../pages/wallet/PrimePoint";
-import GlobalConfig from "../pages/global-configuration";
 import UserAnalytics from "../pages/dashboard/UserAnalytics";
 import ServiceAnalytics from "../pages/dashboard/ServiceAnalytics";
 import EarningAnalytics from "../pages/dashboard/EarningAnalytics";
@@ -30,6 +29,9 @@ import SubCategories from "../pages/shoppings/sub-categories";
 import Orders from "../pages/shoppings/orders";
 import Products from "../pages/shoppings/products";
 import Setting from "../pages/setting";
+import Banners from "../pages/master/banners";
+import Affiliate from "../pages/affiliate";
+import WhitelistIp from "../pages/whitelist-ip";
 
 const AllRoutes = [
   {
@@ -75,6 +77,12 @@ const AllRoutes = [
     name: "Master Operators",
     path: "/master/operators",
     element: <Operators />,
+    private: true,
+  },
+  {
+    name: "Master Banners",
+    path: "/master/banners",
+    element: <Banners />,
     private: true,
   },
 
@@ -251,6 +259,18 @@ const AllRoutes = [
     name: "DTH Recharge Report",
     path: "/report/dth",
     element: <DthRecharge />,
+    private: true,
+  },
+  {
+    name: "Affiliate Store",
+    path: "/affiliate",
+    element: <Affiliate />,
+    private: true,
+  },
+  {
+    name: "Whitelist IPs",
+    path: "/whitelist-address",
+    element: <WhitelistIp />,
     private: true,
   },
 ];

@@ -30,27 +30,27 @@ const Orders = () => {
   return (
     <>
       <TopBar title="Orders" />
-      <div class="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+      <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
-          <table class="table-auto divide-y whitespace-nowrap w-full text-left">
+          <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
               <tr>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
                   Product
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Payment Method
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Delivery
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Amount
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Status
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
                   Action
                 </th>
               </tr>
@@ -59,7 +59,7 @@ const Orders = () => {
               {ordersList?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-sm ">
-                    <td class="px-4 py-3">
+                    <td className="px-4 py-3">
                       <div className="flex items-center gap-1">
                         <img
                           alt={item._id}
@@ -69,12 +69,12 @@ const Orders = () => {
                         <span>{item?.productId?.productName}</span>
                       </div>
                     </td>
-                    <td class="px-4 py-3">{item.paymentMethod}</td>
-                    <td class="px-4 py-3">{item.deliveryDate}</td>
-                    <td class="px-4 py-3">{item.totalPrice}</td>
+                    <td className="px-4 py-3">{item.paymentMethod}</td>
+                    <td className="px-4 py-3">{item.deliveryDate}</td>
+                    <td className="px-4 py-3">{item.totalPrice}</td>
 
-                    <td class="px-4 py-3">{item.status}</td>
-                    <td class="px-4 py-3"></td>
+                    <td className="px-4 py-3">{item.status}</td>
+                    <td className="px-4 py-3"></td>
                   </tr>
                 );
               })}

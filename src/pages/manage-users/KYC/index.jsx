@@ -51,27 +51,27 @@ const KYC = () => {
       </div>
 
       {/* Table */}
-      <div class="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+      <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
-          <table class="table-auto divide-y whitespace-nowrap  w-full text-left">
+          <table className="table-auto divide-y whitespace-nowrap  w-full text-left">
             <thead>
               <tr>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
                   User
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Aadhaar
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Pan
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Selfie
                 </th>
-                {/* <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                {/* <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Status
                 </th> */}
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
                   Action
                 </th>
               </tr>
@@ -85,7 +85,7 @@ const KYC = () => {
                 {kycs?.slice(trimStart, trimEnd).map((item) => {
                   return (
                     <tr key={item._id} className="text-sm ">
-                      <td class="px-4 py-3">
+                      <td className="px-4 py-3">
                         <div className="flex items-center gap-2.5">
                           <img
                             alt={item.userId.firstName}
@@ -101,7 +101,7 @@ const KYC = () => {
                           </div>
                         </div>
                       </td>
-                      <td class="px-4 py-3">
+                      <td className="px-4 py-3">
                         {" "}
                         <div className="flex gap-3">
                           {item.aadhaarFront ? (
@@ -124,7 +124,7 @@ const KYC = () => {
                           )}
                         </div>
                       </td>
-                      <td class="px-4 py-3">
+                      <td className="px-4 py-3">
                         {" "}
                         {item.pan ? (
                           <img
@@ -136,7 +136,7 @@ const KYC = () => {
                           "---"
                         )}
                       </td>
-                      <td class="px-4 py-3">
+                      <td className="px-4 py-3">
                         {item.photo ? (
                           <img
                             alt={item.photo}
@@ -148,8 +148,8 @@ const KYC = () => {
                         )}
                       </td>
 
-                      {/* <td class="px-4 py-3">{item.status}</td> */}
-                      <td class="px-4 py-3">
+                      {/* <td className="px-4 py-3">{item.status}</td> */}
+                      <td className="px-4 py-3">
                         {item.status !== "Approve" ? (
                           <div className="flex gap-2.5 text-2xl">
                             <MdCancel
@@ -170,11 +170,11 @@ const KYC = () => {
                         ) : (
                           <>
                             {item.status === "Approve" ? (
-                              <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 ">
+                              <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 ">
                                 Approved
                               </div>
                             ) : (
-                              <div class="inline px-3 py-1 text-sm font-normal rounded-full text-red-500 gap-x-2 bg-red-100/60 ">
+                              <div className="inline px-3 py-1 text-sm font-normal rounded-full text-red-500 gap-x-2 bg-red-100/60 ">
                                 Rejected
                               </div>
                             )}

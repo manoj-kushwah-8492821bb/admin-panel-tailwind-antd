@@ -1,4 +1,5 @@
 export const IMAGE_URL = "https://demo.kanhape.com/";
+// export const IMAGE_URL = "http://localhost:5000/";
 
 // Authorization
 export const send = "admin/send";

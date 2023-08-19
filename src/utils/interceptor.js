@@ -4,7 +4,5 @@ const BASEURL = "https://demo.kanhape.com/api/";
 
 export const API = axios.create({
   baseURL: BASEURL,
-  headers: {
-    token: localStorage.getItem("AccessToken"),
-  },
+  headers: { token: localStorage.getItem("AccessToken") },
 });

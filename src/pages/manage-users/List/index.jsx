@@ -35,28 +35,28 @@ const Users = () => {
       </div>
 
       {/* Table */}
-      <div class="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+      <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
-          <table class="table-auto divide-y w-full text-left whitespace-nowrap">
+          <table className="table-auto divide-y w-full text-left whitespace-nowrap">
             <thead>
               <tr>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
                   #id
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Name
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Phone
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Email
                 </th>
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Other
                 </th>
 
-                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
                   Action
                 </th>
               </tr>
@@ -70,9 +70,9 @@ const Users = () => {
                 {users?.slice(trimStart, trimEnd).map((item) => {
                   return (
                     <tr key={item._id} className="text-xs ">
-                      <td class="px-4 py-3">{item._id}</td>
+                      <td className="px-4 py-3">{item._id}</td>
 
-                      <td class="px-4 py-3">
+                      <td className="px-4 py-3">
                         <div className="flex items-center gap-2.5">
                           <img
                             alt={item._id}
@@ -88,15 +88,15 @@ const Users = () => {
                           </div>
                         </div>
                       </td>
-                      <td class="px-4 py-3">{item.phone}</td>
-                      <td class="px-4 py-3">{item.email}</td>
-                      <td class="px-4 py-3">
+                      <td className="px-4 py-3">{item.phone}</td>
+                      <td className="px-4 py-3">{item.email}</td>
+                      <td className="px-4 py-3">
                         <div className=" flex-col flex">
                           <span>Level : {item.level}</span>
                           <span>Balance : ₹ {item.wallet.balance}</span>
                         </div>
                       </td>
-                      <td class="px-4 py-3">Action</td>
+                      <td className="px-4 py-3">Action</td>
                     </tr>
                   );
                 })}

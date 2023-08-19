@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { TbReportSearch } from "react-icons/tb";
-import { GiReceiveMoney } from "react-icons/gi";
 import {
   AiFillShopping,
   AiOutlineGlobal,
   AiOutlineTransaction,
 } from "react-icons/ai";
 import { FaUsers, FaWallet } from "react-icons/fa";
-import { RiUserSettingsLine } from "react-icons/ri";
 import { BsChevronDown, BsChevronUp, BsGear } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
-import { BiSolidCoupon, BiSolidHome } from "react-icons/bi";
+import { BiSolidHome } from "react-icons/bi";
 import { MdClose, MdNotifications, MdTouchApp } from "react-icons/md";
 import { PiUsersThreeThin } from "react-icons/pi";
 
@@ -49,27 +47,14 @@ const Sidebar = (props) => {
       path: "",
       child: [
         { name: "Services", path: "/master/services" },
-        { name: "Operators", path: "/master/operators" },
-        { name: "Commission / API Setting", path: "/master/commission" },
-        { name: "Banners", path: "/master/commission" },
+        // { name: "Operators", path: "/master/operators" },
+        // { name: "Commission / API Setting", path: "/master/commission" },
+        { name: "Banners", path: "/master/banners" },
       ],
     },
 
-    // Coupon Master
-    // {
-    //   name: "Coupon Master",
-    //   icon: <BiSolidCoupon />,
-    //   path: "/coupon-master",
-    // },
-
-    // Convenience Master
-    // {
-    //   name: "Convenience Master",
-    //   icon: <GiReceiveMoney />,
-    //   path: "/convenience-master",
-    // },
-
     // Shopping
+
     {
       name: "Shopping",
       icon: <AiFillShopping />,
@@ -161,19 +146,22 @@ const Sidebar = (props) => {
       path: "/notification",
     },
 
-    // Notification
+    {
+      name: "Affiliate Store",
+      icon: <BsGear />,
+      path: "/affiliate",
+    },
+    {
+      name: "IP Address",
+      icon: <BsGear />,
+      path: "/whitelist-address",
+    },
+
     {
       name: "Setting",
       icon: <BsGear />,
       path: "/setting",
     },
-
-    // Admin
-    // {
-    //   name: "Admin",
-    //   icon: <RiUserSettingsLine />,
-    //   path: "/admin",
-    // },
   ];
 
   return (

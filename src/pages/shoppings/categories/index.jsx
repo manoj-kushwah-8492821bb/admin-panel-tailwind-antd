@@ -65,33 +65,33 @@ const Categories = () => {
       />
 
       {/* Table Data */}
-      <div class="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+      <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
-          <table class="table-auto divide-y whitespace-nowrap w-full text-left">
+          <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead className="bg-gray-100 title-font tracking-wider text-sm">
               <tr>
-                <th class="px-4 py-3 rounded-tl">Image</th>
-                <th class="px-4 py-3">Name</th>
-                <th class="px-4 py-3">Description</th>
-                <th class="px-4 py-3">Charge</th>
-                <th class="px-4 py-3 rounded-tr ">Action</th>
+                <th className="px-4 py-3 rounded-tl">Image</th>
+                <th className="px-4 py-3">Name</th>
+                <th className="px-4 py-3">Description</th>
+                <th className="px-4 py-3">Charge</th>
+                <th className="px-4 py-3 rounded-tr ">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y">
               {categoriesList?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-sm ">
-                    <td class="px-4 py-3">
+                    <td className="px-4 py-3">
                       <img
                         alt={item._id}
                         src={`${IMAGE_URL}${item.image}`}
                         className="w-9 h-9 rounded-full"
                       />
                     </td>
-                    <td class="px-4 py-3">{item.name}</td>
-                    <td class="px-4 py-3">{item.description}</td>
-                    <td class="px-4 py-3">{item.commission}%</td>
-                    <td class="px-4 py-3">
+                    <td className="px-4 py-3">{item.name}</td>
+                    <td className="px-4 py-3">{item.description}</td>
+                    <td className="px-4 py-3">{item.commission}%</td>
+                    <td className="px-4 py-3">
                       <Options
                         handleDelete={() => {
                           setEditData(item);

@@ -42,60 +42,60 @@ const Products = () => {
     <>
       <TopBar title="Products" />
       {/* Table */}
-      <div class="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+      <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
-          <table class="table-auto divide-y whitespace-nowrap w-full text-left">
+          <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead className="bg-gray-100 title-font tracking-wider text-sm">
               <tr>
-                <th class="px-4 py-3 rounded-tl">Image</th>
-                <th class="px-4 py-3">Name</th>
-                <th class="px-4 py-3">Description</th>
-                <th class="px-4 py-3">Price</th>
-                <th class="px-4 py-3">Publish</th>
-                <th class="px-4 py-3 rounded-tr ">Action</th>
+                <th className="px-4 py-3 rounded-tl">Image</th>
+                <th className="px-4 py-3">Name</th>
+                <th className="px-4 py-3">Description</th>
+                <th className="px-4 py-3">Price</th>
+                <th className="px-4 py-3">Publish</th>
+                <th className="px-4 py-3 rounded-tr ">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y">
               {productsList?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-sm">
-                    <td class="px-4 py-3">
+                    <td className="px-4 py-3">
                       {item.productImage.length > 0 ? (
-                        <div class="flex items-center">
+                        <div className="flex items-center">
                           {item.productImage.slice(0, 3).map((image) => {
                             return (
                               <img
-                                class="object-cover w-6 h-6 -mx-1 border rounded-full border-blue-500 shrink-0"
+                                className="object-cover w-6 h-6 -mx-1 border rounded-full border-blue-500 shrink-0"
                                 src={`${IMAGE_URL}/${image}`}
                                 alt=""
                               />
                             );
                           })}
                           {item.productImage.length > 3 && (
-                            <p class="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-blue-600 bg-blue-100 border-2 border-white rounded-full">
+                            <p className="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-blue-600 bg-blue-100 border-2 border-white rounded-full">
                               {item.productImage.length - 3}
                             </p>
                           )}
                         </div>
                       ) : (
-                        <div class="flex items-center">---</div>
+                        <div className="flex items-center">---</div>
                       )}
                     </td>
-                    <td class="px-4 py-3">
+                    <td className="px-4 py-3">
                       {item.productName.slice(0, 20)}
                       {item.productName.length > 20 && "..."}
                     </td>
-                    <td class="px-4 py-3">
+                    <td className="px-4 py-3">
                       {item.productDesc.slice(0, 20)}{" "}
                       {item.productDesc.length > 20 && "..."}
                     </td>
-                    <td class="px-4 py-3">
+                    <td className="px-4 py-3">
                       <div>
                         <div>Price : {item.productActualPrice}</div>
                         <div>Sale Price : {item.productSalePrice}</div>
                       </div>
                     </td>
-                    <td class="px-4 py-3">
+                    <td className="px-4 py-3">
                       <Toggle
                         id={item._id}
                         handleChange={(event) =>
@@ -107,7 +107,7 @@ const Products = () => {
                         value={item.isPublish}
                       />
                     </td>
-                    <td class="px-4 py-3"></td>
+                    <td className="px-4 py-3"></td>
                   </tr>
                 );
               })}
