@@ -6,15 +6,15 @@ import Form from "./Form";
 import Layout from "../../layouts/index";
 import Button from "../../common/Button";
 import Options from "../../common/Options";
-import { IMAGE_URL } from "../../utils/endpoints";
 import Pagination from "../../common/Pagination";
 import Confrimation from "../../common/Confirmation";
 import Loader from "../../common/Loader";
 import {
-  affiliateList,
-  affiliateRemove,
   ipList,
+  ipRemove,
+  ipStatusUpdate,
 } from "../../toolkit/action/affiliateAction";
+import Toggle from "../../common/Toggle";
 
 const WhitelistIp = () => {
   const dispatch = useDispatch();
@@ -37,9 +37,22 @@ const WhitelistIp = () => {
 
   // handle remove service
   const handleDeleteService = async () => {
-    const response = await dispatch(affiliateRemove(editData._id));
+    const response = await dispatch(ipRemove(editData._id));
     if (response?.payload?.ResponseStatus == 1) {
       handleCloseModal("deleteModal");
+    }
+  };
+
+  // handle update status
+  const handleUpdateStatus = async (event, id) => {
+    const response = await dispatch(
+      ipStatusUpdate({
+        payload: { status: event.target.checked },
+        ipId: id,
+      })
+    );
+    if (response?.payload?.ResponseStatus == 1) {
+      dispatch(ipList());
     }
   };
 
@@ -100,8 +113,15 @@ const WhitelistIp = () => {
                   return (
                     <tr key={item._id} className="text-sm ">
                       <td className="px-4 py-3">{item.name}</td>
-                      <td className="px-4 py-3">{item.status}</td>
                       <td className="px-4 py-3">{item.ip}</td>
+                      <td className="px-4 py-3">
+                        <Toggle
+                          value={item.status}
+                          handleChange={(event) =>
+                            handleUpdateStatus(event, item._id)
+                          }
+                        />
+                      </td>
                       <td className="px-4 py-3">
                         <Options
                           handleEdit={() => {

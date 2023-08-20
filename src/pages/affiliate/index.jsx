@@ -5,11 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Form from "./Form";
 import Layout from "../../layouts/index";
 import Button from "../../common/Button";
-import {
-  removeService,
-  serviceList,
-  updateService,
-} from "../../toolkit/action/serviceAction";
 import Options from "../../common/Options";
 import { IMAGE_URL } from "../../utils/endpoints";
 import Pagination from "../../common/Pagination";
@@ -19,9 +14,12 @@ import {
   affiliateList,
   affiliateRemove,
 } from "../../toolkit/action/affiliateAction";
+import { useNavigate } from "react-router-dom";
 
 const Affiliate = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [modals, setModals] = useState({
     formModal: false,
     deleteModal: false,
@@ -115,13 +113,19 @@ const Affiliate = () => {
                         />
                       </td>
                       <td className="px-4 py-3">{item.name}</td>
-                      <td className="px-4 py-3">{item.description}</td>
+                      <td className="px-4 py-3">
+                        {item.description.slice(0, 20)}
+                        {item.description.length > 20 && "..."}
+                      </td>
                       <td className="px-4 py-3">{item.link}</td>
                       <td className="px-4 py-3">
                         <Options
                           handleEdit={() => {
                             setEditData(item);
                             handleOpenModal("formModal");
+                          }}
+                          handleView={() => {
+                            navigate("/affiliate/view", { state: item });
                           }}
                           handleDelete={() => {
                             setEditData(item);

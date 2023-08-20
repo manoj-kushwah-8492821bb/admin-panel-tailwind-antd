@@ -7,6 +7,7 @@ import {
   ipCreate,
   ipList,
   ipRemove,
+  ipStatusUpdate,
   ipUpdate,
 } from "../action/affiliateAction";
 
@@ -123,6 +124,20 @@ const affiliateReducer = createSlice({
       state.fetchLoad = false;
     });
     builder.addCase(ipUpdate.rejected, (state) => {
+      state.fetchLoad = false;
+    });
+
+    // ip update
+    builder.addCase(ipStatusUpdate.pending, (state) => {
+      state.fetchLoad = true;
+    });
+    builder.addCase(ipStatusUpdate.fulfilled, (state, action) => {
+      state.ipAddresses = state.ipAddresses.map((item) =>
+        item._id == action.payload.Data._id ? action.payload.Data : item
+      );
+      state.fetchLoad = false;
+    });
+    builder.addCase(ipStatusUpdate.rejected, (state) => {
       state.fetchLoad = false;
     });
   },

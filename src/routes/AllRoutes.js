@@ -32,6 +32,7 @@ import Setting from "../pages/setting";
 import Banners from "../pages/master/banners";
 import Affiliate from "../pages/affiliate";
 import WhitelistIp from "../pages/whitelist-ip";
+import View from "../pages/affiliate/View";
 
 const AllRoutes = [
   {
@@ -265,6 +266,12 @@ const AllRoutes = [
     name: "Affiliate Store",
     path: "/affiliate",
     element: <Affiliate />,
+    private: true,
+  },
+  {
+    name: "Affiliate View",
+    path: "/affiliate/view",
+    element: <View />,
     private: true,
   },
   {

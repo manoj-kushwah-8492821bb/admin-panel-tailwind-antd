@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TbReportSearch } from "react-icons/tb";
+import { TbAffiliate, TbReportSearch } from "react-icons/tb";
 import {
   AiFillShopping,
   AiOutlineGlobal,
@@ -11,6 +11,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { BiSolidHome } from "react-icons/bi";
 import { MdClose, MdNotifications, MdTouchApp } from "react-icons/md";
 import { PiUsersThreeThin } from "react-icons/pi";
+import { SiInternetexplorer } from "react-icons/si";
 
 import Logo from "../assets/Logo.png";
 
@@ -148,12 +149,12 @@ const Sidebar = (props) => {
 
     {
       name: "Affiliate Store",
-      icon: <BsGear />,
+      icon: <TbAffiliate />,
       path: "/affiliate",
     },
     {
       name: "IP Address",
-      icon: <BsGear />,
+      icon: <SiInternetexplorer />,
       path: "/whitelist-address",
     },
 

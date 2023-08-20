@@ -60,7 +60,9 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     if (validator.allValid()) {
       if (editData) {
         if (isEdit) {
-          const response = await dispatch(updateService(editData._id, payload));
+          const response = await dispatch(
+            updateService({ serviceId: editData._id, payload })
+          );
           if (response?.payload?.Status) {
             dispatch(serviceList());
             handleCloseModal();
@@ -69,7 +71,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
           handleCloseModal();
         }
       } else {
-        const response = dispatch(addService(payload, handleCloseModal));
+        const response = await dispatch(addService(payload));
         if (response?.payload?.Status) {
           dispatch(serviceList());
           handleCloseModal();

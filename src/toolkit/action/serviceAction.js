@@ -3,7 +3,7 @@ import { API } from "../../utils/interceptor";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { service_create, service_list } from "../../utils/endpoints";
 
-// service list
+// ------------------------------- SERVICES
 export const serviceList = createAsyncThunk("getService", async () => {
   try {
     const response = await API.get(service_list);
@@ -16,7 +16,6 @@ export const serviceList = createAsyncThunk("getService", async () => {
   }
 });
 
-// create service
 export const addService = createAsyncThunk("postService", async (payload) => {
   try {
     const response = await API.post(service_create, payload);
@@ -33,10 +32,9 @@ export const addService = createAsyncThunk("postService", async (payload) => {
   }
 });
 
-// update service
 export const updateService = createAsyncThunk(
   "updateService",
-  async (serviceId, payload) => {
+  async ({ serviceId, payload }) => {
     try {
       const response = await API.patch(`service/${serviceId}`, payload);
       const { Remarks } = response.data;
@@ -53,7 +51,6 @@ export const updateService = createAsyncThunk(
   }
 );
 
-// remove service
 export const removeService = createAsyncThunk(
   "removeService",
   async (serviceId) => {

@@ -39,7 +39,18 @@ const Services = () => {
   // handle status update
   const handleStatusUpdate = async (event) => {
     const payload = { status: event.target.checked };
-    const response = await dispatch(updateService(event.target.id, payload));
+    const response = await dispatch(
+      updateService({ serviceId: event.target.id, payload })
+    );
+    if (response?.payload?.Status) {
+      dispatch(serviceList());
+    }
+  };
+
+  // handle status update
+  const handleCouponUpdate = async (event, id) => {
+    const payload = { isCoupon: event.target.checked };
+    const response = await dispatch(updateService({ serviceId: id, payload }));
     if (response?.payload?.Status) {
       dispatch(serviceList());
     }
@@ -139,6 +150,9 @@ const Services = () => {
                         <Toggle
                           _id={item._id + item._id}
                           value={item.isCoupon}
+                          handleChange={(event) =>
+                            handleCouponUpdate(event, item._id)
+                          }
                         />
                       </td>
                       <td className="px-4 py-3">

@@ -7,6 +7,7 @@ import ButtonLoader from "../../common/ButtonLoader";
 import { IMAGE_URL } from "../../utils/endpoints";
 import {
   affiliateCreate,
+  affiliateList,
   affiliateUpdate,
 } from "../../toolkit/action/affiliateAction";
 
@@ -50,6 +51,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             affiliateUpdate({ payload, affiliateId: editData._id })
           );
           if (response?.payload?.ResponseStatus == 1) {
+            dispatch(affiliateList());
             handleCloseModal();
           }
         } else {
@@ -58,6 +60,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
       } else {
         const response = await dispatch(affiliateCreate(payload));
         if (response?.payload?.ResponseStatus == 1) {
+          dispatch(affiliateList());
           handleCloseModal();
         }
       }

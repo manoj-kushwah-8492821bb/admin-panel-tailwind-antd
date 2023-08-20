@@ -123,3 +123,22 @@ export const ipUpdate = createAsyncThunk(
     }
   }
 );
+
+export const ipStatusUpdate = createAsyncThunk(
+  "ipStatusUpdate",
+  async ({ payload, ipId }) => {
+    try {
+      const response = await API.patch(
+        `ip-address/update-status/${ipId}`,
+        payload
+      );
+      const { ResponseStatus, Remarks } = response.data;
+      if (ResponseStatus === 1) {
+        toast.success(Remarks);
+        return response.data;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+);
