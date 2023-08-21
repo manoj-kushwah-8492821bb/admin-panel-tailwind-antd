@@ -9,9 +9,13 @@ import { IMAGE_URL } from "../../../utils/endpoints";
 import Toggle from "../../../common/Toggle";
 import TopBar from "../../../common/TopBar";
 import Pagination from "../../../common/Pagination";
+import Options from "../../../common/Options";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [currentPage, setCurrentPage] = useState(1);
   const { productsList, fetchLoad } = useSelector(
     (state) => state.shoppingReducer
@@ -107,7 +111,13 @@ const Products = () => {
                         value={item.isPublish}
                       />
                     </td>
-                    <td className="px-4 py-3"></td>
+                    <td className="px-4 py-3">
+                      <Options
+                        handleView={() =>
+                          navigate("/shopping/product/view", { state: item })
+                        }
+                      />
+                    </td>
                   </tr>
                 );
               })}

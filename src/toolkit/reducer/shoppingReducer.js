@@ -9,6 +9,7 @@ import {
   removeSubCategory,
   publishProduct,
   fetchOrders,
+  updateOrder,
 } from "../action/shoppingAction";
 
 const initialState = {
@@ -140,6 +141,17 @@ const shoppingReducer = createSlice({
       state.fetchLoad = false;
     });
     builder.addCase(fetchOrders.rejected, (state) => {
+      state.fetchLoad = false;
+    });
+
+    // order update
+    builder.addCase(updateOrder.pending, (state) => {
+      state.fetchLoad = true;
+    });
+    builder.addCase(updateOrder.fulfilled, (state, action) => {
+      state.fetchLoad = false;
+    });
+    builder.addCase(updateOrder.rejected, (state) => {
       state.fetchLoad = false;
     });
   },

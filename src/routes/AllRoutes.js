@@ -33,6 +33,8 @@ import Banners from "../pages/master/banners";
 import Affiliate from "../pages/affiliate";
 import WhitelistIp from "../pages/whitelist-ip";
 import View from "../pages/affiliate/View";
+import ViewOrder from "../pages/shoppings/orders/ViewOrder";
+import ViewProduct from "../pages/shoppings/products/ViewProduct";
 
 const AllRoutes = [
   {
@@ -160,6 +162,20 @@ const AllRoutes = [
     name: "Orders",
     path: "/shopping/orders",
     element: <Orders />,
+    private: true,
+  },
+
+  {
+    name: "View Order",
+    path: "/shopping/order/view",
+    element: <ViewOrder />,
+    private: true,
+  },
+
+  {
+    name: "View Product",
+    path: "/shopping/product/view",
+    element: <ViewProduct />,
     private: true,
   },
 

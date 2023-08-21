@@ -146,3 +146,14 @@ export const fetchOrders = createAsyncThunk("orderList", async () => {
     throw error;
   }
 });
+
+export const updateOrder = createAsyncThunk("updateOrder", async (payload) => {
+  try {
+    const response = await API.patch(`order/manage-cancel-request`, payload);
+    const { Remarks } = response.data;
+    toast.success(Remarks);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+});

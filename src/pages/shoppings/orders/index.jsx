@@ -5,14 +5,18 @@ import { fetchOrders } from "../../../toolkit/action/shoppingAction";
 import TopBar from "../../../common/TopBar";
 import Pagination from "../../../common/Pagination";
 import { IMAGE_URL } from "../../../utils/endpoints";
+import Options from "../../../common/Options";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const Orders = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { ordersList, fetchLoad } = useSelector(
     (state) => state.shoppingReducer
   );
   const [currentPage, setCurrentPage] = useState(1);
-  console.log(ordersList);
 
   // Pagination Logic
   const perPageItems = 10;
@@ -42,8 +46,12 @@ const Orders = () => {
                   Payment Method
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Delivery
+                  Action By
                 </th>
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                  Delivery Date
+                </th>
+
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Amount
                 </th>
@@ -70,11 +78,23 @@ const Orders = () => {
                       </div>
                     </td>
                     <td className="px-4 py-3">{item.paymentMethod}</td>
-                    <td className="px-4 py-3">{item.deliveryDate}</td>
-                    <td className="px-4 py-3">{item.totalPrice}</td>
-
-                    <td className="px-4 py-3">{item.status}</td>
-                    <td className="px-4 py-3"></td>
+                    <td className="px-4 py-3">{item.actionBy}</td>
+                    <td className="px-4 py-3">
+                      {moment(item.deliveryDate).format(
+                        "MMMM Do YYYY, h:mm:ss a"
+                      )}
+                    </td>
+                    <td className="px-4 py-3">₹ {item.totalPrice}</td>
+                    <td className="px-4 py-3 uppercase text-xs">
+                      {item.status}
+                    </td>
+                    <td className="px-4 py-3">
+                      <Options
+                        handleView={() =>
+                          navigate("/shopping/order/view", { state: item })
+                        }
+                      />
+                    </td>
                   </tr>
                 );
               })}
