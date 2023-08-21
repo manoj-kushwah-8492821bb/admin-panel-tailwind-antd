@@ -79,3 +79,18 @@ export const manageWithdraw = createAsyncThunk(
     }
   }
 );
+
+// ----------------------------------- MERCHANTS
+
+export const merchantList = createAsyncThunk("merchantList", async (query) => {
+  try {
+    const url = query
+      ? `auth/merchant-request-list/${query}`
+      : `auth/merchant-request-list`;
+    const response = await API.get(url);
+    const { Data } = response.data;
+    return Data;
+  } catch (error) {
+    throw error;
+  }
+});

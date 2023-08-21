@@ -3,6 +3,7 @@ import {
   kycList,
   manageKYC,
   manageWithdraw,
+  merchantList,
   userList,
   withdrawList,
 } from "../action/userAction";
@@ -13,6 +14,7 @@ const initialState = {
   kycs: [],
   users: [],
   withdraws: [],
+  merchants: [],
 };
 
 const userReducer = createSlice({
@@ -29,6 +31,18 @@ const userReducer = createSlice({
       state.fetchLoad = false;
     });
     builder.addCase(userList.rejected, (state) => {
+      state.fetchLoad = false;
+    });
+
+    // merchant list
+    builder.addCase(merchantList.pending, (state) => {
+      state.fetchLoad = true;
+    });
+    builder.addCase(merchantList.fulfilled, (state, action) => {
+      state.merchants = action.payload;
+      state.fetchLoad = false;
+    });
+    builder.addCase(merchantList.rejected, (state) => {
       state.fetchLoad = false;
     });
 
