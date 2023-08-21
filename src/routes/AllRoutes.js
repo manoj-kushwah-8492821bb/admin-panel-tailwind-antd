@@ -35,6 +35,8 @@ import WhitelistIp from "../pages/whitelist-ip";
 import View from "../pages/affiliate/View";
 import ViewOrder from "../pages/shoppings/orders/ViewOrder";
 import ViewProduct from "../pages/shoppings/products/ViewProduct";
+import ViewMerchant from "../pages/merchants/request-list/ViewMerchant";
+import ServiceArea from "../pages/serviceArea";
 
 const AllRoutes = [
   {
@@ -195,6 +197,13 @@ const AllRoutes = [
   },
 
   {
+    name: "Merchants View",
+    path: "/merchants/view",
+    element: <ViewMerchant />,
+    private: true,
+  },
+
+  {
     name: "Merchants Request List",
     path: "/merchants/request-list",
     element: <RequestList />,
@@ -294,6 +303,13 @@ const AllRoutes = [
     name: "Whitelist IPs",
     path: "/whitelist-address",
     element: <WhitelistIp />,
+    private: true,
+  },
+
+  {
+    name: "Service Area",
+    path: "/shopping/service-area",
+    element: <ServiceArea />,
     private: true,
   },
 ];

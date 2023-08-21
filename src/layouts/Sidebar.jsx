@@ -65,6 +65,7 @@ const Sidebar = (props) => {
         { name: "Sub Category", path: "/shopping/sub-categories" },
         { name: "Products", path: "/shopping/products" },
         { name: "Orders", path: "/shopping/orders" },
+        { name: "Service Area", path: "/shopping/service-area" },
       ],
     },
 

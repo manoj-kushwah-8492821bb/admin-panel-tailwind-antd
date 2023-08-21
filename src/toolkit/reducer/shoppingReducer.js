@@ -10,6 +10,7 @@ import {
   publishProduct,
   fetchOrders,
   updateOrder,
+  fetchAreas,
 } from "../action/shoppingAction";
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   subCategoriesList: [],
   productsList: [],
   ordersList: [],
+  serviceAreaList: [],
 };
 
 const shoppingReducer = createSlice({
@@ -152,6 +154,18 @@ const shoppingReducer = createSlice({
       state.fetchLoad = false;
     });
     builder.addCase(updateOrder.rejected, (state) => {
+      state.fetchLoad = false;
+    });
+
+    // service area list
+    builder.addCase(fetchAreas.pending, (state) => {
+      state.fetchLoad = true;
+    });
+    builder.addCase(fetchAreas.fulfilled, (state, action) => {
+      state.serviceAreaList = action.payload;
+      state.fetchLoad = false;
+    });
+    builder.addCase(fetchAreas.rejected, (state) => {
       state.fetchLoad = false;
     });
   },

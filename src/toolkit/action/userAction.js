@@ -94,3 +94,22 @@ export const merchantList = createAsyncThunk("merchantList", async (query) => {
     throw error;
   }
 });
+
+export const merchantSatusUpdate = createAsyncThunk(
+  "merchantList",
+  async ({ payload, callback }) => {
+    try {
+      const response = await API.post("auth/manage-request", payload);
+      const { Data, ResponseStatus, Remarks } = response.data;
+      if (ResponseStatus === 1) {
+        toast.success(Remarks);
+        callback();
+        return Data;
+      } else {
+        toast.error(Remarks);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+);

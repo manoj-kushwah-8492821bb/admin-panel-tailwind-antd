@@ -157,3 +157,56 @@ export const updateOrder = createAsyncThunk("updateOrder", async (payload) => {
     throw error;
   }
 });
+
+// --------------- Service Area
+export const fetchAreas = createAsyncThunk("fetchAreas", async () => {
+  try {
+    const response = await API.get("service-area");
+    const { Data } = response.data;
+    return Data;
+  } catch (error) {
+    throw error;
+  }
+});
+
+export const createAreas = createAsyncThunk(
+  "createAreas",
+  async ({ payload, callback }) => {
+    try {
+      const response = await API.post("service-area", payload);
+      const { Data, Remarks, ResponseStatus } = response.data;
+      callback();
+      return Data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const updateAreas = createAsyncThunk(
+  "updateAreas",
+  async ({ payload, callback }) => {
+    try {
+      const response = await API.put("service-area", payload);
+      const { Data, Remarks, ResponseStatus } = response.data;
+      callback();
+      return Data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const deleteAreas = createAsyncThunk(
+  "deleteAreas",
+  async ({ areaId, callback }) => {
+    try {
+      const response = await API.delete(`service-area/${areaId}`);
+      const { Data } = response.data;
+      callback();
+      return Data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);

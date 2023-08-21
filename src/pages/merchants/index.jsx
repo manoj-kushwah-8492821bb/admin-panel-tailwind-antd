@@ -78,7 +78,7 @@ const Merchants = () => {
                           <img
                             alt={item._id}
                             src={
-                              item.avatar
+                              item.image
                                 ? `${IMAGE_URL}${item.image}`
                                 : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
                             }

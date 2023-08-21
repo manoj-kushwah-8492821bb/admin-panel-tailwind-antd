@@ -7,9 +7,11 @@ import Pagination from "../../../common/Pagination";
 import Loader from "../../../common/Loader";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import Options from "../../../common/Options";
+import { useNavigate } from "react-router-dom";
 
 const RequestList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const { merchants, fetchLoad } = useSelector((state) => state.userReducer);
 
@@ -83,7 +85,7 @@ const RequestList = () => {
                           <img
                             alt={item._id}
                             src={
-                              item.avatar
+                              item.image
                                 ? `${IMAGE_URL}${item.image}`
                                 : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
                             }
@@ -114,7 +116,11 @@ const RequestList = () => {
                         {item.postalCode}
                       </td>
                       <td className="px-4 py-3">
-                        <Options handleView={() => console.log("first")} />
+                        <Options
+                          handleView={() =>
+                            navigate("/merchants/view", { state: item })
+                          }
+                        />
                       </td>
                     </tr>
                   );
