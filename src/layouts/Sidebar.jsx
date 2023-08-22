@@ -48,8 +48,6 @@ const Sidebar = (props) => {
       path: "",
       child: [
         { name: "Services", path: "/master/services" },
-        // { name: "Operators", path: "/master/operators" },
-        // { name: "Commission / API Setting", path: "/master/commission" },
         { name: "Banners", path: "/master/banners" },
       ],
     },
@@ -62,6 +60,7 @@ const Sidebar = (props) => {
       path: "/shopping",
       child: [
         { name: "Category", path: "/shopping/categories" },
+        { name: "bussiniessCategory", path: "/shopping/bussiness-categories" },
         { name: "Sub Category", path: "/shopping/sub-categories" },
         { name: "Products", path: "/shopping/products" },
         { name: "Orders", path: "/shopping/orders" },
@@ -192,8 +191,7 @@ const Sidebar = (props) => {
                 className={`flex cursor-pointer font-medium  text-hover items-center gap-4 ${
                   (item.name === dropValue || item.path === pathname) &&
                   "text-color"
-                }`}
-              >
+                }`}>
                 <span className="text-lg">{item.icon}</span>
                 <span>{item.name}</span>
                 {item.child && (
@@ -217,8 +215,7 @@ const Sidebar = (props) => {
                         onClick={() => handleNavigate(subItem.path)}
                         className={`flex font-normal  cursor-pointer text-hover gap-3 ${
                           subItem.path === pathname && "text-color"
-                        }`}
-                      >
+                        }`}>
                         - <span>{subItem.name}</span>
                       </div>
                     );

@@ -1,51 +1,72 @@
-import Admin from "../pages/admin";
+// --------------- Auth Routes
+
+import Login from "../pages/auth/Login";
+// --------------- Dashboard Routes
 import Dashboard from "../pages/dashboard";
-import GoPoint from "../pages/wallet/GoPoint";
-import Services from "../pages/master/Services";
-import Merchant from "../pages/wallet/Merchant";
-import ManageUsers from "../pages/manage-users";
-import Notification from "../pages/notification";
-import Operators from "../pages/master/Operators";
-import Commission from "../pages/master/Commission";
-import PrimePoint from "../pages/wallet/PrimePoint";
 import UserAnalytics from "../pages/dashboard/UserAnalytics";
 import ServiceAnalytics from "../pages/dashboard/ServiceAnalytics";
 import EarningAnalytics from "../pages/dashboard/EarningAnalytics";
-import Convenience from "../pages/convenience";
-import Coupon from "../pages/coupon";
-import Login from "../pages/auth/Login";
-import Users from "../pages/manage-users/List/index";
+
+// --------------- Master Routes
+import Banners from "../pages/master/banners";
+import Services from "../pages/master/Services";
+
+// --------------- Users Routes
 import KYC from "../pages/manage-users/KYC";
+import Users from "../pages/manage-users/List/index";
 import Withdraw from "../pages/manage-users/Withdraw";
+
+// --------------- Wallet Routes
+import GoPoint from "../pages/wallet/GoPoint";
 import Balance from "../pages/wallet/Balance";
-import Recharge from "../pages/reports/recharge";
-import DthRecharge from "../pages/reports/dthRecharge";
-import Transactions from "../pages/transactions";
-import RechargeRefund from "../pages/refunds/rechargeRefund";
-import Merchants from "../pages/merchants";
-import RequestList from "../pages/merchants/request-list";
-import Categories from "../pages/shoppings/categories";
-import SubCategories from "../pages/shoppings/sub-categories";
+import PrimePoint from "../pages/wallet/PrimePoint";
+
+// --------------- Shopping Routes
+import ServiceArea from "../pages/serviceArea";
 import Orders from "../pages/shoppings/orders";
 import Products from "../pages/shoppings/products";
-import Setting from "../pages/setting";
-import Banners from "../pages/master/banners";
-import Affiliate from "../pages/affiliate";
-import WhitelistIp from "../pages/whitelist-ip";
-import View from "../pages/affiliate/View";
+import Categories from "../pages/shoppings/categories";
 import ViewOrder from "../pages/shoppings/orders/ViewOrder";
+import SubCategories from "../pages/shoppings/sub-categories";
 import ViewProduct from "../pages/shoppings/products/ViewProduct";
+import BussiniessCategory from "../pages/shoppings/bussinessCategory";
+
+// --------------- Merchants Routes
+import Merchants from "../pages/merchants";
+import RequestList from "../pages/merchants/request-list";
 import ViewMerchant from "../pages/merchants/request-list/ViewMerchant";
-import ServiceArea from "../pages/serviceArea";
+
+// --------------- Refund Routes
+import RechargeRefund from "../pages/refunds/rechargeRefund";
+
+// --------------- Notifications Routes
+import Notification from "../pages/notification";
+
+// --------------- Transaction Routes
+import Transactions from "../pages/transactions";
+
+// --------------- Admin Routes
+import Admin from "../pages/admin";
+
+// --------------- Setting Routes
+import Setting from "../pages/setting";
+
+// --------------- Reports Routes
+import Recharge from "../pages/reports/recharge";
+import DthRecharge from "../pages/reports/dthRecharge";
+
+// --------------- Affiliate Routes
+import Affiliate from "../pages/affiliate";
+import View from "../pages/affiliate/View";
+
+// --------------- IP Address Routes
+import WhitelistIp from "../pages/whitelist-ip";
 
 const AllRoutes = [
-  {
-    name: "Login",
-    path: "/",
-    element: <Login />,
-    private: false,
-  },
-  // -------------Dashboard Routes--------------//
+  // --------------- Auth Routes
+  { name: "Login", path: "/", element: <Login />, private: false },
+
+  // --------------- Dashboard Routes
   {
     name: "Dashboard",
     path: "/dashboard",
@@ -71,17 +92,11 @@ const AllRoutes = [
     private: true,
   },
 
-  // ------------------- Master --------------- //
+  // --------------- Master Routes
   {
     name: "Master Services",
     path: "/master/services",
     element: <Services />,
-    private: true,
-  },
-  {
-    name: "Master Operators",
-    path: "/master/operators",
-    element: <Operators />,
     private: true,
   },
   {
@@ -91,7 +106,7 @@ const AllRoutes = [
     private: true,
   },
 
-  // ------------------- Users --------------- //
+  // --------------- Users Routes
   {
     name: "User List",
     path: "/users/list",
@@ -112,14 +127,7 @@ const AllRoutes = [
     private: true,
   },
 
-  {
-    name: "Commission Api setting",
-    path: "/master/commission",
-    element: <Commission />,
-    private: true,
-  },
-
-  // ------------------- Wallet --------------- //
+  // --------------- Wallet Routes
   {
     name: "Apki Store Wallet",
     path: "/wallet/balance",
@@ -138,18 +146,19 @@ const AllRoutes = [
     element: <PrimePoint />,
     private: true,
   },
-  {
-    name: "ApkiStore Merchant",
-    path: "/wallet/merchant",
-    element: <Merchant />,
-    private: true,
-  },
 
-  // ----------- Shopping ------------ //
+  // --------------- Shopping Routes
   {
     name: "Category List",
     path: "/shopping/categories",
     element: <Categories />,
+    private: true,
+  },
+
+  {
+    name: "bussiniess Category",
+    path: "/shopping/bussiness-categories",
+    element: <BussiniessCategory />,
     private: true,
   },
 
@@ -188,7 +197,14 @@ const AllRoutes = [
     private: true,
   },
 
-  // ----------- Merchants ------------ //
+  {
+    name: "Service Area",
+    path: "/shopping/service-area",
+    element: <ServiceArea />,
+    private: true,
+  },
+
+  // --------------- Merchants Routes
   {
     name: "Merchants List",
     path: "/merchants/list",
@@ -210,36 +226,7 @@ const AllRoutes = [
     private: true,
   },
 
-  {
-    name: "Merchants Request List",
-    path: "/merchants/request-list",
-    element: <RequestList />,
-    private: true,
-  },
-
-  // ----------- Other ------------ //
-
-  {
-    name: "Manage Users",
-    path: "/manage-users",
-    element: <ManageUsers />,
-    private: true,
-  },
-
-  {
-    name: "Coupon Master",
-    path: "/coupon-master",
-    element: <Coupon />,
-    private: true,
-  },
-
-  {
-    name: "Convenience Master",
-    path: "/convenience-master",
-    element: <Convenience />,
-    private: true,
-  },
-
+  // --------------- Refund Routes
   {
     name: "Recharge Refund",
     path: "/recharge-refund-requets",
@@ -247,6 +234,7 @@ const AllRoutes = [
     private: true,
   },
 
+  // --------------- Notifigations Routes
   {
     name: "Notification",
     path: "/notification",
@@ -254,6 +242,7 @@ const AllRoutes = [
     private: true,
   },
 
+  // --------------- Transaction Routes
   {
     name: "Transaction",
     path: "/transaction",
@@ -261,6 +250,7 @@ const AllRoutes = [
     private: true,
   },
 
+  // --------------- Admim Routes
   {
     name: "Admin",
     path: "/admin",
@@ -268,13 +258,14 @@ const AllRoutes = [
     private: true,
   },
 
+  // --------------- Setting Routes
   {
     name: "Setting",
     path: "/setting",
     element: <Setting />,
     private: true,
   },
-  // ----------- Reports ------------ //
+  // --------------- Reports Routes
   {
     name: "Recharge Report",
     path: "/report/recharge",
@@ -287,6 +278,8 @@ const AllRoutes = [
     element: <DthRecharge />,
     private: true,
   },
+
+  // --------------- Affiliate Routes
   {
     name: "Affiliate Store",
     path: "/affiliate",
@@ -299,17 +292,12 @@ const AllRoutes = [
     element: <View />,
     private: true,
   },
+
+  // --------------- IP Address Routes
   {
     name: "Whitelist IPs",
     path: "/whitelist-address",
     element: <WhitelistIp />,
-    private: true,
-  },
-
-  {
-    name: "Service Area",
-    path: "/shopping/service-area",
-    element: <ServiceArea />,
     private: true,
   },
 ];
