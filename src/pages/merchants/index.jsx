@@ -97,8 +97,8 @@ const Merchants = () => {
                         </div>
                       </td>
                       <td className="px-4 py-3">
-                        {item.about.slice(0, 20)}
-                        {item.about.length > 20 && "..."}
+                        {item?.about?.slice(0, 20)}
+                        {item?.about?.length > 20 && "..."}
                       </td>
                       <td className="px-4 py-3">
                         {item.businessTimeFrom} - {item.businessTimeTo}
