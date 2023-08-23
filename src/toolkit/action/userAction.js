@@ -1,15 +1,15 @@
 import { toast } from "react-hot-toast";
 import {
   kyc_list,
-  kyc_manage,
   user_list,
+  kyc_manage,
   withdraw_list,
   withdraw_manage,
 } from "../../utils/endpoints";
 import { API } from "../../utils/interceptor";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// users list
+//................. users list
 export const userList = createAsyncThunk("getUser", async () => {
   try {
     const response = await API.get(user_list);
@@ -20,7 +20,7 @@ export const userList = createAsyncThunk("getUser", async () => {
   }
 });
 
-// kyc request list
+//................ kyc request list
 export const kycList = createAsyncThunk("getKYC", async () => {
   try {
     const response = await API.get(kyc_list);
@@ -32,7 +32,7 @@ export const kycList = createAsyncThunk("getKYC", async () => {
   }
 });
 
-// withdraw request list
+//............... withdraw request list
 export const withdrawList = createAsyncThunk("getWithdraw", async () => {
   try {
     const response = await API.get(withdraw_list);
@@ -43,7 +43,7 @@ export const withdrawList = createAsyncThunk("getWithdraw", async () => {
   }
 });
 
-// manage kyc
+//................. manage kyc
 export const manageKYC = createAsyncThunk("postKYC", async (payload) => {
   try {
     const response = await API.post(kyc_manage, payload);
@@ -60,7 +60,7 @@ export const manageKYC = createAsyncThunk("postKYC", async (payload) => {
   }
 });
 
-// manage withdraw
+//.................. manage withdraw
 export const manageWithdraw = createAsyncThunk(
   "postWithdraw",
   async (payload) => {

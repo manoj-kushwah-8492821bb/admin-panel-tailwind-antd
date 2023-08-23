@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import Layout from "../../../layouts";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProducts,
@@ -28,7 +28,7 @@ const Products = () => {
     }
   };
 
-  // Pagination Logic
+  //..................... Pagination Logic
   const perPageItems = 10;
   const totalItems = productsList?.length;
   const trimStart = (currentPage - 1) * perPageItems;
@@ -38,14 +38,14 @@ const Products = () => {
     trimEnd <= totalItems && setCurrentPage(currentPage + 1);
   };
 
-  // useEffect
+  //.................... useEffect
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
   return (
     <>
       <TopBar title="Products" />
-      {/* Table */}
+      {/*................. Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">

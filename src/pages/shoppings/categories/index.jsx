@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import Form from "./Form";
 import Layout from "../../../layouts";
+import { BsPlus } from "react-icons/bs";
+import TopBar from "../../../common/TopBar";
+import Options from "../../../common/Options";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   categoryList,
   removeCategory,
 } from "../../../toolkit/action/shoppingAction";
 import { IMAGE_URL } from "../../../utils/endpoints";
-import TopBar from "../../../common/TopBar";
-import { BsPlus } from "react-icons/bs";
-import Form from "./Form";
 import Pagination from "../../../common/Pagination";
-import Options from "../../../common/Options";
 import Confrimation from "../../../common/Confirmation";
 
 const Categories = () => {
@@ -25,7 +25,7 @@ const Categories = () => {
     (state) => state.shoppingReducer
   );
 
-  // handle modals
+  //............ handle modals
   const handleOpenModal = (name) => {
     setModal({ ...modal, [name]: true });
   };
@@ -33,7 +33,7 @@ const Categories = () => {
     setModal({ ...modal, [name]: false });
   };
 
-  // handle delete
+  //............. handle delete
   const handleDelete = async () => {
     const response = await dispatch(removeCategory(editData._id));
     if (response?.payload?.Status) {
@@ -41,7 +41,7 @@ const Categories = () => {
     }
   };
 
-  // Pagination Logic
+  //...................... Pagination Logic
   const perPageItems = 10;
   const totalItems = categoriesList?.length;
   const trimStart = (currentPage - 1) * perPageItems;
@@ -51,7 +51,7 @@ const Categories = () => {
     trimEnd <= totalItems && setCurrentPage(currentPage + 1);
   };
 
-  // useEffect
+  //.................. useEffect
   useEffect(() => {
     dispatch(categoryList());
   }, [dispatch]);
@@ -64,7 +64,7 @@ const Categories = () => {
         action={() => handleOpenModal("form")}
       />
 
-      {/* Table Data */}
+      {/*................. Table Data */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
@@ -119,14 +119,14 @@ const Categories = () => {
         </div>
       </div>
 
-      {/* Form Modal */}
+      {/*................. Form Modal */}
       <Form
         editData={editData}
         isOpen={modal.form}
         handleCloseModal={() => handleCloseModal("form")}
       />
 
-      {/* Confirmation Modal */}
+      {/*................... Confirmation Modal */}
       <Confrimation
         title="Category"
         isOpen={modal.deleteModal}

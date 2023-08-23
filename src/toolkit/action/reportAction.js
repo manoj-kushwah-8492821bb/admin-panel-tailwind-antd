@@ -1,9 +1,9 @@
 import { toast } from "react-hot-toast";
+import { API } from "../../utils/interceptor";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { dth_history, recharge_history } from "../../utils/endpoints";
-import { API } from "../../utils/interceptor";
 
-// recharge history
+//............... recharge history
 export const rechargeHistory = createAsyncThunk("rechargeHistory", async () => {
   try {
     const response = await API.get(recharge_history);
@@ -15,7 +15,7 @@ export const rechargeHistory = createAsyncThunk("rechargeHistory", async () => {
   }
 });
 
-// dth history
+//............... dth history
 export const dthHistory = createAsyncThunk("dthHistory", async () => {
   try {
     const response = await API.get(dth_history);

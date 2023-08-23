@@ -2,7 +2,7 @@ import { toast } from "react-hot-toast";
 import { API } from "../../utils/interceptor";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// affiliate list
+//........... affiliate list
 export const affiliateList = createAsyncThunk("affiliateList", async () => {
   try {
     const response = await API.get("affiliate/list");
@@ -15,7 +15,7 @@ export const affiliateList = createAsyncThunk("affiliateList", async () => {
   }
 });
 
-// affiliate create
+//.............. affiliate create
 export const affiliateCreate = createAsyncThunk(
   "affiliateCreate",
   async (payload) => {
@@ -32,7 +32,7 @@ export const affiliateCreate = createAsyncThunk(
   }
 );
 
-// affiliate remove
+//................ affiliate remove
 export const affiliateRemove = createAsyncThunk(
   "affiliateRemove",
   async (affiliateId) => {
@@ -49,7 +49,7 @@ export const affiliateRemove = createAsyncThunk(
   }
 );
 
-// affiliate update
+//............. affiliate update
 export const affiliateUpdate = createAsyncThunk(
   "affiliateUpdate",
   async ({ payload, affiliateId }) => {

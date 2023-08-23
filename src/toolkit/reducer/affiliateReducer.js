@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  affiliateCreate,
+  ipList,
+  ipCreate,
+  ipRemove,
+  ipUpdate,
   affiliateList,
+  ipStatusUpdate,
+  affiliateCreate,
   affiliateRemove,
   affiliateUpdate,
-  ipCreate,
-  ipList,
-  ipRemove,
-  ipStatusUpdate,
-  ipUpdate,
 } from "../action/affiliateAction";
 
 const initialState = {
@@ -35,7 +35,7 @@ const affiliateReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // ip list
+    //.......... ip list
     builder.addCase(ipList.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -47,7 +47,7 @@ const affiliateReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // affiliate create
+    //........... affiliate create
     builder.addCase(affiliateCreate.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -59,7 +59,7 @@ const affiliateReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // affiliate remove
+    //................. affiliate remove
     builder.addCase(affiliateRemove.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -73,7 +73,7 @@ const affiliateReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // affiliate update
+    //............... affiliate update
     builder.addCase(affiliateUpdate.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -87,7 +87,7 @@ const affiliateReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // ip create
+    //................. ip create
     builder.addCase(ipCreate.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -99,7 +99,7 @@ const affiliateReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // ip remove
+    //............... ip remove
     builder.addCase(ipRemove.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -113,7 +113,7 @@ const affiliateReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // ip update
+    //................ ip update
     builder.addCase(ipUpdate.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -127,7 +127,7 @@ const affiliateReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // ip update
+    //..................... ip update
     builder.addCase(ipStatusUpdate.pending, (state) => {
       state.fetchLoad = true;
     });

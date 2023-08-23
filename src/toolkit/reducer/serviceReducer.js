@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   addService,
   bannerList,
+  serviceList,
   createBanner,
   removeBanner,
   removeService,
-  serviceList,
   updateService,
 } from "../action/serviceAction";
 
@@ -21,7 +21,7 @@ const serviceReducer = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // service list
+    //........... service list
     builder.addCase(serviceList.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -33,7 +33,7 @@ const serviceReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // create service
+    //............ create service
     builder.addCase(addService.pending, (state) => {
       state.loading = true;
     });
@@ -44,7 +44,7 @@ const serviceReducer = createSlice({
       state.loading = false;
     });
 
-    // update service
+    //............... update service
     builder.addCase(updateService.pending, (state) => {
       state.loading = true;
     });
@@ -55,7 +55,7 @@ const serviceReducer = createSlice({
       state.loading = false;
     });
 
-    // remove service
+    //............... remove service
     builder.addCase(removeService.pending, (state) => {
       state.loading = true;
     });
@@ -66,7 +66,7 @@ const serviceReducer = createSlice({
       state.loading = false;
     });
 
-    // banner list
+    //............... banner list
     builder.addCase(bannerList.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -78,7 +78,7 @@ const serviceReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // create banner
+    //................. create banner
     builder.addCase(createBanner.pending, (state) => {
       state.loading = true;
     });
@@ -90,7 +90,7 @@ const serviceReducer = createSlice({
       state.loading = false;
     });
 
-    // remove banner
+    //.................. remove banner
     builder.addCase(removeBanner.pending, (state) => {
       state.loading = true;
     });

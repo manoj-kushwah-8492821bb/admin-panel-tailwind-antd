@@ -8,8 +8,7 @@ const TopBar = (props) => {
       {text && (
         <button
           onClick={action}
-          className="bg-color text-sm flex items-center gap-0.5 p-1.5 px-3 rounded"
-        >
+          className="bg-color text-sm flex items-center gap-0.5 p-1.5 px-3 rounded">
           <span className="text-xl text-white">{icon}</span>
           {text}
         </button>

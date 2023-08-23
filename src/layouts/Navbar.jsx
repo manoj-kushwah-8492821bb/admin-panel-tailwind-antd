@@ -21,8 +21,7 @@ const Navbar = (props) => {
       <div
         className={`sm:ml-5 ml-2.5 ${
           drawer ? "hidden md:flex" : "flex md:hidden"
-        }`}
-      >
+        }`}>
         <img src={Logo} alt="navbar-logo" className=" w-32 sm:w-36" />
       </div>
 
@@ -67,8 +66,7 @@ const Navbar = (props) => {
                 navigate("/");
                 toast.success("LogOut Success!");
               }}
-              className="cursor-pointer"
-            >
+              className="cursor-pointer">
               Sign Out
             </span>
           </div>

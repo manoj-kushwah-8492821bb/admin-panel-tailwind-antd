@@ -1,5 +1,5 @@
-import authReducer from "./authReducer";
 import userReducer from "./userReducer";
+import authReducer from "./authReducer";
 import reportReducer from "./reportReducer";
 import serviceReducer from "./serviceReducer";
 import rechargeReducer from "./rechargeReducer";

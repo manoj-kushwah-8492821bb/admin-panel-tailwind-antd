@@ -16,7 +16,7 @@ const ViewOrder = () => {
   const [isCancel, setIsCancel] = useState(false);
   const [reason, setReason] = useState("");
 
-  // handle status
+  //.................. handle status
   const handleStatus = async (status) => {
     const payload = {
       orderId: state?._id,
@@ -40,7 +40,7 @@ const ViewOrder = () => {
       />
 
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
-        {/* Product Details */}
+        {/*................. Product Details */}
         <div className="py-2.5">
           <h3 className=" font-semibold tracking-wider">Product Details :</h3>
           <div className="py-4 grid sm:grid-cols-2 gap-3 text-gray-800 border-gray-300 rounded-md">
@@ -85,7 +85,7 @@ const ViewOrder = () => {
           </div>
         </div>
         <hr />
-        {/* Shipping Address */}
+        {/*....................... Shipping Address */}
         <div className="py-2.5">
           <h3 className=" font-semibold tracking-wider">Shipping Address :</h3>
           <div className="py-4 grid sm:grid-cols-2 gap-3 text-gray-800 border-gray-300 rounded-md">
@@ -137,7 +137,7 @@ const ViewOrder = () => {
             </p>
           </div>
 
-          {/* reason if he wants to cancel */}
+          {/*....................... reason if he wants to cancel */}
           {isCancel ? (
             <>
               <div className="grid gap-1">
@@ -160,8 +160,7 @@ const ViewOrder = () => {
                 <button
                   type="button"
                   onClick={() => setIsCancel(false)}
-                  className="rounded py-1 px-3 bg-slate-200"
-                >
+                  className="rounded py-1 px-3 bg-slate-200">
                   Cancel
                 </button>
               </div>
@@ -181,8 +180,7 @@ const ViewOrder = () => {
                 <button
                   type="button"
                   onClick={() => setIsCancel(true)}
-                  className="rounded py-1 px-3 bg-slate-200"
-                >
+                  className="rounded py-1 px-3 bg-slate-200">
                   Reject
                 </button>
               )}

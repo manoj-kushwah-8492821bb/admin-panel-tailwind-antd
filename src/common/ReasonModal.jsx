@@ -29,8 +29,7 @@ const ReasonModal = (props) => {
             <button
               onClick={handleCancel}
               type="button"
-              className=" bg-gray-200 w-full justify-center text-sm flex items-center gap-1 cursor-pointer tracking-wider p-2 sm:px-4 rounded text-gray-800"
-            >
+              className=" bg-gray-200 w-full justify-center text-sm flex items-center gap-1 cursor-pointer tracking-wider p-2 sm:px-4 rounded text-gray-800">
               Cancel
             </button>
 
@@ -43,8 +42,7 @@ const ReasonModal = (props) => {
               }
               type="button"
               disabled={reason.length === 0}
-              className="bg-color  w-full justify-center text-sm flex items-center gap-1 tracking-wider p-2 sm:px-4 rounded text-white"
-            >
+              className="bg-color  w-full justify-center text-sm flex items-center gap-1 tracking-wider p-2 sm:px-4 rounded text-white">
               Reject
             </button>
           </div>

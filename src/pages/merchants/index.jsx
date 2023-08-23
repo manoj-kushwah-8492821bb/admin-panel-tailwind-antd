@@ -68,8 +68,7 @@ const Merchants = () => {
                         <a
                           href={`tel:+91${item.userId.phone}`}
                           target="_blank"
-                          className="text-color underline"
-                        >
+                          className="text-color underline">
                           +91{item.userId.phone}
                         </a>
                       </td>
@@ -89,8 +88,7 @@ const Merchants = () => {
                             <a
                               href={`https://wa.me/91${item.waNumber}`}
                               target="_blank"
-                              className="text-color underline"
-                            >
+                              className="text-color underline">
                               WA : +91{item.waNumber}
                             </a>
                           </div>

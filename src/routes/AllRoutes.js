@@ -29,7 +29,7 @@ import Categories from "../pages/shoppings/categories";
 import ViewOrder from "../pages/shoppings/orders/ViewOrder";
 import SubCategories from "../pages/shoppings/sub-categories";
 import ViewProduct from "../pages/shoppings/products/ViewProduct";
-import BussiniessCategory from "../pages/shoppings/bussinessCategory";
+import BussiniessCategory from "../pages/shoppings/bussiness-Category";
 
 // --------------- Merchants Routes
 import Merchants from "../pages/merchants";

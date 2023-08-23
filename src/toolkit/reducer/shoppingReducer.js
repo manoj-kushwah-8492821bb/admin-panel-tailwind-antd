@@ -1,22 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  categoryList,
-  subCategoryList,
-  fetchProducts,
-  createCategory,
-  createSubCategory,
-  removeCategory,
-  removeSubCategory,
-  publishProduct,
-  fetchOrders,
-  updateOrder,
   fetchAreas,
+  updateOrder,
+  fetchOrders,
+  categoryList,
+  fetchProducts,
+  removeCategory,
+  publishProduct,
+  createCategory,
+  subCategoryList,
+  createSubCategory,
+  removeSubCategory,
+  bussinessCategoryList,
+  createBussinessCategory,
+  removeBussinessCategory,
 } from "../action/shoppingAction";
 
 const initialState = {
   fetchLoad: false,
   loading: false,
   categoriesList: [],
+  bussinessCategoriesList: [],
   subCategoriesList: [],
   productsList: [],
   ordersList: [],
@@ -28,7 +32,7 @@ const shoppingReducer = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // category list
+    //........... category list
     builder.addCase(categoryList.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -40,7 +44,7 @@ const shoppingReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // create category
+    //............ create category
     builder.addCase(createCategory.pending, (state) => {
       state.loading = true;
     });
@@ -52,7 +56,7 @@ const shoppingReducer = createSlice({
       state.loading = false;
     });
 
-    // remove category
+    //.................. remove category
     builder.addCase(removeCategory.pending, (state) => {
       state.loading = true;
     });
@@ -66,7 +70,48 @@ const shoppingReducer = createSlice({
       state.loading = false;
     });
 
-    // sub category list
+    //................ bussinessCategoryList list
+    builder.addCase(bussinessCategoryList.pending, (state) => {
+      state.fetchLoad = true;
+    });
+    builder.addCase(bussinessCategoryList.fulfilled, (state, action) => {
+      state.bussinessCategoriesList = action.payload;
+      state.fetchLoad = false;
+    });
+    builder.addCase(bussinessCategoryList.rejected, (state) => {
+      state.fetchLoad = false;
+    });
+
+    //................... create category
+    builder.addCase(createBussinessCategory.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(createBussinessCategory.fulfilled, (state, action) => {
+      state.bussinessCategoriesList = [
+        action.payload,
+        ...state.bussinessCategoriesList,
+      ];
+      state.loading = false;
+    });
+    builder.addCase(createBussinessCategory.rejected, (state) => {
+      state.loading = false;
+    });
+
+    //...................... remove category
+    builder.addCase(removeBussinessCategory.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(removeBussinessCategory.fulfilled, (state, action) => {
+      state.bussinessCategoriesList = state.bussinessCategoriesList.filter(
+        (item) => item._id != action.payload.Data._id
+      );
+      state.loading = false;
+    });
+    builder.addCase(removeBussinessCategory.rejected, (state) => {
+      state.loading = false;
+    });
+
+    //........................ sub category list
     builder.addCase(subCategoryList.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -78,7 +123,7 @@ const shoppingReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // create sub category
+    //................... create sub category
     builder.addCase(createSubCategory.pending, (state) => {
       state.loading = true;
     });
@@ -90,7 +135,7 @@ const shoppingReducer = createSlice({
       state.loading = false;
     });
 
-    // remove sub category
+    //................. remove sub category
     builder.addCase(removeSubCategory.pending, (state) => {
       state.loading = true;
     });
@@ -104,7 +149,7 @@ const shoppingReducer = createSlice({
       state.loading = false;
     });
 
-    // products list
+    //................. products list
     builder.addCase(fetchProducts.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -116,7 +161,7 @@ const shoppingReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // products publish
+    //................... products publish
     builder.addCase(publishProduct.pending, (state) => {
       state.loading = true;
     });
@@ -134,7 +179,7 @@ const shoppingReducer = createSlice({
       state.loading = false;
     });
 
-    // order list
+    //................. order list
     builder.addCase(fetchOrders.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -146,7 +191,7 @@ const shoppingReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // order update
+    //................... order update
     builder.addCase(updateOrder.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -157,7 +202,7 @@ const shoppingReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // service area list
+    //................. service area list
     builder.addCase(fetchAreas.pending, (state) => {
       state.fetchLoad = true;
     });

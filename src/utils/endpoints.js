@@ -3,8 +3,8 @@ export const IMAGE_URL = "https://demo.kanhape.com/";
 
 // Authorization
 export const send = "admin/send";
-export const txnHistory = "admin/txn-list";
 export const login_url = "admin/login";
+export const txnHistory = "admin/txn-list";
 export const profile_data = "admin/profile";
 
 // Services
@@ -12,8 +12,8 @@ export const service_list = "service/list";
 export const service_create = "service/create";
 
 // Notification
-export const notification_list = "notification/list/admin";
 export const notification_create = "notification/push";
+export const notification_list = "notification/list/admin";
 
 // Users
 export const kyc_list = "kyc/list";

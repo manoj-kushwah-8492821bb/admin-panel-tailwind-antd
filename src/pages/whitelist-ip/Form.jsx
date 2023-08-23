@@ -13,7 +13,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
   const [formInput, setFormInput] = useState({});
   const { loading } = useSelector((state) => state.serviceReducer);
 
-  // validator
+  //................... validator
   const validator = new SimpleReactValidator({
     validators: {
       ip: {
@@ -30,7 +30,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     },
   });
 
-  // handle Change
+  //........................ handle Change
   const handleChange = (event) => {
     const { name, value } = event.target;
     setErrors({ ...errors, [name]: "" });
@@ -38,7 +38,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     setFormInput({ ...formInput, [name]: value });
   };
 
-  // handle Submit
+  //.......................... handle Submit
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -66,7 +66,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     }
   };
 
-  // useffect
+  //..................... useffect
   useEffect(() => {
     if (editData) {
       const { ip, name } = editData;
@@ -92,7 +92,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             />
           </div>
 
-          {/* Form Inputs */}
+          {/*.............. Form Inputs */}
           <form onSubmit={handleSubmit} className="mt-5 grid gap-3">
             {/*  Title */}
             <div className="grid gap-1">
@@ -113,7 +113,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <ShowError data={errors.name} />
             </div>
 
-            {/*  Link */}
+            {/*....................  Link */}
             <div className="grid gap-1">
               <label htmlFor="ip" className="text-sm">
                 IP
@@ -132,12 +132,11 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <ShowError data={errors.ip} />
             </div>
 
-            {/* Button */}
+            {/*.................... Button */}
             <button
               type="submit"
               disabled={loading}
-              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white"
-            >
+              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white">
               {loading ? <ButtonLoader /> : "Submit"}
             </button>
           </form>

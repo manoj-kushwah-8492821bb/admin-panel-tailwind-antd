@@ -34,8 +34,7 @@ const Pagination = (props) => {
           <button
             type="button"
             onClick={handlePrev}
-            className="w-6 h-6  rounded-full flex justify-center items-center cursor-pointer "
-          >
+            className="w-6 h-6  rounded-full flex justify-center items-center cursor-pointer ">
             <MdExpandLess className="text-xl rotate-[270deg]" />
           </button>
 
@@ -44,8 +43,7 @@ const Pagination = (props) => {
             disabled={end === total}
             type="button"
             onClick={handleForw}
-            className="w-6 h-6  rounded-full flex justify-center items-center cursor-pointer "
-          >
+            className="w-6 h-6  rounded-full flex justify-center items-center cursor-pointer ">
             <MdExpandLess className="text-xl rotate-[90deg]" />
           </button>
         </div>

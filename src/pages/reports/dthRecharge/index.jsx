@@ -104,8 +104,7 @@ const DthRecharge = () => {
                       <td
                         className={`px-4 py-3 ${colors(
                           item.status
-                        )} uppercase font-bold`}
-                      >
+                        )} uppercase font-bold`}>
                         {item.status}
                       </td>
                       <td className="px-4 py-3">
