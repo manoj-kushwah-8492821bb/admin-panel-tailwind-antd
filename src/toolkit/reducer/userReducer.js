@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   kycList,
-  manageKYC,
-  manageWithdraw,
-  merchantList,
   userList,
+  manageKYC,
   withdrawList,
+  merchantList,
+  manageWithdraw,
 } from "../action/userAction";
 
 const initialState = {
@@ -22,7 +22,7 @@ const userReducer = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // user list
+    //............. user list
     builder.addCase(userList.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -34,7 +34,7 @@ const userReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // merchant list
+    //................ merchant list
     builder.addCase(merchantList.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -46,7 +46,7 @@ const userReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // key request list
+    //................. key request list
     builder.addCase(kycList.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -58,7 +58,7 @@ const userReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // withdraw request list
+    //...................... withdraw request list
     builder.addCase(withdrawList.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -70,7 +70,7 @@ const userReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // manage KYC
+    //................... manage KYC
     builder.addCase(manageKYC.pending, (state) => {
       state.loading = true;
     });
@@ -81,7 +81,7 @@ const userReducer = createSlice({
       state.loading = false;
     });
 
-    // manage withdraw
+    //..................... manage withdraw
     builder.addCase(manageWithdraw.pending, (state) => {
       state.loading = true;
     });

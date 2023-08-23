@@ -102,7 +102,7 @@ const Banners = () => {
               <tbody className="divide-y">
                 {banners?.slice(trimStart, trimEnd).map((item) => {
                   return (
-                    <tr key={item._id} className="text-sm  ">
+                    <tr key={item._id} className="text-sm capitalize ">
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2.5">
                           <img
@@ -113,12 +113,17 @@ const Banners = () => {
                           {item.name}
                         </div>
                       </td>
-                      <td className="px-4 py-3 capitalize">{item.section}</td>
+                      <td className="px-4 py-3 ">{item.section}</td>
                       <td className="px-4 py-3">
                         {item.type == "undefined" ? "---" : item.type}
                       </td>
                       <td className="px-4 py-3">
-                        {item.link == "undefined" ? "---" : item.link}
+                        <a
+                          href={item.link}
+                          className="text-color underline"
+                          target="_blank">
+                          Link
+                        </a>
                       </td>
                       <td className="px-4 py-3">
                         <Options

@@ -64,8 +64,7 @@ const Form = (props) => {
             name="username"
             value={formInput?.username}
             onChange={handleChange}
-            className="block w-full px-3 appearance-none py-1.5 bg-transparent outline-none border rounded-md"
-          >
+            className="block w-full px-3 appearance-none py-1.5 bg-transparent outline-none border rounded-md">
             <option>Select User</option>
             {users.map((item) => {
               return <option value={item._id}>{item._id}</option>;
@@ -112,8 +111,7 @@ const Form = (props) => {
         <div className="grid grid-cols-3 mt-1 gap-5">
           <button
             type="submit"
-            className="w-full px-5 py-2 text-sm font-medium tracking-wide text-white capitalize  bg-color duration-300 flex items-center justify-center transform  rounded-md bg-button focus:outline-none "
-          >
+            className="w-full px-5 py-2 text-sm font-medium tracking-wide text-white capitalize  bg-color duration-300 flex items-center justify-center transform  rounded-md bg-button focus:outline-none ">
             {active}
           </button>
           {/* <button

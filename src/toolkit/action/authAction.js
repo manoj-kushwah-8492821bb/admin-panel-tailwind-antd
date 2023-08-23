@@ -1,14 +1,14 @@
 import { toast } from "react-hot-toast";
 import { API } from "../../utils/interceptor";
 import {
-  login_url,
-  profile_data,
   send,
+  login_url,
   txnHistory,
+  profile_data,
 } from "../../utils/endpoints";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// auth login
+//............... auth login
 export const authLogin = createAsyncThunk("Auth", async (payload) => {
   try {
     const response = await API.post(login_url, payload);
@@ -22,7 +22,7 @@ export const authLogin = createAsyncThunk("Auth", async (payload) => {
   }
 });
 
-// send money
+//.............. send money
 export const sendMoney = createAsyncThunk("sendMoney", async (payload) => {
   try {
     const response = await API.post(send, payload);
@@ -35,7 +35,7 @@ export const sendMoney = createAsyncThunk("sendMoney", async (payload) => {
   }
 });
 
-// txn list
+//................. txn list
 export const txn_list = createAsyncThunk("txn_list", async (type) => {
   try {
     const response = await API.get(`${txnHistory}?type=${type}`);
@@ -47,7 +47,7 @@ export const txn_list = createAsyncThunk("txn_list", async (type) => {
   }
 });
 
-// profile data
+//................... profile data
 export const adminProfile = createAsyncThunk("adminProfile", async () => {
   try {
     const response = await API.get(profile_data);

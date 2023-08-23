@@ -166,8 +166,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <div>
                 <label
                   htmlFor="image"
-                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center"
-                >
+                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center">
                   {(editData || preview) && (
                     <img
                       src={
@@ -201,8 +200,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white"
-            >
+              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white">
               {loading ? <ButtonLoader /> : "Submit"}
             </button>
           </form>

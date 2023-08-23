@@ -8,6 +8,8 @@ import { IMAGE_URL } from "../../../utils/endpoints";
 import {
   createCategory,
   updateCategory,
+  createBussinessCategory,
+  updateBussinessCategory,
 } from "../../../toolkit/action/shoppingAction";
 
 const Form = ({ handleCloseModal, isOpen, editData }) => {
@@ -18,7 +20,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
   const [formInput, setFormInput] = useState({});
   const { loading } = useSelector((state) => state.shoppingReducer);
 
-  // validator
+  //.............. validator
   const validator = new SimpleReactValidator({
     className: "text-danger",
     validators: {
@@ -34,7 +36,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     },
   });
 
-  // handle Change
+  //.............. handle Change
   const handleChange = (event) => {
     const { name, type, value } = event.target;
     setErrors({ ...errors, [name]: "" });
@@ -47,7 +49,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     }
   };
 
-  // handle Submit
+  //.................. handle Submit
   const handleSubmit = async (event) => {
     event.preventDefault();
     const payload = new FormData();
@@ -60,7 +62,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
       if (editData) {
         if (isEdit) {
           const response = await dispatch(
-            updateCategory(editData._id, payload)
+            updateBussinessCategory(editData._id, payload)
           );
           if (response?.payload?.Status) {
             setFormInput({});
@@ -71,7 +73,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
           handleCloseModal();
         }
       } else {
-        const response = await dispatch(createCategory(payload));
+        const response = await dispatch(createBussinessCategory(payload));
         if (response?.payload?.Status) {
           setFormInput({});
           setPreview("");
@@ -86,7 +88,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     }
   };
 
-  // useffect
+  //.................... useffect
   useEffect(() => {
     if (editData) {
       const { image, name, commission, description } = editData;
@@ -98,7 +100,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     isOpen && (
       <div className="tracking-wider overflow-hidden absolute z-50 top-0 flex justify-end left-0 w-full h-screen bg-modal">
         <div className="pb-10 w-96 sm:w-2/3 md:w-1/2 h-full overflow-auto xl:w-1/3 p-4 bg-secondary shadow-xl">
-          {/* Top */}
+          {/*.................. Top */}
           <div className="flex justify-between items-center">
             <span className="text-color">
               {editData ? "Update" : "Add"} Category
@@ -113,9 +115,9 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             />
           </div>
 
-          {/* Form Inputs */}
+          {/*................. Form Inputs */}
           <form onSubmit={handleSubmit} className="mt-5 grid gap-3">
-            {/* Category Title */}
+            {/*................. Category Title */}
             <div className="grid gap-1">
               <label htmlFor="name" className="text-sm">
                 Name
@@ -133,7 +135,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <ShowError data={errors.name} />
             </div>
 
-            {/* Service Percent */}
+            {/*................... Service Percent */}
             <div className="grid gap-1">
               <label htmlFor="commission" className="text-sm">
                 Charge On Product
@@ -155,7 +157,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <ShowError data={errors.commission} />
             </div>
 
-            {/* Category Description */}
+            {/*................... Category Description */}
             <div className="grid gap-1">
               <label htmlFor="description" className="text-sm">
                 Description
@@ -178,14 +180,13 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <ShowError data={errors.description} />
             </div>
 
-            {/* Service image */}
+            {/*.................. Service image */}
             <div className="grid gap-1">
               <label className="text-sm">Image</label>
               <div>
                 <label
                   htmlFor="image"
-                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center"
-                >
+                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center">
                   {formInput?.image?.name && (
                     <img
                       src={
@@ -216,12 +217,11 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <ShowError data={errors.image} />
             </div>
 
-            {/* Button */}
+            {/*.................. Button */}
             <button
               type="submit"
               disabled={loading}
-              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white"
-            >
+              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white">
               {loading ? <ButtonLoader /> : "Submit"}
             </button>
           </form>

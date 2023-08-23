@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  adminProfile,
-  authLogin,
-  sendMoney,
   txn_list,
+  sendMoney,
+  authLogin,
+  adminProfile,
 } from "../action/authAction";
 
 const initialState = {
@@ -18,7 +18,7 @@ const authReducer = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // auth login
+    //......... auth login
     builder.addCase(authLogin.pending, (state) => {
       state.loading = true;
     });
@@ -29,7 +29,7 @@ const authReducer = createSlice({
       state.loading = false;
     });
 
-    // send money
+    //........... send money
     builder.addCase(sendMoney.pending, (state) => {
       state.loading = true;
     });
@@ -40,7 +40,7 @@ const authReducer = createSlice({
       state.loading = false;
     });
 
-    // txn list
+    //............ txn list
     builder.addCase(txn_list.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -52,7 +52,7 @@ const authReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // profileData
+    //................ profileData
     builder.addCase(adminProfile.pending, (state) => {
       state.fetchLoad = true;
     });

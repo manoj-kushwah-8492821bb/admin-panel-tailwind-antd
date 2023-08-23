@@ -1,18 +1,17 @@
+import Moment from "react-moment";
+import Loader from "../../common/Loader";
+import Layout from "../../layouts/index";
+import Pagination from "../../common/Pagination";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import Layout from "../../layouts/index";
-import Loader from "../../common/Loader";
-import Pagination from "../../common/Pagination";
 import { txn_list } from "../../toolkit/action/authAction";
-import Moment from "react-moment";
 
 const Transaction = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const { transactions, fetchLoad } = useSelector((state) => state.authReducer);
 
-  // Pagination Logic
+  //................. Pagination Logic
   const perPageItems = 10;
   const totalItems = transactions?.length;
   const trimStart = (currentPage - 1) * perPageItems;
@@ -22,7 +21,7 @@ const Transaction = () => {
     trimEnd <= totalItems && setCurrentPage(currentPage + 1);
   };
 
-  // text color
+  //................... text color
   const colors = (value) => {
     switch (value) {
       case "Failure":
@@ -42,7 +41,7 @@ const Transaction = () => {
     }
   };
 
-  // useffect
+  //..................... useffect
   useEffect(() => {
     dispatch(txn_list());
   }, [dispatch]);
@@ -54,7 +53,7 @@ const Transaction = () => {
         <div>Transaction</div>
       </div>
 
-      {/* Table */}
+      {/*................ Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
@@ -102,8 +101,7 @@ const Transaction = () => {
                       <td className="px-4 py-3">{item.txnResource}</td>
                       <td className="px-4 py-3">{item.txnId}</td>
                       <td
-                        className={`px-4 py-3 text-green-500 uppercase font-bold`}
-                      >
+                        className={`px-4 py-3 text-green-500 uppercase font-bold`}>
                         {item.txnStatus}
                       </td>
                       <td className="px-4 py-3">

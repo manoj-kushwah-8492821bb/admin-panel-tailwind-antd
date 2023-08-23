@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Form from "./Form";
-import Layout from "../../layouts/index";
 import Button from "../../common/Button";
+import Loader from "../../common/Loader";
+import Layout from "../../layouts/index";
 import Options from "../../common/Options";
 import Pagination from "../../common/Pagination";
 import Confrimation from "../../common/Confirmation";
-import Loader from "../../common/Loader";
 import {
   ipList,
   ipRemove,
@@ -28,14 +28,14 @@ const WhitelistIp = () => {
     (state) => state.affiliateReducer
   );
 
-  // handle modals
+  //............. handle modals
   const handleOpenModal = (name) => setModals({ ...modals, [name]: true });
   const handleCloseModal = (name) => {
     setEditData();
     setModals({ ...modals, [name]: false });
   };
 
-  // handle remove service
+  //............. handle remove service
   const handleDeleteService = async () => {
     const response = await dispatch(ipRemove(editData._id));
     if (response?.payload?.ResponseStatus == 1) {
@@ -43,7 +43,7 @@ const WhitelistIp = () => {
     }
   };
 
-  // handle update status
+  //............... handle update status
   const handleUpdateStatus = async (event, id) => {
     const response = await dispatch(
       ipStatusUpdate({
@@ -56,7 +56,7 @@ const WhitelistIp = () => {
     }
   };
 
-  // Pagination Logic
+  //............... Pagination Logic
   const perPageItems = 10;
   const totalItems = ipAddresses?.length;
   const trimStart = (currentPage - 1) * perPageItems;
@@ -66,14 +66,14 @@ const WhitelistIp = () => {
     trimEnd <= totalItems && setCurrentPage(currentPage + 1);
   };
 
-  // useffect
+  //................. useffect
   useEffect(() => {
     dispatch(ipList());
   }, [dispatch]);
 
   return (
     <>
-      {/* Top */}
+      {/*.......... Top */}
       <div className="flex justify-between">
         <div>Whitelist IPs</div>
         <Button
@@ -83,7 +83,7 @@ const WhitelistIp = () => {
         />
       </div>
 
-      {/* Table */}
+      {/*............. Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
@@ -150,14 +150,14 @@ const WhitelistIp = () => {
         </div>
       </div>
 
-      {/* Form */}
+      {/*............... Form */}
       <Form
         isOpen={modals.formModal}
         handleCloseModal={() => handleCloseModal("formModal")}
         editData={editData}
       />
 
-      {/* Confirmation */}
+      {/*.............. Confirmation */}
       <Confrimation
         isOpen={modals.deleteModal}
         editData={editData}

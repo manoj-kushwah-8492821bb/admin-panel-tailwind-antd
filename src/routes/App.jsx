@@ -1,11 +1,10 @@
-import React from "react";
 import "../App.css";
-import { Route, Routes } from "react-router-dom";
-
+import React from "react";
 import AllRoutes from "./AllRoutes";
+import PublicRoute from "./PublicRoute";
 import { Toaster } from "react-hot-toast";
 import PrivateRoute from "./PrivateRoute";
-import PublicRoute from "./PublicRoute";
+import { Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
@@ -17,8 +16,7 @@ const App = () => {
           return (
             <Route
               key={name}
-              element={item.private ? <PrivateRoute /> : <PublicRoute />}
-            >
+              element={item.private ? <PrivateRoute /> : <PublicRoute />}>
               <Route name={name} path={path} element={element} exact={true} />
             </Route>
           );

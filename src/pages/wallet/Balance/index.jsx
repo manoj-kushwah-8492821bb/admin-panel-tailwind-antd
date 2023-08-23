@@ -1,10 +1,10 @@
 import Form from "../Form";
+import Moment from "react-moment";
 import Layout from "../../../layouts";
+import Loader from "../../../common/Loader";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { adminProfile, txn_list } from "../../../toolkit/action/authAction";
-import Loader from "../../../common/Loader";
-import Moment from "react-moment";
 
 const Balance = () => {
   const dispatch = useDispatch();
@@ -23,23 +23,21 @@ const Balance = () => {
 
   return (
     <>
-      {/* Top */}
+      {/*.................... Top */}
       <section className="flex items-center justify-between">
         <div className="flex gap-3">
           <button
             onClick={() => handleActive("credit")}
             className={` ${
               active === "credit" ? "bg-color" : "bg-white text-color"
-            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
-          >
+            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}>
             Credit
           </button>
           <button
             onClick={() => handleActive("debit")}
             className={` ${
               active === "debit" ? "bg-color" : "bg-white  text-color"
-            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
-          >
+            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}>
             Debit
           </button>
         </div>
@@ -47,7 +45,7 @@ const Balance = () => {
       </section>
       <Form active={active} title="Wallet" profileData={profileData} />
 
-      {/* Table */}
+      {/*................... Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <div className="p-3 text-color tracking-wider font-semibold">
@@ -95,8 +93,7 @@ const Balance = () => {
                       <td className="px-4 py-3">{item.txnAmount}</td>
                       <td className="px-4 py-3">{item.txnId}</td>
                       <td
-                        className={`px-4 py-3 text-green-500 uppercase font-bold`}
-                      >
+                        className={`px-4 py-3 text-green-500 uppercase font-bold`}>
                         {item.txnStatus}
                       </td>
                       <td className="px-4 py-3">

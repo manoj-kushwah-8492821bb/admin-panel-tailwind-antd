@@ -55,6 +55,65 @@ export const removeCategory = createAsyncThunk(
   }
 );
 
+// --------------Bussiness Categories
+export const bussinessCategoryList = createAsyncThunk(
+  "bussinessCategoryList",
+  async () => {
+    try {
+      const response = await API.get("bussiness-category/list");
+      const { Data } = response.data;
+      return Data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const createBussinessCategory = createAsyncThunk(
+  "createBussinessCategory",
+  async (payload) => {
+    try {
+      const response = await API.post("bussiness-category/create", payload);
+      const { Data, Remarks } = response.data;
+      toast.success(Remarks);
+      return Data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const updateBussinessCategory = createAsyncThunk(
+  "updateBussinessCategory",
+  async (categoryId, payload) => {
+    try {
+      const response = await API.patch(
+        `bussiness-category/${categoryId}`,
+        payload
+      );
+      const { Data, Remarks } = response.data;
+      toast.success(Remarks);
+      return Data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const removeBussinessCategory = createAsyncThunk(
+  "removeBussinessCategory",
+  async (categoryId) => {
+    try {
+      const response = await API.delete(`bussiness-category/${categoryId}`);
+      const { Remarks } = response.data;
+      toast.success(Remarks);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
 // -------------- Sub Categories
 export const subCategoryList = createAsyncThunk("subCategoryList", async () => {
   try {

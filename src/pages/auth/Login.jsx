@@ -46,13 +46,11 @@ const Login = () => {
           backgroundImage: `url(
               "https://images.unsplash.com/photo-1498736297812-3a08021f206f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=879&q=80"
             )`,
-        }}
-      ></div>
+        }}></div>
 
       <form
         onSubmit={handleSubmit}
-        className="max-w-lg mx-auto itemc w-full px-6 py-8 flex flex-col justify-center md:px-8 lg:w-1/3"
-      >
+        className="max-w-lg mx-auto itemc w-full px-6 py-8 flex flex-col justify-center md:px-8 lg:w-1/3">
         <div className="flex justify-center mx-auto">
           <img className="w-auto h-10 sm:h-12" src={Logo} alt="" />
         </div>
@@ -82,8 +80,7 @@ const Login = () => {
           <div className="flex justify-between">
             <label
               className="block mb-2 text-sm font-medium  "
-              htmlFor="password"
-            >
+              htmlFor="password">
               Password
             </label>
           </div>
@@ -100,8 +97,7 @@ const Login = () => {
             />
             <span
               onClick={() => setShow(!show)}
-              className="text-2xl cursor-pointer text-color"
-            >
+              className="text-2xl cursor-pointer text-color">
               {show ? <AiFillEyeInvisible /> : <AiFillEye />}
             </span>
           </div>
@@ -114,8 +110,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize  bg-color duration-300 flex items-center justify-center transform  rounded-md bg-button focus:outline-none "
-          >
+            className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize  bg-color duration-300 flex items-center justify-center transform  rounded-md bg-button focus:outline-none ">
             {loading ? <ButtonLoader /> : " Sign In"}
           </button>
         </div>

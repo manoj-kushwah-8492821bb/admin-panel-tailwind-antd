@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import moment from "moment";
 import Layout from "../../../layouts";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchOrders } from "../../../toolkit/action/shoppingAction";
 import TopBar from "../../../common/TopBar";
-import Pagination from "../../../common/Pagination";
-import { IMAGE_URL } from "../../../utils/endpoints";
 import Options from "../../../common/Options";
 import { useNavigate } from "react-router-dom";
-import moment from "moment";
+import React, { useEffect, useState } from "react";
+import Pagination from "../../../common/Pagination";
+import { IMAGE_URL } from "../../../utils/endpoints";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOrders } from "../../../toolkit/action/shoppingAction";
 
 const Orders = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Orders = () => {
   );
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Pagination Logic
+  //............... Pagination Logic
   const perPageItems = 10;
   const totalItems = ordersList?.length;
   const trimStart = (currentPage - 1) * perPageItems;
@@ -27,7 +27,7 @@ const Orders = () => {
   const handleForw = () => {
     trimEnd <= totalItems && setCurrentPage(currentPage + 1);
   };
-
+  //...................UseEffect
   useEffect(() => {
     dispatch(fetchOrders());
   }, [dispatch]);

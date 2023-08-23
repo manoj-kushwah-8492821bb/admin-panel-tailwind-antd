@@ -163,8 +163,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
                 name="type"
                 value={formInput?.type}
                 onChange={handleChange}
-                className="rounded appearance-none  py-1.5 px-2 outline-none border"
-              >
+                className="rounded appearance-none  py-1.5 px-2 outline-none border">
                 <option>Select Type</option>
                 <option value="Discount">Discount</option>
                 <option value="Cashback">Cashback</option>
@@ -179,8 +178,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <div>
                 <label
                   htmlFor="images"
-                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center"
-                >
+                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center">
                   <img
                     src={editData ? `${IMAGE_URL}${editData?.icon}` : preview}
                     alt="icon"
@@ -210,8 +208,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white"
-            >
+              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white">
               {loading ? <ButtonLoader /> : "Submit"}
             </button>
           </form>

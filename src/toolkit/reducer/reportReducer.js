@@ -8,7 +8,7 @@ const reportReducer = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // recharge history
+    //.................. recharge history
     builder.addCase(rechargeHistory.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -20,7 +20,7 @@ const reportReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // dth history
+    //................... dth history
     builder.addCase(dthHistory.pending, (state) => {
       state.fetchLoad = true;
     });

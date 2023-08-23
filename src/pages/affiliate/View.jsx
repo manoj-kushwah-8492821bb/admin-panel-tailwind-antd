@@ -40,8 +40,7 @@ const View = () => {
             <a
               href={state.link}
               target="_blank"
-              class="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0"
-            >
+              class="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">
               Try Now
               <svg
                 class="w-4 h-4 ml-2"
@@ -50,8 +49,7 @@ const View = () => {
                 stroke-width="2"
                 fill="none"
                 stroke-linecap="round"
-                stroke-linejoin="round"
-              >
+                stroke-linejoin="round">
                 <path d="M5 12h14"></path>
                 <path d="M12 5l7 7-7 7"></path>
               </svg>

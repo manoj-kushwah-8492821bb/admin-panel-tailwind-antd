@@ -29,8 +29,7 @@ const Options = (props) => {
         <span
           title="View"
           onClick={handleView}
-          className="cursor-pointer text-xl"
-        >
+          className="cursor-pointer text-xl">
           <AiFillEye />
         </span>
       )}
@@ -40,8 +39,7 @@ const Options = (props) => {
         <span
           title="Teams"
           onClick={handleViewTeam}
-          className="cursor-pointer text-lg"
-        >
+          className="cursor-pointer text-lg">
           <AiOutlineTeam />
         </span>
       )}
@@ -51,8 +49,7 @@ const Options = (props) => {
         <span
           title="Delete"
           onClick={handleDelete}
-          className="cursor-pointer text-lg"
-        >
+          className="cursor-pointer text-lg">
           <BiTrashAlt />
         </span>
       )}
@@ -62,8 +59,7 @@ const Options = (props) => {
         <span
           title="Wallet"
           onClick={handleWallet}
-          className="cursor-pointer text-lg"
-        >
+          className="cursor-pointer text-lg">
           <FaWallet />
         </span>
       )}
@@ -73,8 +69,7 @@ const Options = (props) => {
         <span
           title="Update Rank"
           onClick={handleRank}
-          className="cursor-pointer text-lg"
-        >
+          className="cursor-pointer text-lg">
           <BsCheck2Circle />
         </span>
       )}

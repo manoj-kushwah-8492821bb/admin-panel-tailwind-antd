@@ -60,7 +60,7 @@ const Sidebar = (props) => {
       path: "/shopping",
       child: [
         { name: "Category", path: "/shopping/categories" },
-        { name: "bussiniessCategory", path: "/shopping/bussiness-categories" },
+        { name: "Bussiniess Category", path: "/shopping/bussiness-categories" },
         { name: "Sub Category", path: "/shopping/sub-categories" },
         { name: "Products", path: "/shopping/products" },
         { name: "Orders", path: "/shopping/orders" },

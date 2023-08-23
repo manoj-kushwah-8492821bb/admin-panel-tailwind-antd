@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
 import Layout from "../../../layouts";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  bussinessCategoryList,
   categoryList,
+  removeBussinessCategory,
   removeCategory,
 } from "../../../toolkit/action/shoppingAction";
 import { IMAGE_URL } from "../../../utils/endpoints";
-import TopBar from "../../../common/TopBar";
-import { BsPlus } from "react-icons/bs";
 import Form from "./Form";
-import Pagination from "../../../common/Pagination";
+import { BsPlus } from "react-icons/bs";
+import TopBar from "../../../common/TopBar";
 import Options from "../../../common/Options";
+import Pagination from "../../../common/Pagination";
 import Confrimation from "../../../common/Confirmation";
 
 const Categories = () => {
@@ -21,11 +23,11 @@ const Categories = () => {
   });
   const [editData, setEditData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const { categoriesList, loading, fetchLoad } = useSelector(
+  const { bussinessCategoriesList, loading, fetchLoad } = useSelector(
     (state) => state.shoppingReducer
   );
 
-  // handle modals
+  //............... handle modals
   const handleOpenModal = (name) => {
     setModal({ ...modal, [name]: true });
   };
@@ -33,17 +35,17 @@ const Categories = () => {
     setModal({ ...modal, [name]: false });
   };
 
-  // handle delete
+  //................ handle delete
   const handleDelete = async () => {
-    const response = await dispatch(removeCategory(editData._id));
+    const response = await dispatch(removeBussinessCategory(editData._id));
     if (response?.payload?.Status) {
       handleCloseModal("deleteModal");
     }
   };
 
-  // Pagination Logic
+  //................ Pagination Logic
   const perPageItems = 10;
-  const totalItems = categoriesList?.length;
+  const totalItems = bussinessCategoriesList?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -51,20 +53,20 @@ const Categories = () => {
     trimEnd <= totalItems && setCurrentPage(currentPage + 1);
   };
 
-  // useEffect
+  //............ useEffect
   useEffect(() => {
-    dispatch(categoryList());
+    dispatch(bussinessCategoryList());
   }, [dispatch]);
   return (
     <>
       <TopBar
-        text="New Category"
-        title="Categories"
+        text="New Bussiness Category"
+        title="Bussiness Categories"
         icon={<BsPlus />}
         action={() => handleOpenModal("form")}
       />
 
-      {/* Table Data */}
+      {/*........... Table Data */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
@@ -78,34 +80,36 @@ const Categories = () => {
               </tr>
             </thead>
             <tbody className="divide-y">
-              {categoriesList?.slice(trimStart, trimEnd).map((item) => {
-                return (
-                  <tr key={item._id} className="text-sm ">
-                    <td className="px-4 py-3">
-                      <img
-                        alt={item._id}
-                        src={`${IMAGE_URL}${item.image}`}
-                        className="w-9 h-9 rounded-full"
-                      />
-                    </td>
-                    <td className="px-4 py-3">{item.name}</td>
-                    <td className="px-4 py-3">{item.description}</td>
-                    <td className="px-4 py-3">{item.commission}%</td>
-                    <td className="px-4 py-3">
-                      <Options
-                        handleDelete={() => {
-                          setEditData(item);
-                          handleOpenModal("deleteModal");
-                        }}
-                        handleEdit={() => {
-                          setEditData(item);
-                          handleOpenModal("form");
-                        }}
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
+              {bussinessCategoriesList
+                ?.slice(trimStart, trimEnd)
+                .map((item) => {
+                  return (
+                    <tr key={item._id} className="text-sm ">
+                      <td className="px-4 py-3">
+                        <img
+                          alt={item._id}
+                          src={`${IMAGE_URL}${item.image}`}
+                          className="w-9 h-9 rounded-full"
+                        />
+                      </td>
+                      <td className="px-4 py-3">{item.name}</td>
+                      <td className="px-4 py-3">{item.description}</td>
+                      <td className="px-4 py-3">{item.commission}%</td>
+                      <td className="px-4 py-3">
+                        <Options
+                          handleDelete={() => {
+                            setEditData(item);
+                            handleOpenModal("deleteModal");
+                          }}
+                          handleEdit={() => {
+                            setEditData(item);
+                            handleOpenModal("form");
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
           <Pagination
@@ -119,14 +123,14 @@ const Categories = () => {
         </div>
       </div>
 
-      {/* Form Modal */}
+      {/*............. Form Modal */}
       <Form
         editData={editData}
         isOpen={modal.form}
         handleCloseModal={() => handleCloseModal("form")}
       />
 
-      {/* Confirmation Modal */}
+      {/*............... Confirmation Modal */}
       <Confrimation
         title="Category"
         isOpen={modal.deleteModal}

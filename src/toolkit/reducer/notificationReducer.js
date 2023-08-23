@@ -15,7 +15,7 @@ const notificationReducer = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // notification list
+    //......... notification list
     builder.addCase(notificationList.pending, (state) => {
       state.fetchLoad = true;
     });
@@ -27,7 +27,7 @@ const notificationReducer = createSlice({
       state.fetchLoad = false;
     });
 
-    // push notification KYC
+    //............ push notification KYC
     builder.addCase(pushNotification.pending, (state) => {
       state.loading = true;
     });
