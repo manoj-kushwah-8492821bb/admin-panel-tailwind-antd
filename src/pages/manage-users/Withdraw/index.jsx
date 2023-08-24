@@ -1,21 +1,21 @@
-import { MdCancel, MdOutlineCheckCircle } from "react-icons/md";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { MdCancel, MdOutlineCheckCircle } from "react-icons/md";
 
 import Layout from "../../../layouts/index";
-import { IMAGE_URL } from "../../../utils/endpoints";
+import Loader from "../../../common/Loader";
 import Pagination from "../../../common/Pagination";
+import { IMAGE_URL } from "../../../utils/endpoints";
 import ReasonModal from "../../../common/ReasonModal";
 import {
   manageWithdraw,
   withdrawList,
 } from "../../../toolkit/action/userAction";
-import Loader from "../../../common/Loader";
 
 const Withdraw = () => {
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
   const { withdraws, fetchLoad } = useSelector((state) => state.userReducer);
 
   // handle status update
@@ -78,90 +78,85 @@ const Withdraw = () => {
                 </th>
               </tr>
             </thead>
-            {fetchLoad ? (
-              <td colSpan={6} className="py-6">
-                <Loader />
-              </td>
-            ) : (
-              <tbody className="divide-y">
-                {withdraws?.slice(trimStart, trimEnd).map((item) => {
-                  return (
-                    <tr key={item._id} className="text-sm ">
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-2.5">
-                          <img
-                            src={
-                              item.userId.avatar
-                                ? `${IMAGE_URL}${item.userId.avatar}`
-                                : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
-                            }
-                            className="w-8 h-8 rounded-full"
-                          />{" "}
-                          <div>
-                            {item.userId.firstName} {item.userId.lastName}
-                          </div>
+
+            <tbody className="divide-y">
+              {withdraws?.slice(trimStart, trimEnd).map((item) => {
+                return (
+                  <tr key={item._id} className="text-sm ">
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2.5">
+                        <img
+                          src={
+                            item.userId.avatar
+                              ? `${IMAGE_URL}${item.userId.avatar}`
+                              : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
+                          }
+                          className="w-8 h-8 rounded-full"
+                        />{" "}
+                        <div>
+                          {item.userId.firstName} {item.userId.lastName}
                         </div>
-                      </td>
-                      <td className="px-4 flex flex-col text-xs py-3">
-                        <div className="flex gap-3">
-                          <span className="font-semibold">Bank :</span>
-                          <span>{item.bankId.bankName}</span>
-                        </div>
-                        <div className="flex gap-3">
-                          <span className="font-semibold">Account :</span>
-                          <span>{item.bankId.accountNo}</span>
-                        </div>
-                        <div className="flex gap-3">
-                          <span className="font-semibold">Branch :</span>
-                          <span>{item.bankId.branchName}</span>
-                        </div>
-                        {/* <div className="flex gap-3">
+                      </div>
+                    </td>
+                    <td className="px-4 flex flex-col text-xs py-3">
+                      <div className="flex gap-3">
+                        <span className="font-semibold">Bank :</span>
+                        <span>{item.bankId.bankName}</span>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="font-semibold">Account :</span>
+                        <span>{item.bankId.accountNo}</span>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="font-semibold">Branch :</span>
+                        <span>{item.bankId.branchName}</span>
+                      </div>
+                      {/* <div className="flex gap-3">
                           <span className="font-semibold">Holder :</span>
                           <span>{item.bankId.holderName}</span>
                         </div> */}
-                      </td>
-                      <td className="px-4 py-3">
-                        <div className="flex gap-3">₹ {item.amount}</div>
-                      </td>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex gap-3">₹ {item.amount}</div>
+                    </td>
 
-                      {/* <td className="px-4 py-3 text-xs uppercase">{item.status}</td> */}
-                      <td className="px-4 py-3">
-                        {item.status === "requested" ? (
-                          <div className="flex gap-2.5 text-2xl">
-                            <MdCancel
-                              title="Reject"
-                              className="cursor-pointer text-rose-500"
-                              onClick={() =>
-                                handleStatusUpdate(item._id, "reject")
-                              }
-                            />
-                            <MdOutlineCheckCircle
-                              title="Approve"
-                              className="cursor-pointer text-emerald-500"
-                              onClick={() =>
-                                handleStatusUpdate(item._id, "approved")
-                              }
-                            />
-                          </div>
-                        ) : (
-                          <>
-                            {item.status === "approved" ? (
-                              <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 ">
-                                Approved
-                              </div>
-                            ) : (
-                              <div className="inline px-3 py-1 text-sm font-normal rounded-full text-red-500 gap-x-2 bg-red-100/60 ">
-                                Rejected
-                              </div>
-                            )}
-                          </>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+                    {/* <td className="px-4 py-3 text-xs uppercase">{item.status}</td> */}
+                    <td className="px-4 py-3">
+                      {item.status === "requested" ? (
+                        <div className="flex gap-2.5 text-2xl">
+                          <MdCancel
+                            title="Reject"
+                            className="cursor-pointer text-rose-500"
+                            onClick={() =>
+                              handleStatusUpdate(item._id, "reject")
+                            }
+                          />
+                          <MdOutlineCheckCircle
+                            title="Approve"
+                            className="cursor-pointer text-emerald-500"
+                            onClick={() =>
+                              handleStatusUpdate(item._id, "approved")
+                            }
+                          />
+                        </div>
+                      ) : (
+                        <>
+                          {item.status === "approved" ? (
+                            <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 ">
+                              Approved
+                            </div>
+                          ) : (
+                            <div className="inline px-3 py-1 text-sm font-normal rounded-full text-red-500 gap-x-2 bg-red-100/60 ">
+                              Rejected
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <Pagination
             handlePrev={handlePrev}
@@ -169,6 +164,7 @@ const Withdraw = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>

@@ -96,55 +96,50 @@ const Banners = () => {
                 </th>
               </tr>
             </thead>
-            {fetchLoad ? (
-              <td colSpan={6} className="py-6">
-                <Loader />
-              </td>
-            ) : (
-              <tbody className="divide-y">
-                {banners?.slice(trimStart, trimEnd).map((item) => {
-                  return (
-                    <tr key={item._id} className="text-sm capitalize ">
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-2.5">
-                          <img
-                            alt={item._id}
-                            src={`${IMAGE_URL}${item.image}`}
-                            className="w-9 h-9 rounded-full"
-                          />{" "}
-                          {item.name}
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 ">{item.section}</td>
-                      <td className="px-4 py-3">
-                        {item.type == "undefined" ? "---" : item.type}
-                      </td>
-                      <td className="px-4 py-3">
-                        <a
-                          href={item.link}
-                          className="text-color underline"
-                          target="_blank"
-                        >
-                          Link
-                        </a>
-                      </td>
-                      <td className="px-4 py-3">
-                        <Options
-                          handleEdit={() => {
-                            setEditData(item);
-                            handleOpenModal("formModal");
-                          }}
-                          handleDelete={() => {
-                            setEditData(item);
-                            handleOpenModal("deleteModal");
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+
+            <tbody className="divide-y">
+              {banners?.slice(trimStart, trimEnd).map((item) => {
+                return (
+                  <tr key={item._id} className="text-sm capitalize ">
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2.5">
+                        <img
+                          alt={item._id}
+                          src={`${IMAGE_URL}${item.image}`}
+                          className="w-9 h-9 rounded-full"
+                        />{" "}
+                        {item.name}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 ">{item.section}</td>
+                    <td className="px-4 py-3">
+                      {item.type == "undefined" ? "---" : item.type}
+                    </td>
+                    <td className="px-4 py-3">
+                      <a
+                        href={item.link}
+                        className="text-color underline"
+                        target="_blank"
+                      >
+                        Link
+                      </a>
+                    </td>
+                    <td className="px-4 py-3">
+                      <Options
+                        handleEdit={() => {
+                          setEditData(item);
+                          handleOpenModal("formModal");
+                        }}
+                        handleDelete={() => {
+                          setEditData(item);
+                          handleOpenModal("deleteModal");
+                        }}
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <Pagination
             handlePrev={handlePrev}
@@ -152,6 +147,7 @@ const Banners = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>

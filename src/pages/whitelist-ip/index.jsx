@@ -103,42 +103,37 @@ const WhitelistIp = () => {
                 </th>
               </tr>
             </thead>
-            {fetchLoad ? (
-              <td colSpan={6} className="py-6">
-                <Loader />
-              </td>
-            ) : (
-              <tbody className="divide-y">
-                {ipAddresses?.slice(trimStart, trimEnd).map((item) => {
-                  return (
-                    <tr key={item._id} className="text-sm ">
-                      <td className="px-4 py-3">{item.name}</td>
-                      <td className="px-4 py-3">{item.ip}</td>
-                      <td className="px-4 py-3">
-                        <Toggle
-                          value={item.status}
-                          handleChange={(event) =>
-                            handleUpdateStatus(event, item._id)
-                          }
-                        />
-                      </td>
-                      <td className="px-4 py-3">
-                        <Options
-                          handleEdit={() => {
-                            setEditData(item);
-                            handleOpenModal("formModal");
-                          }}
-                          handleDelete={() => {
-                            setEditData(item);
-                            handleOpenModal("deleteModal");
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+
+            <tbody className="divide-y">
+              {ipAddresses?.slice(trimStart, trimEnd).map((item) => {
+                return (
+                  <tr key={item._id} className="text-sm ">
+                    <td className="px-4 py-3">{item.name}</td>
+                    <td className="px-4 py-3">{item.ip}</td>
+                    <td className="px-4 py-3">
+                      <Toggle
+                        value={item.status}
+                        handleChange={(event) =>
+                          handleUpdateStatus(event, item._id)
+                        }
+                      />
+                    </td>
+                    <td className="px-4 py-3">
+                      <Options
+                        handleEdit={() => {
+                          setEditData(item);
+                          handleOpenModal("formModal");
+                        }}
+                        handleDelete={() => {
+                          setEditData(item);
+                          handleOpenModal("deleteModal");
+                        }}
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <Pagination
             handlePrev={handlePrev}
@@ -146,6 +141,7 @@ const WhitelistIp = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>

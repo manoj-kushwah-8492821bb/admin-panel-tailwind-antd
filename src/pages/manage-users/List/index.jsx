@@ -1,11 +1,14 @@
+import { toast } from "react-hot-toast";
+import { BiSolidCopy } from "react-icons/bi";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "../../../layouts/index";
+import Loader from "../../../common/Loader";
+import Toggle from "../../../common/Toggle";
 import Pagination from "../../../common/Pagination";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import { userList } from "../../../toolkit/action/userAction";
-import Loader from "../../../common/Loader";
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -53,55 +56,61 @@ const Users = () => {
                   Email
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Other
+                  Status
                 </th>
-
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
-                  Action
+                  Other
                 </th>
               </tr>
             </thead>
-            {fetchLoad ? (
-              <td colSpan={6} className="py-6">
-                <Loader />
-              </td>
-            ) : (
-              <tbody className="divide-y">
-                {users?.slice(trimStart, trimEnd).map((item) => {
-                  return (
-                    <tr key={item._id} className="text-xs ">
-                      <td className="px-4 py-3">{item._id}</td>
 
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-2.5">
-                          <img
-                            alt={item._id}
-                            src={
-                              item.avatar
-                                ? `${IMAGE_URL}${item.avatar}`
-                                : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
-                            }
-                            className="w-8 h-8 rounded-full"
-                          />
-                          <div>
-                            {item.firstName} {item.lastName}
-                          </div>
+            <tbody className="divide-y">
+              {users?.slice(trimStart, trimEnd).map((item) => {
+                return (
+                  <tr key={item._id} className="text-xs ">
+                    <td className="px-4 py-3">
+                      <BiSolidCopy
+                        onClick={() => {
+                          toast.success("copied to clipboard");
+                          navigator.clipboard.writeText(item._id);
+                        }}
+                        className="text-gray-500 text-xl cursor-pointer"
+                      />
+                    </td>
+
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2.5">
+                        <img
+                          alt={item._id}
+                          src={
+                            item.avatar
+                              ? `${IMAGE_URL}${item.avatar}`
+                              : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
+                          }
+                          className="w-8 h-8 rounded-full"
+                        />
+                        <div>
+                          {item.firstName} {item.lastName}
                         </div>
-                      </td>
-                      <td className="px-4 py-3">{item.phone}</td>
-                      <td className="px-4 py-3">{item.email}</td>
-                      <td className="px-4 py-3">
-                        <div className=" flex-col flex">
-                          <span>Level : {item.level}</span>
-                          <span>Balance : ₹ {item.wallet.balance}</span>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3">Action</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3">{item.phone}</td>
+                    <td className="px-4 py-3">{item.email}</td>
+                    <td className="px-4 py-3">
+                      <Toggle value={item.status} />
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className=" flex-col flex">
+                        <span>Level : {item.level}</span>
+                        <span>
+                          Balance : ₹ {Math.floor(item.wallet.balance)}
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <Pagination
             handlePrev={handlePrev}
@@ -109,6 +118,7 @@ const Users = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>

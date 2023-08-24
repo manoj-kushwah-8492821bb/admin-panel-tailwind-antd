@@ -5,7 +5,8 @@ const Toggle = (props) => {
   return (
     <label
       htmlFor={_id}
-      className="inline-flex items-center  space-x-4 cursor-pointer ">
+      className="inline-flex items-center  space-x-4 cursor-pointer "
+    >
       <span className="relative ">
         <input
           autoComplete="off"

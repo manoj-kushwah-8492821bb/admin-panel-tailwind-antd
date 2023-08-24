@@ -96,48 +96,42 @@ const Affiliate = () => {
                 </th>
               </tr>
             </thead>
-            {fetchLoad ? (
-              <td colSpan={6} className="py-6">
-                <Loader />
-              </td>
-            ) : (
-              <tbody className="divide-y">
-                {affiliates?.slice(trimStart, trimEnd).map((item) => {
-                  return (
-                    <tr key={item._id} className="text-sm ">
-                      <td className="px-4 py-3">
-                        <img
-                          alt={item._id}
-                          src={`${IMAGE_URL}${item.image}`}
-                          className="w-9 h-9 rounded-full"
-                        />
-                      </td>
-                      <td className="px-4 py-3">{item.name}</td>
-                      <td className="px-4 py-3">
-                        {item.description.slice(0, 20)}
-                        {item.description.length > 20 && "..."}
-                      </td>
-                      <td className="px-4 py-3">{item.link}</td>
-                      <td className="px-4 py-3">
-                        <Options
-                          handleEdit={() => {
-                            setEditData(item);
-                            handleOpenModal("formModal");
-                          }}
-                          handleView={() => {
-                            navigate("/affiliate/view", { state: item });
-                          }}
-                          handleDelete={() => {
-                            setEditData(item);
-                            handleOpenModal("deleteModal");
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+            <tbody className="divide-y">
+              {affiliates?.slice(trimStart, trimEnd).map((item) => {
+                return (
+                  <tr key={item._id} className="text-sm ">
+                    <td className="px-4 py-3">
+                      <img
+                        alt={item._id}
+                        src={`${IMAGE_URL}${item.image}`}
+                        className="w-9 h-9 rounded-full"
+                      />
+                    </td>
+                    <td className="px-4 py-3">{item.name}</td>
+                    <td className="px-4 py-3">
+                      {item.description.slice(0, 20)}
+                      {item.description.length > 20 && "..."}
+                    </td>
+                    <td className="px-4 py-3">{item.link}</td>
+                    <td className="px-4 py-3">
+                      <Options
+                        handleEdit={() => {
+                          setEditData(item);
+                          handleOpenModal("formModal");
+                        }}
+                        handleView={() => {
+                          navigate("/affiliate/view", { state: item });
+                        }}
+                        handleDelete={() => {
+                          setEditData(item);
+                          handleOpenModal("deleteModal");
+                        }}
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <Pagination
             handlePrev={handlePrev}
@@ -145,6 +139,7 @@ const Affiliate = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>

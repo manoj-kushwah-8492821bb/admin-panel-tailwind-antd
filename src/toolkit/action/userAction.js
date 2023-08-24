@@ -96,7 +96,7 @@ export const merchantList = createAsyncThunk("merchantList", async (query) => {
 });
 
 export const merchantSatusUpdate = createAsyncThunk(
-  "merchantList",
+  "merchantSatusUpdate",
   async ({ payload, callback }) => {
     try {
       const response = await API.post("auth/manage-request", payload);

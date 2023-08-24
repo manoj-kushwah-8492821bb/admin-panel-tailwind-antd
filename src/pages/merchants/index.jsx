@@ -1,14 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Layout from "../../layouts";
 import TopBar from "../../common/TopBar";
-import { useDispatch, useSelector } from "react-redux";
-import { merchantList } from "../../toolkit/action/userAction";
+import Loader from "../../common/Loader";
+import Options from "../../common/Options";
 import Pagination from "../../common/Pagination";
 import { IMAGE_URL } from "../../utils/endpoints";
-import Loader from "../../common/Loader";
+import { merchantList } from "../../toolkit/action/userAction";
 
 const Merchants = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const { merchants, fetchLoad } = useSelector((state) => state.userReducer);
 
@@ -47,69 +51,76 @@ const Merchants = () => {
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Shop Time
                 </th>
-                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Address
+                </th>
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
+                  Action
                 </th>
               </tr>
             </thead>
-            {fetchLoad ? (
-              <td colSpan={6} className="py-6">
-                <Loader />
-              </td>
-            ) : (
-              <tbody className="divide-y">
-                {merchants?.slice(trimStart, trimEnd).map((item) => {
-                  return (
-                    <tr key={item._id} className="text-xs ">
-                      <td className="px-4 py-3">
+
+            <tbody className="divide-y">
+              {merchants?.slice(trimStart, trimEnd).map((item) => {
+                return (
+                  <tr key={item._id} className="text-xs ">
+                    <td className="px-4 py-3">
+                      <div>
+                        {item.userId.firstName} {item.userId.lastName}
+                      </div>
+                      <a
+                        href={`tel:+91${item.userId.phone}`}
+                        target="_blank"
+                        className="text-color underline"
+                      >
+                        +91{item.userId.phone}
+                      </a>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2.5">
+                        <img
+                          alt={item._id}
+                          src={
+                            item.image
+                              ? `${IMAGE_URL}${item.image}`
+                              : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
+                          }
+                          className="w-8 h-8 rounded-full"
+                        />
                         <div>
-                          {item.userId.firstName} {item.userId.lastName}
+                          <div>{item.businessName}</div>
+                          <a
+                            href={`https://wa.me/91${item.waNumber}`}
+                            target="_blank"
+                            className="text-color underline"
+                          >
+                            WA : +91{item.waNumber}
+                          </a>
                         </div>
-                        <a
-                          href={`tel:+91${item.userId.phone}`}
-                          target="_blank"
-                          className="text-color underline">
-                          +91{item.userId.phone}
-                        </a>
-                      </td>
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-2.5">
-                          <img
-                            alt={item._id}
-                            src={
-                              item.image
-                                ? `${IMAGE_URL}${item.image}`
-                                : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
-                            }
-                            className="w-8 h-8 rounded-full"
-                          />
-                          <div>
-                            <div>{item.businessName}</div>
-                            <a
-                              href={`https://wa.me/91${item.waNumber}`}
-                              target="_blank"
-                              className="text-color underline">
-                              WA : +91{item.waNumber}
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3">
-                        {item?.about?.slice(0, 20)}
-                        {item?.about?.length > 20 && "..."}
-                      </td>
-                      <td className="px-4 py-3">
-                        {item.businessTimeFrom} - {item.businessTimeTo}
-                      </td>
-                      <td className="px-4 py-3">
-                        {item.storeAddress}, {item.city}, {item.state}{" "}
-                        {item.postalCode}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3">
+                      {item?.about?.slice(0, 20)}
+                      {item?.about?.length > 20 && "..."}
+                    </td>
+                    <td className="px-4 py-3">
+                      {item.businessTimeFrom} - {item.businessTimeTo}
+                    </td>
+                    <td className="px-4 py-3">
+                      {item.storeAddress}, {item.city}, {item.state}{" "}
+                      {item.postalCode}
+                    </td>
+                    <td className="px-4 py-3">
+                      <Options
+                        handleView={() =>
+                          navigate("/merchants/view", { state: item })
+                        }
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <Pagination
             handlePrev={handlePrev}
@@ -117,6 +128,7 @@ const Merchants = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>

@@ -16,7 +16,7 @@ const Notifications = () => {
   });
   const [editData, setEditData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const { notifications, loading } = useSelector(
+  const { notifications, loading, fetchLoad } = useSelector(
     (state) => state.notificationReducer
   );
 
@@ -86,6 +86,7 @@ const Notifications = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>

@@ -19,7 +19,7 @@ const Pagination = (props) => {
       </div>
     );
   } else {
-    return total == 0 ? (
+    return !fetchLoad && total == 0 ? (
       <div className=" p-3 overflow-auto sm:py-3 py-2.5 sm:text-sm border-t border-gray-200 text-xs  w-full flex items-center gap-3 justify-center">
         No Record Found
       </div>
@@ -34,7 +34,8 @@ const Pagination = (props) => {
           <button
             type="button"
             onClick={handlePrev}
-            className="w-6 h-6  rounded-full flex justify-center items-center cursor-pointer ">
+            className="w-6 h-6  rounded-full flex justify-center items-center cursor-pointer "
+          >
             <MdExpandLess className="text-xl rotate-[270deg]" />
           </button>
 
@@ -43,7 +44,8 @@ const Pagination = (props) => {
             disabled={end === total}
             type="button"
             onClick={handleForw}
-            className="w-6 h-6  rounded-full flex justify-center items-center cursor-pointer ">
+            className="w-6 h-6  rounded-full flex justify-center items-center cursor-pointer "
+          >
             <MdExpandLess className="text-xl rotate-[90deg]" />
           </button>
         </div>

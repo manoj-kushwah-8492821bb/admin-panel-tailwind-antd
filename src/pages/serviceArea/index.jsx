@@ -108,37 +108,31 @@ const ServiceArea = () => {
                 </th>
               </tr>
             </thead>
-            {fetchLoad ? (
-              <td colSpan={6} className="py-6">
-                <Loader />
-              </td>
-            ) : (
-              <tbody className="divide-y">
-                {serviceAreaList?.slice(trimStart, trimEnd).map((item) => {
-                  return (
-                    <tr key={item._id} className="text-sm ">
-                      <td className="px-4 py-3">{item.pinCode}</td>
-                      <td className="px-4 py-3">
-                        <Toggle
-                          _id={item._id}
-                          value={item.status}
-                          handleChange={handleUpdateService}
-                        />
-                      </td>
+            <tbody className="divide-y">
+              {serviceAreaList?.slice(trimStart, trimEnd).map((item) => {
+                return (
+                  <tr key={item._id} className="text-sm ">
+                    <td className="px-4 py-3">{item.pinCode}</td>
+                    <td className="px-4 py-3">
+                      <Toggle
+                        _id={item._id}
+                        value={item.status}
+                        handleChange={handleUpdateService}
+                      />
+                    </td>
 
-                      <td className="px-4 py-3">
-                        <Options
-                          handleDelete={() => {
-                            setEditData(item);
-                            handleOpenModal("deleteModal");
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+                    <td className="px-4 py-3">
+                      <Options
+                        handleDelete={() => {
+                          setEditData(item);
+                          handleOpenModal("deleteModal");
+                        }}
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <Pagination
             handlePrev={handlePrev}
@@ -146,6 +140,7 @@ const ServiceArea = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>

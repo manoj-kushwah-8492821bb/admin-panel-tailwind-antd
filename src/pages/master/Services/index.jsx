@@ -122,62 +122,56 @@ const Services = () => {
                 </th>
               </tr>
             </thead>
-            {fetchLoad ? (
-              <td colSpan={6} className="py-6">
-                <Loader />
-              </td>
-            ) : (
-              <tbody className="divide-y text-sm">
-                {services?.slice(trimStart, trimEnd).map((item) => {
-                  return (
-                    <tr key={item._id}>
-                      <td className="px-4 py-2">
-                        <img
-                          alt={item._id}
-                          src={`${IMAGE_URL}${item.icon}`}
-                          className="w-9 h-9 object-cover border rounded-full"
-                        />
-                      </td>
-                      <td className="px-4 py-2">{item.name}</td>
-                      <td className="px-4 py-2">
-                        <div class="inline px-3 py-1 text-xs font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 ">
-                          {item.percent}%{" "}
-                          {item.type === "Cashback" ? "CB" : "DC"}
-                        </div>
-                      </td>
-                      <td className="px-4 py-2">
-                        <Toggle
-                          _id={item._id}
-                          value={item.status}
-                          handleChange={handleStatusUpdate}
-                        />
-                      </td>
-                      <td className="px-4 py-2">
-                        <Toggle
-                          _id={item._id + item._id}
-                          value={item.isCoupon}
-                          handleChange={(event) =>
-                            handleCouponUpdate(event, item._id)
-                          }
-                        />
-                      </td>
-                      <td className="px-4 py-2">
-                        <Options
-                          handleEdit={() => {
-                            setEditData(item);
-                            handleOpenModal("formModal");
-                          }}
-                          handleDelete={() => {
-                            setEditData(item);
-                            handleOpenModal("deleteModal");
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+
+            <tbody className="divide-y text-sm">
+              {services?.slice(trimStart, trimEnd).map((item) => {
+                return (
+                  <tr key={item._id}>
+                    <td className="px-4 py-2">
+                      <img
+                        alt={item._id}
+                        src={`${IMAGE_URL}${item.icon}`}
+                        className="w-9 h-9 object-cover border rounded-full"
+                      />
+                    </td>
+                    <td className="px-4 py-2">{item.name}</td>
+                    <td className="px-4 py-2">
+                      <div class="inline px-3 py-1 text-xs font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 ">
+                        {item.percent}% {item.type === "Cashback" ? "CB" : "DC"}
+                      </div>
+                    </td>
+                    <td className="px-4 py-2">
+                      <Toggle
+                        _id={item._id}
+                        value={item.status}
+                        handleChange={handleStatusUpdate}
+                      />
+                    </td>
+                    <td className="px-4 py-2">
+                      <Toggle
+                        _id={item._id + item._id}
+                        value={item.isCoupon}
+                        handleChange={(event) =>
+                          handleCouponUpdate(event, item._id)
+                        }
+                      />
+                    </td>
+                    <td className="px-4 py-2">
+                      <Options
+                        handleEdit={() => {
+                          setEditData(item);
+                          handleOpenModal("formModal");
+                        }}
+                        handleDelete={() => {
+                          setEditData(item);
+                          handleOpenModal("deleteModal");
+                        }}
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <Pagination
             handlePrev={handlePrev}
@@ -185,6 +179,7 @@ const Services = () => {
             to={trimEnd}
             total={totalItems}
             handleForw={handleForw}
+            fetchLoad={fetchLoad}
           />
         </div>
       </div>

@@ -7,6 +7,7 @@ import TopBar from "../../../common/TopBar";
 import Button from "../../../common/Button";
 import { useDispatch } from "react-redux";
 import { merchantSatusUpdate } from "../../../toolkit/action/userAction";
+import { IMAGE_URL } from "../../../utils/endpoints";
 
 const ViewMerchant = () => {
   const dispatch = useDispatch();
@@ -27,22 +28,31 @@ const ViewMerchant = () => {
       <TopBar
         title="Merchant Details"
         text="Back"
-        action={() => navigate("/merchants/request-list")}
+        action={() => navigate("/merchants/list")}
         icon={<BiArrowBack className="text-sm mr-1" />}
       />
       {/* product view */}
-      <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
-        <div className="p-1">
-          <h4 className="">Business Information :</h4>
-          <h1 className="title-font mt-3 text-lg font-medium text-gray-900">
-            {state?.businessName}
-          </h1>
+      <div className="w-full bg-white my-3 rounded shadow-md  mx-auto overflow-auto">
+        {/* Shop Banner */}
+        <img
+          src={`${IMAGE_URL}${state.image}`}
+          alt=""
+          className="w-full object-cover max-h-80"
+        />
+        <div className="p-3">
+          <div className="flex justify-between">
+            <h1 className="title-font  text-lg font-medium text-gray-900">
+              {state?.businessName}
+            </h1>
+            <span className="flex text-sm text-gray-400 tracking-wide items-center mb-5 gap-3 ">
+              {state.businessTimeFrom ? state.businessTimeFrom : "--:--"} To{" "}
+              {state.businessTimeTo ? state.businessTimeTo : "--:--"}
+            </span>
+          </div>
+
           <p className="leading-relaxed text-sm mb-3">{state?.about}</p>
 
           {/* Price */}
-          <div className="flex uppercase text-sm tracking-wide items-center mb-5 gap-3 ">
-            Time : {state.businessTimeFrom} - {state.businessTimeTo}
-          </div>
 
           {state.status === "pending" && (
             <div className="flex gap-2">

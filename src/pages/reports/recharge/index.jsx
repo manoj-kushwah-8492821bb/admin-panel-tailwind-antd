@@ -86,43 +86,39 @@ const Recharge = () => {
                 </th>
               </tr>
             </thead>
-            {fetchLoad ? (
-              <td colSpan={6} className="py-6">
-                <Loader />
-              </td>
-            ) : (
-              <tbody>
-                {recharges?.slice(trimStart, trimEnd).map((item) => {
-                  return (
-                    <tr key={item._id} className="text-xs">
-                      <td className="px-4 py-3">{item.userId._id}</td>
-                      <td className="px-4 py-3">{item.operator}</td>
-                      <td className="px-4 py-3">{item.circle}</td>
-                      <td className="px-4 py-3">{item.number}</td>
-                      <td className="px-4 py-3">{item.amount}</td>
-                      <td className="px-4 py-3">{item.apiTransID}</td>
-                      <td
-                        className={`px-4 py-3 ${colors(
-                          item.status
-                        )} uppercase font-bold`}>
-                        {item.status}
-                      </td>
-                      <td className="px-4 py-3">
-                        <Moment format="YYYY/MM/DD HH:mm:ss">
-                          {item.createdAt}
-                        </Moment>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+            <tbody>
+              {recharges?.slice(trimStart, trimEnd).map((item) => {
+                return (
+                  <tr key={item._id} className="text-xs">
+                    <td className="px-4 py-3">{item.userId._id}</td>
+                    <td className="px-4 py-3">{item.operator}</td>
+                    <td className="px-4 py-3">{item.circle}</td>
+                    <td className="px-4 py-3">{item.number}</td>
+                    <td className="px-4 py-3">{item.amount}</td>
+                    <td className="px-4 py-3">{item.apiTransID}</td>
+                    <td
+                      className={`px-4 py-3 ${colors(
+                        item.status
+                      )} uppercase font-bold`}
+                    >
+                      {item.status}
+                    </td>
+                    <td className="px-4 py-3">
+                      <Moment format="YYYY/MM/DD HH:mm:ss">
+                        {item.createdAt}
+                      </Moment>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <Pagination
             handlePrev={handlePrev}
             from={trimStart}
             to={trimEnd}
             total={totalItems}
+            fetchLoad={fetchLoad}
             handleForw={handleForw}
           />
         </div>
