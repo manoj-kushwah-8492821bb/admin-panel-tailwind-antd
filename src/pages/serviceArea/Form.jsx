@@ -44,8 +44,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
           payload: formInput,
           callback: () => {
             setFormInput({});
-            dispatch(fetchAreas());
             handleCloseModal();
+            dispatch(fetchAreas());
           },
         })
       );

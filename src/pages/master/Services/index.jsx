@@ -62,8 +62,8 @@ const Services = () => {
       removeService({
         serviceId: editData._id,
         callback: () => {
-          dispatch(serviceList());
           handleCloseModal("deleteModal");
+          dispatch(serviceList());
         },
       })
     );
@@ -122,7 +122,6 @@ const Services = () => {
                 </th>
               </tr>
             </thead>
-
             <tbody className="divide-y text-sm">
               {services?.slice(trimStart, trimEnd).map((item) => {
                 return (
@@ -137,7 +136,8 @@ const Services = () => {
                     <td className="px-4 py-2">{item.name}</td>
                     <td className="px-4 py-2">
                       <div class="inline px-3 py-1 text-xs font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 ">
-                        {item.percent}% {item.type === "Cashback" ? "CB" : "DC"}
+                        {item.percent && `${item.percent}%`}
+                        {item.type === "Cashback" ? "CB" : "DC"}
                       </div>
                     </td>
                     <td className="px-4 py-2">

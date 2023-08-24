@@ -44,8 +44,8 @@ const ServiceArea = () => {
       deleteAreas({
         areaId: editData._id,
         callback: () => {
-          dispatch(fetchAreas());
           handleCloseModal("deleteModal");
+          dispatch(fetchAreas());
         },
       })
     );
@@ -56,9 +56,7 @@ const ServiceArea = () => {
     dispatch(
       updateAreas({
         payload: { pinCodeId: event.target.id, status: event.target.checked },
-        callback: () => {
-          dispatch(fetchAreas());
-        },
+        callback: () => dispatch(fetchAreas()),
       })
     );
   };

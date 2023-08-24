@@ -18,11 +18,12 @@ export const affiliateList = createAsyncThunk("affiliateList", async () => {
 //.............. affiliate create
 export const affiliateCreate = createAsyncThunk(
   "affiliateCreate",
-  async (payload) => {
+  async ({ payload, callback }) => {
     try {
       const response = await API.post("affiliate/create", payload);
       const { ResponseStatus, Remarks } = response.data;
       if (ResponseStatus === 1) {
+        callback();
         toast.success(Remarks);
         return response.data;
       }
@@ -52,7 +53,7 @@ export const affiliateRemove = createAsyncThunk(
 //............. affiliate update
 export const affiliateUpdate = createAsyncThunk(
   "affiliateUpdate",
-  async ({ payload, affiliateId }) => {
+  async ({ payload, affiliateId, callback }) => {
     try {
       const response = await API.patch(
         `affiliate/update/${affiliateId}`,
@@ -60,6 +61,7 @@ export const affiliateUpdate = createAsyncThunk(
       );
       const { ResponseStatus, Remarks } = response.data;
       if (ResponseStatus === 1) {
+        callback();
         toast.success(Remarks);
         return response.data;
       }

@@ -68,11 +68,11 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               subCategoryId: editData._id,
               payload,
               callback: () => {
-                dispatch(subCategoryList());
                 setFormInput({});
                 setPreview("");
                 setErrors({});
                 handleCloseModal();
+                dispatch(subCategoryList());
               },
             })
           );
@@ -84,11 +84,11 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
           createSubCategory({
             payload,
             callback: () => {
-              dispatch(subCategoryList());
               setFormInput({});
               setPreview("");
               setErrors({});
               handleCloseModal();
+              dispatch(subCategoryList());
             },
           })
         );

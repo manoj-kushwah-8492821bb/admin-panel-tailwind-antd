@@ -25,35 +25,39 @@ const View = () => {
       <div className={`${CustomCard}`}>
         <div class="">
           <img
-            class="lg:h-60 mb-3 md:h-40 w-full object-cover object-center"
+            class="lg:h-72 md:h-40 object-cover rounded-t w-full "
             src={`${IMAGE_URL}${state.image}`}
             alt={state.name}
           />
-          <h2 class="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">
-            {state.link}
-          </h2>
-          <h1 class="title-font text-lg font-medium text-gray-900 mb-3">
-            {state.name}
-          </h1>
-          <p class="leading-relaxed mb-3">{state.description}</p>
-          <div class="flex items-center flex-wrap ">
-            <a
-              href={state.link}
-              target="_blank"
-              class="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">
-              Try Now
-              <svg
-                class="w-4 h-4 ml-2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M5 12h14"></path>
-                <path d="M12 5l7 7-7 7"></path>
-              </svg>
-            </a>
+          <div className="p-2.5 sm:p-4">
+            <h2 class="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">
+              {state.link}
+            </h2>
+            <h1 class="title-font text-lg font-medium text-gray-900 mb-3">
+              {state.name}
+            </h1>
+            <p class="leading-relaxed mb-3">{state.description}</p>
+            <div class="flex items-center flex-wrap ">
+              <a
+                href={state.link}
+                target="_blank"
+                class="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0"
+              >
+                Try Now
+                <svg
+                  class="w-4 h-4 ml-2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="M12 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>

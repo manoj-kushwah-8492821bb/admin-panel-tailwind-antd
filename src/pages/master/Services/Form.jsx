@@ -67,8 +67,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               serviceId: editData._id,
               payload,
               callback: () => {
-                dispatch(serviceList());
                 handleCloseModal();
+                dispatch(serviceList());
               },
             })
           );
@@ -80,8 +80,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
           addService({
             payload,
             callback: () => {
-              dispatch(serviceList());
               handleCloseModal();
+              dispatch(serviceList());
             },
           })
         );

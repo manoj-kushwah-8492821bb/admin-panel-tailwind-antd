@@ -67,8 +67,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               callback: () => {
                 setFormInput({});
                 setPreview("");
-                dispatch(categoryList());
                 handleCloseModal();
+                dispatch(categoryList());
               },
             })
           );
@@ -82,8 +82,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             callback: () => {
               setFormInput({});
               setPreview("");
-              dispatch(categoryList());
               handleCloseModal();
+              dispatch(categoryList());
             },
           })
         );
