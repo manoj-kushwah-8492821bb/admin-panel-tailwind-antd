@@ -43,9 +43,6 @@ const Orders = () => {
                   Product
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Payment Method
-                </th>
-                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Action By
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
@@ -74,19 +71,25 @@ const Orders = () => {
                           src={`${IMAGE_URL}${item?.productId?.productImage?.[0]}`}
                           className="w-9 h-9 rounded-full border"
                         />
-                        <span>{item?.productId?.productName}</span>
+                        <span>
+                          {item?.productId?.productName.slice(0, 17)}
+                          {item?.productId?.productName.length > 17 && "..."}
+                        </span>
                       </div>
                     </td>
-                    <td className="px-4 py-3">{item.paymentMethod}</td>
-                    <td className="px-4 py-3">{item.actionBy}</td>
                     <td className="px-4 py-3">
+                      {item.actionBy ? item.actionBy : "---"}
+                    </td>
+                    <td className="px-4 py-3 text-xs">
                       {moment(item.deliveryDate).format(
                         "MMMM Do YYYY, h:mm:ss a"
                       )}
                     </td>
                     <td className="px-4 py-3">₹ {item.totalPrice}</td>
-                    <td className="px-4 py-3 uppercase text-xs">
-                      {item.status}
+                    <td className="px-4 py-3 uppercase ">
+                      <div className="py-0.5 px-1 text-[11px] rounded-full bg-gray-100 text-center">
+                        {item.status}
+                      </div>
                     </td>
                     <td className="px-4 py-3">
                       <Options

@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   bussinessCategoryList,
-  categoryList,
   removeBussinessCategory,
-  removeCategory,
 } from "../../../toolkit/action/shoppingAction";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import Form from "./Form";
@@ -37,10 +35,12 @@ const Categories = () => {
 
   //................ handle delete
   const handleDelete = async () => {
-    const response = await dispatch(removeBussinessCategory(editData._id));
-    if (response?.payload?.Status) {
-      handleCloseModal("deleteModal");
-    }
+    dispatch(
+      removeBussinessCategory({
+        categoryId: editData._id,
+        callback: () => handleCloseModal("deleteModal"),
+      })
+    );
   };
 
   //................ Pagination Logic
@@ -63,7 +63,10 @@ const Categories = () => {
         text="New Bussiness Category"
         title="Bussiness Categories"
         icon={<BsPlus />}
-        action={() => handleOpenModal("form")}
+        action={() => {
+          setEditData("");
+          handleOpenModal("form");
+        }}
       />
 
       {/*........... Table Data */}

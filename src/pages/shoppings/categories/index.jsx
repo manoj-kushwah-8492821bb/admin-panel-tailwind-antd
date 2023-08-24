@@ -61,7 +61,10 @@ const Categories = () => {
         text="New Category"
         title="Categories"
         icon={<BsPlus />}
-        action={() => handleOpenModal("form")}
+        action={() => {
+          setEditData("");
+          handleOpenModal("form");
+        }}
       />
 
       {/*................. Table Data */}

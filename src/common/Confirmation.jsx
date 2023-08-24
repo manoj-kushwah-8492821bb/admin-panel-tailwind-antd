@@ -15,7 +15,8 @@ const Confrimation = (props) => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                strokeWidth="2">
+                strokeWidth="2"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -27,7 +28,8 @@ const Confrimation = (props) => {
             <div className="mt-2 text-center">
               <h3
                 className=" font-medium leading-6 text-color capitalize "
-                id="modal-title">
+                id="modal-title"
+              >
                 Delete {title}
               </h3>
               <p className="mt-1 text-sm text-gray-500 ">
@@ -40,7 +42,8 @@ const Confrimation = (props) => {
             <button
               onClick={handleCancel}
               type="button"
-              className=" bg-gray-200 w-full justify-center text-sm flex items-center gap-1 cursor-pointer tracking-wider p-2 sm:px-4 rounded text-gray-800">
+              className=" bg-gray-200 w-full justify-center text-sm flex items-center gap-1 cursor-pointer tracking-wider p-2 sm:px-4 rounded text-gray-800"
+            >
               Cancel
             </button>
 
@@ -48,7 +51,8 @@ const Confrimation = (props) => {
               onClick={handleConfirm}
               type="button"
               disabled={loading}
-              className="bg-color  w-full justify-center text-sm flex items-center gap-1 cursor-pointer tracking-wider p-2 sm:px-4 rounded text-white">
+              className="bg-color  w-full justify-center text-sm flex items-center gap-1 cursor-pointer tracking-wider p-2 sm:px-4 rounded text-white"
+            >
               {loading ? <ButtonLoader /> : "Delete"}
             </button>
           </div>

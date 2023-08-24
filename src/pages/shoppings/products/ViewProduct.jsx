@@ -1,9 +1,32 @@
 import React from "react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import { BiArrowBack } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import Layout from "../../../layouts";
 import TopBar from "../../../common/TopBar";
+import { IMAGE_URL } from "../../../utils/endpoints";
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
 
 const ViewProduct = () => {
   const navigate = useNavigate();
@@ -19,6 +42,27 @@ const ViewProduct = () => {
 
       {/*............... product view */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+        <div className="p-1 mb-3">
+          <Carousel
+            responsive={responsive}
+            autoPlay
+            infinite
+            autoPlaySpeed={1500}
+            showDots={true}
+            loop
+            ssr={true}
+          >
+            {state?.productImage.map((item) => (
+              <div key={item}>
+                <img
+                  src={`${IMAGE_URL}${item}`}
+                  alt=""
+                  className="rounded sm:p-2 lg:p-0"
+                />
+              </div>
+            ))}
+          </Carousel>
+        </div>
         <div className="p-1">
           <h2 className="tracking-widest text-xs flex justify-between title-font font-medium text-gray-400 mb-1">
             <span> {state?.subcategoryId?.name}</span>
@@ -44,7 +88,8 @@ const ViewProduct = () => {
               {state?.size?.map((item) => (
                 <span
                   key={item}
-                  className="text-xs py-0.5 px-3 bg-gray-50 rounded-full">
+                  className="text-xs py-0.5 px-3 bg-gray-50 rounded-full"
+                >
                   {item}
                 </span>
               ))}
@@ -58,7 +103,8 @@ const ViewProduct = () => {
               {state?.color?.map((item) => (
                 <span
                   key={item}
-                  className="text-xs py-0.5 px-3 bg-gray-50 rounded-full">
+                  className="text-xs py-0.5 px-3 bg-gray-50 rounded-full"
+                >
                   {item}
                 </span>
               ))}
@@ -72,7 +118,8 @@ const ViewProduct = () => {
               {state?.tags?.map((item) => (
                 <span
                   key={item}
-                  className="text-xs py-0.5 px-3 bg-gray-50 rounded-full">
+                  className="text-xs py-0.5 px-3 bg-gray-50 rounded-full"
+                >
                   {item}
                 </span>
               ))}

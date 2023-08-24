@@ -56,26 +56,35 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     payload.append("name", formInput.name);
     payload.append("type", formInput.type);
     payload.append("percent", formInput.percent);
+    payload.append("route", formInput.route ? formInput.route : "");
+    payload.append("section", formInput.section ? formInput.section : "");
 
     if (validator.allValid()) {
       if (editData) {
         if (isEdit) {
-          const response = await dispatch(
-            updateService({ serviceId: editData._id, payload })
+          dispatch(
+            updateService({
+              serviceId: editData._id,
+              payload,
+              callback: () => {
+                dispatch(serviceList());
+                handleCloseModal();
+              },
+            })
           );
-          if (response?.payload?.Status) {
-            dispatch(serviceList());
-            handleCloseModal();
-          }
         } else {
           handleCloseModal();
         }
       } else {
-        const response = await dispatch(addService(payload));
-        if (response?.payload?.Status) {
-          dispatch(serviceList());
-          handleCloseModal();
-        }
+        dispatch(
+          addService({
+            payload,
+            callback: () => {
+              dispatch(serviceList());
+              handleCloseModal();
+            },
+          })
+        );
       }
     } else {
       validator.showMessages();
@@ -86,8 +95,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
   // useffect
   useEffect(() => {
     if (editData) {
-      const { icon, name, type, percent } = editData;
-      setFormInput({ icon, name, type, percent });
+      const { icon, name, type, percent, section, route } = editData;
+      setFormInput({ icon, name, type, percent, section, route });
     }
   }, [editData]);
 
@@ -152,6 +161,48 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <ShowError data={errors.percent} />
             </div>
 
+            {/* Service route */}
+            <div className="grid gap-1">
+              <label htmlFor="route" className="text-sm">
+                Route
+              </label>
+              <input
+                autoComplete="off"
+                id="route"
+                type="text"
+                name="route"
+                value={formInput?.route}
+                onChange={handleChange}
+                className="rounded py-1.5 px-2 outline-none border"
+              />
+              {formInput?.route &&
+                validator.message("route", formInput?.route, "required")}
+              <ShowError data={errors.route} />
+            </div>
+
+            {/* Service section */}
+            <div className="grid gap-1">
+              <label htmlFor="section" className="text-sm">
+                Section
+              </label>
+              <select
+                autoComplete="off"
+                id="section"
+                name="section"
+                value={formInput?.section}
+                onChange={handleChange}
+                className="rounded appearance-none  py-1.5 px-2 outline-none border"
+              >
+                <option value="">Select Section</option>
+                <option value="travel">Travel</option>
+                <option value="finance">Finance</option>
+                <option value="recharge">Recharge</option>
+              </select>
+              {formInput?.section &&
+                validator.message("section", formInput?.section, "required")}
+              <ShowError data={errors.section} />
+            </div>
+
             {/* Service Discount */}
             <div className="grid gap-1">
               <label htmlFor="type" className="text-sm">
@@ -163,7 +214,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
                 name="type"
                 value={formInput?.type}
                 onChange={handleChange}
-                className="rounded appearance-none  py-1.5 px-2 outline-none border">
+                className="rounded appearance-none  py-1.5 px-2 outline-none border"
+              >
                 <option>Select Type</option>
                 <option value="Discount">Discount</option>
                 <option value="Cashback">Cashback</option>
@@ -178,7 +230,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <div>
                 <label
                   htmlFor="images"
-                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center">
+                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center"
+                >
                   <img
                     src={editData ? `${IMAGE_URL}${editData?.icon}` : preview}
                     alt="icon"
@@ -208,7 +261,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white">
+              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white"
+            >
               {loading ? <ButtonLoader /> : "Submit"}
             </button>
           </form>

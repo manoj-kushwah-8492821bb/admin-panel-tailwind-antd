@@ -16,30 +16,43 @@ export const serviceList = createAsyncThunk("getService", async () => {
   }
 });
 
-export const addService = createAsyncThunk("postService", async (payload) => {
-  try {
-    const response = await API.post(service_create, payload);
-    const { Remarks } = response.data;
-    toast.success(Remarks);
-    return response.data;
-  } catch (error) {
-    if (error.response.status === 500) {
-      toast.error(error.message);
-    } else {
-      const { Remarks } = error?.response?.data;
-      toast.error(Remarks);
+export const addService = createAsyncThunk(
+  "postService",
+  async ({ payload, callback }) => {
+    try {
+      const response = await API.post(service_create, payload);
+      const { Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return response.data;
+      } else {
+        toast.error(Remarks);
+      }
+    } catch (error) {
+      if (error.response.status === 500) {
+        toast.error(error.message);
+      } else {
+        const { Remarks } = error?.response?.data;
+        toast.error(Remarks);
+      }
     }
   }
-});
+);
 
 export const updateService = createAsyncThunk(
   "updateService",
-  async ({ serviceId, payload }) => {
+  async ({ serviceId, payload, callback }) => {
     try {
       const response = await API.patch(`service/${serviceId}`, payload);
-      const { Remarks } = response.data;
-      toast.success(Remarks);
-      return response.data;
+      const { Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return response.data;
+      } else {
+        toast.error(Remarks);
+      }
     } catch (error) {
       if (error.response.status === 500) {
         toast.error(error.message);
@@ -53,12 +66,17 @@ export const updateService = createAsyncThunk(
 
 export const removeService = createAsyncThunk(
   "removeService",
-  async (serviceId) => {
+  async ({ serviceId, callback }) => {
     try {
       const response = await API.delete(`service/${serviceId}`);
-      const { Remarks } = response.data;
-      toast.success(Remarks);
-      return response.data;
+      const { Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return response.data;
+      } else {
+        toast.error(Remarks);
+      }
     } catch (error) {
       if (error.response.status === 500) {
         toast.error(error.message);
@@ -84,14 +102,17 @@ export const bannerList = createAsyncThunk("bannerList", async () => {
 
 export const createBanner = createAsyncThunk(
   "createBanner",
-  async (payload) => {
+  async ({ payload, callback }) => {
     try {
       const response = await API.post("banner/create", payload);
       const { Remarks, ResponseStatus } = response.data;
       if (ResponseStatus === 1) {
+        callback();
         toast.success(Remarks);
-        return response.data;
+      } else {
+        toast.error(Remarks);
       }
+      return response.data;
     } catch (error) {
       if (error.response.status === 500) {
         toast.error(error.message);
@@ -105,14 +126,17 @@ export const createBanner = createAsyncThunk(
 
 export const updateBanner = createAsyncThunk(
   "updateBanner",
-  async (payload, bannerId) => {
+  async ({ payload, bannerId, callback }) => {
     try {
       const response = await API.patch(`banner/${bannerId}`, payload);
       const { Remarks, ResponseStatus } = response.data;
       if (ResponseStatus === 1) {
+        callback();
         toast.success(Remarks);
-        return response.data;
+      } else {
+        toast.error(Remarks);
       }
+      return response.data;
     } catch (error) {
       if (error.response.status === 500) {
         toast.error(error.message);

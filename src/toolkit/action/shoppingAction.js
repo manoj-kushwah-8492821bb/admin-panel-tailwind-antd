@@ -15,12 +15,17 @@ export const categoryList = createAsyncThunk("categoryList", async () => {
 
 export const createCategory = createAsyncThunk(
   "createCategory",
-  async (payload) => {
+  async ({ payload, callback }) => {
     try {
       const response = await API.post("category/create", payload);
-      const { Data, Remarks } = response.data;
-      toast.success(Remarks);
-      return Data;
+      const { Data, Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return Data;
+      } else {
+        toast.error(Remarks);
+      }
     } catch (error) {
       throw error;
     }
@@ -29,12 +34,17 @@ export const createCategory = createAsyncThunk(
 
 export const updateCategory = createAsyncThunk(
   "updateCategory",
-  async (categoryId, payload) => {
+  async ({ categoryId, payload, callback }) => {
     try {
       const response = await API.patch(`category/${categoryId}`, payload);
-      const { Data, Remarks } = response.data;
-      toast.success(Remarks);
-      return Data;
+      const { Data, Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return Data;
+      } else {
+        toast.error(Remarks);
+      }
     } catch (error) {
       throw error;
     }
@@ -71,12 +81,17 @@ export const bussinessCategoryList = createAsyncThunk(
 
 export const createBussinessCategory = createAsyncThunk(
   "createBussinessCategory",
-  async (payload) => {
+  async ({ payload, callback }) => {
     try {
       const response = await API.post("bussiness-category/create", payload);
-      const { Data, Remarks } = response.data;
-      toast.success(Remarks);
-      return Data;
+      const { Data, Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return Data;
+      } else {
+        toast.error(Remarks);
+      }
     } catch (error) {
       throw error;
     }
@@ -85,15 +100,20 @@ export const createBussinessCategory = createAsyncThunk(
 
 export const updateBussinessCategory = createAsyncThunk(
   "updateBussinessCategory",
-  async (categoryId, payload) => {
+  async ({ categoryId, payload, callback }) => {
     try {
       const response = await API.patch(
         `bussiness-category/${categoryId}`,
         payload
       );
-      const { Data, Remarks } = response.data;
-      toast.success(Remarks);
-      return Data;
+      const { Data, Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return Data;
+      } else {
+        toast.error(Remarks);
+      }
     } catch (error) {
       throw error;
     }
@@ -102,12 +122,17 @@ export const updateBussinessCategory = createAsyncThunk(
 
 export const removeBussinessCategory = createAsyncThunk(
   "removeBussinessCategory",
-  async (categoryId) => {
+  async ({ categoryId, callback }) => {
     try {
       const response = await API.delete(`bussiness-category/${categoryId}`);
-      const { Remarks } = response.data;
-      toast.success(Remarks);
-      return response.data;
+      const { Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return response.data;
+      } else {
+        toast.error(Remarks);
+      }
     } catch (error) {
       throw error;
     }
@@ -127,12 +152,17 @@ export const subCategoryList = createAsyncThunk("subCategoryList", async () => {
 
 export const createSubCategory = createAsyncThunk(
   "createSubCategory",
-  async (payload) => {
+  async ({ payload, callback }) => {
     try {
       const response = await API.post("sub-category/create", payload);
-      const { Data, Remarks } = response.data;
-      toast.success(Remarks);
-      return Data;
+      const { Data, Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return Data;
+      } else {
+        toast.error(Remarks);
+      }
     } catch (error) {
       throw error;
     }
@@ -141,15 +171,20 @@ export const createSubCategory = createAsyncThunk(
 
 export const updateSubCategory = createAsyncThunk(
   "updateSubCategory",
-  async (subCategoryId, payload) => {
+  async ({ subCategoryId, payload, callback }) => {
     try {
       const response = await API.patch(
         `sub-category/${subCategoryId}`,
         payload
       );
-      const { Data, Remarks } = response.data;
-      toast.success(Remarks);
-      return Data;
+      const { Data, Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return Data;
+      } else {
+        toast.error(Remarks);
+      }
     } catch (error) {
       throw error;
     }
@@ -158,12 +193,17 @@ export const updateSubCategory = createAsyncThunk(
 
 export const removeSubCategory = createAsyncThunk(
   "removeSubCategory",
-  async (subCategoryId) => {
+  async ({ subCategoryId, callback }) => {
     try {
       const response = await API.delete(`sub-category/${subCategoryId}`);
-      const { Remarks } = response.data;
-      toast.success(Remarks);
-      return response.data;
+      const { Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return response.data;
+      } else {
+        toast.error(Remarks);
+      }
     } catch (error) {
       throw error;
     }
@@ -183,12 +223,17 @@ export const fetchProducts = createAsyncThunk("fetchProducts", async () => {
 
 export const publishProduct = createAsyncThunk(
   "publishProduct",
-  async (payload) => {
+  async ({ payload, callback }) => {
     try {
       const response = await API.patch("product/publish", payload);
-      const { Remarks } = response.data;
-      toast.success(Remarks);
-      return response.data;
+      const { Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+        return response.data;
+      } else {
+        toast.error(Remarks);
+      }
     } catch (error) {
       throw error;
     }

@@ -14,6 +14,11 @@ import {
   bussinessCategoryList,
   createBussinessCategory,
   removeBussinessCategory,
+  updateBussinessCategory,
+  updateCategory,
+  updateSubCategory,
+  deleteAreas,
+  createAreas,
 } from "../action/shoppingAction";
 
 const initialState = {
@@ -70,6 +75,17 @@ const shoppingReducer = createSlice({
       state.loading = false;
     });
 
+    //.................. update category
+    builder.addCase(updateCategory.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateCategory.fulfilled, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(updateCategory.rejected, (state) => {
+      state.loading = false;
+    });
+
     //................ bussinessCategoryList list
     builder.addCase(bussinessCategoryList.pending, (state) => {
       state.fetchLoad = true;
@@ -111,6 +127,17 @@ const shoppingReducer = createSlice({
       state.loading = false;
     });
 
+    //.................. update bussiness category
+    builder.addCase(updateBussinessCategory.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateBussinessCategory.fulfilled, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(updateBussinessCategory.rejected, (state) => {
+      state.loading = false;
+    });
+
     //........................ sub category list
     builder.addCase(subCategoryList.pending, (state) => {
       state.fetchLoad = true;
@@ -146,6 +173,17 @@ const shoppingReducer = createSlice({
       state.loading = false;
     });
     builder.addCase(removeSubCategory.rejected, (state) => {
+      state.loading = false;
+    });
+
+    //................. update sub category
+    builder.addCase(updateSubCategory.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateSubCategory.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(updateSubCategory.rejected, (state) => {
       state.loading = false;
     });
 
@@ -212,6 +250,28 @@ const shoppingReducer = createSlice({
     });
     builder.addCase(fetchAreas.rejected, (state) => {
       state.fetchLoad = false;
+    });
+
+    //................. service area list
+    builder.addCase(deleteAreas.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteAreas.fulfilled, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(deleteAreas.rejected, (state) => {
+      state.loading = false;
+    });
+
+    //................. service area list
+    builder.addCase(createAreas.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(createAreas.fulfilled, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(createAreas.rejected, (state) => {
+      state.loading = false;
     });
   },
 });

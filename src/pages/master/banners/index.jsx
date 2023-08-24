@@ -42,6 +42,8 @@ const Banners = () => {
     }
   };
 
+  console.log(editData);
+
   // Pagination Logic
   const perPageItems = 10;
   const totalItems = banners?.length;
@@ -121,7 +123,8 @@ const Banners = () => {
                         <a
                           href={item.link}
                           className="text-color underline"
-                          target="_blank">
+                          target="_blank"
+                        >
                           Link
                         </a>
                       </td>

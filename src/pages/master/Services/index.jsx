@@ -57,12 +57,16 @@ const Services = () => {
   };
 
   // handle remove service
-  const handleDeleteService = async () => {
-    const response = await dispatch(removeService(editData._id));
-    if (response?.payload?.Status) {
-      dispatch(serviceList());
-      handleCloseModal("deleteModal");
-    }
+  const handleDeleteService = () => {
+    dispatch(
+      removeService({
+        serviceId: editData._id,
+        callback: () => {
+          dispatch(serviceList());
+          handleCloseModal("deleteModal");
+        },
+      })
+    );
   };
 
   // Pagination Logic
@@ -99,19 +103,19 @@ const Services = () => {
             <thead>
               <tr>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
+                  Image
+                </th>
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Name
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Percent
-                </th>
-                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Type
+                  Offer
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Status
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Coupon Applicable
+                  Coupon
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
                   Action
@@ -123,30 +127,32 @@ const Services = () => {
                 <Loader />
               </td>
             ) : (
-              <tbody className="divide-y">
+              <tbody className="divide-y text-sm">
                 {services?.slice(trimStart, trimEnd).map((item) => {
                   return (
-                    <tr key={item._id} className="text-sm ">
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-2.5">
-                          <img
-                            alt={item._id}
-                            src={`${IMAGE_URL}${item.icon}`}
-                            className="w-9 h-9 rounded-full"
-                          />{" "}
-                          {item.name}
+                    <tr key={item._id}>
+                      <td className="px-4 py-2">
+                        <img
+                          alt={item._id}
+                          src={`${IMAGE_URL}${item.icon}`}
+                          className="w-9 h-9 object-cover border rounded-full"
+                        />
+                      </td>
+                      <td className="px-4 py-2">{item.name}</td>
+                      <td className="px-4 py-2">
+                        <div class="inline px-3 py-1 text-xs font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 ">
+                          {item.percent}%{" "}
+                          {item.type === "Cashback" ? "CB" : "DC"}
                         </div>
                       </td>
-                      <td className="px-4 py-3">{item.percent}%</td>
-                      <td className="px-4 py-3">{item.type}</td>
-                      <td className="px-4 py-3">
+                      <td className="px-4 py-2">
                         <Toggle
                           _id={item._id}
                           value={item.status}
                           handleChange={handleStatusUpdate}
                         />
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-4 py-2">
                         <Toggle
                           _id={item._id + item._id}
                           value={item.isCoupon}
@@ -155,7 +161,7 @@ const Services = () => {
                           }
                         />
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-4 py-2">
                         <Options
                           handleEdit={() => {
                             setEditData(item);

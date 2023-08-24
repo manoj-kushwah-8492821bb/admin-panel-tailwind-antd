@@ -1,51 +1,45 @@
-import React, { useEffect, useState } from "react";
-import { MdClose, MdOutlineCloudUpload } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
-import SimpleReactValidator from "simple-react-validator";
+import React, { useState } from "react";
+import { MdClose } from "react-icons/md";
 import ShowError from "../../common/ShowError";
 import ButtonLoader from "../../common/ButtonLoader";
-import { IMAGE_URL } from "../../utils/endpoints";
-import {
-  affiliateCreate,
-  affiliateList,
-  affiliateUpdate,
-} from "../../toolkit/action/affiliateAction";
-import {
-  createAreas,
-  fetchAreas,
-  updateAreas,
-} from "../../toolkit/action/shoppingAction";
+import { useDispatch, useSelector } from "react-redux";
+import SimpleReactValidator from "simple-react-validator";
+import { createAreas, fetchAreas } from "../../toolkit/action/shoppingAction";
 
 const Form = ({ handleCloseModal, isOpen, editData }) => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
-  const [preview, setPreview] = useState("");
-  const [isEdit, setIsEdit] = useState(false);
   const [formInput, setFormInput] = useState({});
   const { loading } = useSelector((state) => state.serviceReducer);
 
   // validator
-  const validator = new SimpleReactValidator();
+  const validator = new SimpleReactValidator({
+    className: "text-danger",
+    validators: {
+      number: {
+        message: "The :attribute must be a number.",
+        rule: function (val, params, validator) {
+          return (
+            validator.helpers.testRegex(val, /^\d+$/) &&
+            params.indexOf(val) === -1
+          );
+        },
+      },
+    },
+  });
 
   // handle Change
   const handleChange = (event) => {
-    const { name, type, value } = event.target;
+    const { name, value } = event.target;
     setErrors({ ...errors, [name]: "" });
-    setIsEdit(true);
-    if (type === "file") {
-      setPreview(URL.createObjectURL(event.target.files[0]));
-      setFormInput({ ...formInput, [name]: event.target.files[0] });
-    } else {
-      setFormInput({ ...formInput, [name]: value });
-    }
+    setFormInput({ ...formInput, [name]: value });
   };
 
   // handle Submit
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (validator.allValid()) {
-      await dispatch(
+      dispatch(
         createAreas({
           payload: formInput,
           callback: () => {
@@ -61,14 +55,6 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     }
   };
 
-  // useffect
-  useEffect(() => {
-    if (editData) {
-      const { image, name, description, link } = editData;
-      setFormInput({ image, name, description, link });
-    }
-  }, [editData]);
-
   return (
     isOpen && (
       <div className="tracking-wider overflow-hidden absolute z-50 top-0 flex justify-end left-0 w-full h-screen bg-modal">
@@ -82,7 +68,6 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               className="text-xl cursor-pointer"
               onClick={() => {
                 setFormInput({});
-                setPreview("");
                 handleCloseModal();
               }}
             />
@@ -105,7 +90,11 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
                 onChange={handleChange}
                 className="rounded py-1.5 px-2 outline-none border"
               />
-              {validator.message("pinCode", formInput?.pinCode, "required")}
+              {validator.message(
+                "pinCode",
+                formInput?.pinCode,
+                "required|number|min:4|max:6"
+              )}
               <ShowError data={errors.pinCode} />
             </div>
 
@@ -113,7 +102,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white">
+              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white"
+            >
               {loading ? <ButtonLoader /> : "Submit"}
             </button>
           </form>

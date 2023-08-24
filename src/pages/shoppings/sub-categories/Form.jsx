@@ -8,6 +8,7 @@ import { IMAGE_URL } from "../../../utils/endpoints";
 import {
   categoryList,
   createSubCategory,
+  subCategoryList,
   updateSubCategory,
 } from "../../../toolkit/action/shoppingAction";
 
@@ -20,8 +21,6 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
   const { categoriesList, loading } = useSelector(
     (state) => state.shoppingReducer
   );
-
-  console.log(editData);
 
   // validator
   const validator = new SimpleReactValidator({
@@ -64,26 +63,35 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     if (validator.allValid()) {
       if (editData) {
         if (isEdit) {
-          const response = await dispatch(
-            updateSubCategory(editData._id, payload)
+          dispatch(
+            updateSubCategory({
+              subCategoryId: editData._id,
+              payload,
+              callback: () => {
+                dispatch(subCategoryList());
+                setFormInput({});
+                setPreview("");
+                setErrors({});
+                handleCloseModal();
+              },
+            })
           );
-          if (response?.payload?.Status) {
-            setFormInput({});
-            setPreview("");
-            handleCloseModal();
-          }
         } else {
           handleCloseModal();
         }
       } else {
-        const response = await dispatch(createSubCategory(payload));
-        if (response?.payload?.Status) {
-          setFormInput({});
-          setPreview("");
-          handleCloseModal();
-        } else {
-          handleCloseModal();
-        }
+        dispatch(
+          createSubCategory({
+            payload,
+            callback: () => {
+              dispatch(subCategoryList());
+              setFormInput({});
+              setPreview("");
+              setErrors({});
+              handleCloseModal();
+            },
+          })
+        );
       }
     } else {
       validator.showMessages();
@@ -151,7 +159,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
                 name="categoryId"
                 value={formInput?.categoryId}
                 onChange={handleChange}
-                className="rounded py-1.5 px-2 outline-none border">
+                className="rounded py-1.5 px-2 outline-none border"
+              >
                 <option>Select Category</option>
                 {categoriesList.map((item) => {
                   return (
@@ -198,7 +207,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <div>
                 <label
                   htmlFor="image"
-                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center">
+                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center"
+                >
                   {formInput?.image?.name && (
                     <img
                       src={
@@ -233,7 +243,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white">
+              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white"
+            >
               {loading ? <ButtonLoader /> : "Submit"}
             </button>
           </form>

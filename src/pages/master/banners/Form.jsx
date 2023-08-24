@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdClose, MdOutlineCloudUpload } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import SimpleReactValidator from "simple-react-validator";
@@ -44,24 +44,43 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     if (validator.allValid()) {
       if (editData) {
         if (isEdit) {
-          const response = await dispatch(updateBanner(payload, editData._id));
-          if (response?.payload?.Status) {
-            handleCloseModal();
-          }
+          dispatch(
+            updateBanner({
+              payload,
+              bannerId: editData._id,
+              callback: () => {
+                setFormInput({});
+                handleCloseModal();
+              },
+            })
+          );
         } else {
           handleCloseModal();
         }
       } else {
-        const response = await dispatch(createBanner(payload));
-        if (response?.payload?.ResponseStatus == 1) {
-          handleCloseModal();
-        }
+        dispatch(
+          createBanner({
+            payload,
+            callback: () => {
+              setFormInput({});
+              handleCloseModal();
+            },
+          })
+        );
       }
     } else {
       validator.showMessages();
       setErrors(validator.errorMessages);
     }
   };
+
+  // useffect
+  useEffect(() => {
+    if (editData) {
+      const { image, type, link, section } = editData;
+      setFormInput({ image, type, link, section });
+    }
+  }, [editData]);
 
   return (
     isOpen && (
@@ -95,7 +114,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
                 name="section"
                 value={formInput?.section}
                 onChange={handleChange}
-                className="rounded py-1.5 px-2 outline-none border">
+                className="rounded py-1.5 px-2 outline-none border"
+              >
                 <option>Select Section</option>
                 <option value="game">Game</option>
                 <option value="service">Service</option>
@@ -149,7 +169,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <div>
                 <label
                   htmlFor="image"
-                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center">
+                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center"
+                >
                   {editData ||
                     (preview && (
                       <img
@@ -183,7 +204,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white">
+              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white"
+            >
               {loading ? <ButtonLoader /> : "Submit"}
             </button>
           </form>

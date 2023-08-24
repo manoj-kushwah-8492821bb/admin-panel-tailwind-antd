@@ -6,8 +6,7 @@ import ShowError from "../../../common/ShowError";
 import ButtonLoader from "../../../common/ButtonLoader";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import {
-  createCategory,
-  updateCategory,
+  bussinessCategoryList,
   createBussinessCategory,
   updateBussinessCategory,
 } from "../../../toolkit/action/shoppingAction";
@@ -61,26 +60,33 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
     if (validator.allValid()) {
       if (editData) {
         if (isEdit) {
-          const response = await dispatch(
-            updateBussinessCategory(editData._id, payload)
+          dispatch(
+            updateBussinessCategory({
+              categoryId: editData._id,
+              payload,
+              callback: () => {
+                setFormInput({});
+                setPreview("");
+                dispatch(bussinessCategoryList());
+                handleCloseModal();
+              },
+            })
           );
-          if (response?.payload?.Status) {
-            setFormInput({});
-            setPreview("");
-            handleCloseModal();
-          }
         } else {
           handleCloseModal();
         }
       } else {
-        const response = await dispatch(createBussinessCategory(payload));
-        if (response?.payload?.Status) {
-          setFormInput({});
-          setPreview("");
-          handleCloseModal();
-        } else {
-          handleCloseModal();
-        }
+        dispatch(
+          createBussinessCategory({
+            payload,
+            callback: () => {
+              setFormInput({});
+              setPreview("");
+              dispatch(bussinessCategoryList());
+              handleCloseModal();
+            },
+          })
+        );
       }
     } else {
       validator.showMessages();
@@ -103,7 +109,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
           {/*.................. Top */}
           <div className="flex justify-between items-center">
             <span className="text-color">
-              {editData ? "Update" : "Add"} Category
+              {editData ? "Update" : "Add"} Bussiness Category
             </span>
             <MdClose
               className="text-xl cursor-pointer"
@@ -186,7 +192,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <div>
                 <label
                   htmlFor="image"
-                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center">
+                  className="text-xs bg-white cursor-pointer flex flex-col gap-1 justify-center rounded border-dashed border-[1.5px] p-4 items-center"
+                >
                   {formInput?.image?.name && (
                     <img
                       src={
@@ -221,7 +228,8 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white">
+              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white"
+            >
               {loading ? <ButtonLoader /> : "Submit"}
             </button>
           </form>

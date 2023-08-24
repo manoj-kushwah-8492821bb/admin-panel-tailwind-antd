@@ -21,8 +21,6 @@ import Toggle from "../../common/Toggle";
 
 const ServiceArea = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const [modals, setModals] = useState({
     formModal: false,
     deleteModal: false,
@@ -41,8 +39,8 @@ const ServiceArea = () => {
   };
 
   // handle remove service
-  const handleDeleteService = async () => {
-    await dispatch(
+  const handleDeleteService = () => {
+    dispatch(
       deleteAreas({
         areaId: editData._id,
         callback: () => {
@@ -54,7 +52,7 @@ const ServiceArea = () => {
   };
 
   // handle remove service
-  const handleUpdateService = async (event) => {
+  const handleUpdateService = (event) => {
     dispatch(
       updateAreas({
         payload: { pinCodeId: event.target.id, status: event.target.checked },

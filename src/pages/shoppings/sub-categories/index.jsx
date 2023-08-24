@@ -35,10 +35,12 @@ const SubCategories = () => {
 
   // handle delete
   const handleDelete = async () => {
-    const response = await dispatch(removeSubCategory(editData._id));
-    if (response?.payload?.Status) {
-      handleCloseModal("deleteModal");
-    }
+    dispatch(
+      removeSubCategory({
+        subCategoryId: editData._id,
+        callback: () => handleCloseModal("deleteModal"),
+      })
+    );
   };
 
   // Pagination Logic
@@ -61,7 +63,10 @@ const SubCategories = () => {
         text="New Sub Category"
         title="Sub Categories"
         icon={<BsPlus />}
-        action={() => handleOpenModal("form")}
+        action={() => {
+          setEditData("");
+          handleOpenModal("form");
+        }}
       />
 
       {/* Table */}

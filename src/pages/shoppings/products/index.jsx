@@ -21,11 +21,10 @@ const Products = () => {
     (state) => state.shoppingReducer
   );
 
-  const handlePublish = async (payload) => {
-    const result = await dispatch(publishProduct(payload));
-    if (result.payload.Status) {
-      dispatch(fetchProducts());
-    }
+  const handlePublish = (payload) => {
+    dispatch(
+      publishProduct({ payload, callback: () => dispatch(fetchProducts()) })
+    );
   };
 
   //..................... Pagination Logic
