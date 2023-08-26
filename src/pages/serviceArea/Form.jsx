@@ -98,6 +98,29 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               <ShowError data={errors.pinCode} />
             </div>
 
+            {/*  Delivery Charge */}
+            <div className="grid gap-1">
+              <label htmlFor="deliveryCharge" className="text-sm">
+                Delivery Charge
+              </label>
+              <input
+                autoComplete="off"
+                id="deliveryCharge"
+                type="text"
+                placeholder="Enter Delivery Charge"
+                name="deliveryCharge"
+                value={formInput?.deliveryCharge}
+                onChange={handleChange}
+                className="rounded py-1.5 px-2 outline-none border"
+              />
+              {validator.message(
+                "deliveryCharge",
+                formInput?.deliveryCharge,
+                "required|number"
+              )}
+              <ShowError data={errors.deliveryCharge} />
+            </div>
+
             {/* Button */}
             <button
               type="submit"
