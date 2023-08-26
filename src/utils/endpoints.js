@@ -1,4 +1,5 @@
 export const IMAGE_URL = process.env.REACT_APP_IMAGE_BASEURL;
+// export const IMAGE_URL = "http://localhost:5000/";
 
 // Authorization
 export const send = "admin/send";
@@ -26,6 +27,9 @@ export const dth_history = "cyrus/admin/dth_history";
 export const recharge_history = "cyrus/admin/recharge_history";
 export const recharge_refund_list = "cyrus/list_refund_recharge_request";
 export const recharge_refund_accept = "/cyrus/accept_recharge_refund_request";
+
+// shiprocket
+export const create_order = "shiprocket/orders/create/adhoc";
 
 // ------------------------------------ SHOPPING --------------------------------- //
 

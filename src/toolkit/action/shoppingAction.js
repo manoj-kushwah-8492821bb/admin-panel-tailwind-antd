@@ -262,6 +262,18 @@ export const updateOrder = createAsyncThunk("updateOrder", async (payload) => {
   }
 });
 
+export const createOrder = createAsyncThunk("createOrder", async (payload) => {
+  try {
+    const response = await API.post(`shiprocket/orders/create/adhoc`, payload);
+    const { Remarks } = response.data;
+    toast.success(Remarks);
+    return response.data;
+  } catch (error) {
+    toast.error(error.response.data.Remarks.message);
+    throw error;
+  }
+});
+
 // --------------- Service Area
 export const fetchAreas = createAsyncThunk("fetchAreas", async () => {
   try {

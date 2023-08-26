@@ -1,20 +1,25 @@
 import moment from "moment";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BiArrowBack } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import Layout from "../../../layouts";
 import TopBar from "../../../common/TopBar";
 import Button from "../../../common/Button";
-import { updateOrder } from "../../../toolkit/action/shoppingAction";
+import {
+  createOrder,
+  updateOrder,
+} from "../../../toolkit/action/shoppingAction";
+import ButtonLoader from "../../../common/ButtonLoader";
 
 const ViewOrder = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { state } = useLocation();
-  const [isCancel, setIsCancel] = useState(false);
   const [reason, setReason] = useState("");
+  const [isCancel, setIsCancel] = useState(false);
+  const { loading } = useSelector((state) => state.shoppingReducer);
 
   //.................. handle status
   const handleStatus = async (status) => {
@@ -29,6 +34,9 @@ const ViewOrder = () => {
       navigate("/shopping/orders");
     }
   };
+
+  // .................. handle create in shiprocket
+  const handleCreate = () => dispatch(createOrder({ orderId: state._id }));
 
   return (
     <div>
@@ -160,7 +168,8 @@ const ViewOrder = () => {
                 <button
                   type="button"
                   onClick={() => setIsCancel(false)}
-                  className="rounded py-1 px-3 bg-slate-200">
+                  className="rounded py-1 px-3 bg-slate-200"
+                >
                   Cancel
                 </button>
               </div>
@@ -176,11 +185,22 @@ const ViewOrder = () => {
                   state.status == "canceled requested" ? "Accept" : state.status
                 }
               />
+              {state?.shipRocketRes?.awb_code === null &&
+                state.status === "order placed" && (
+                  <button
+                    type="button"
+                    onClick={() => handleCreate()}
+                    className="rounded py-1 px-3 bg-orange-700 text-white"
+                  >
+                    {loading ? <ButtonLoader /> : "Create Order In Shiprocket"}
+                  </button>
+                )}
               {state.status == "canceled requested" && (
                 <button
                   type="button"
                   onClick={() => setIsCancel(true)}
-                  className="rounded py-1 px-3 bg-slate-200">
+                  className="rounded py-1 px-3 bg-slate-200"
+                >
                   Reject
                 </button>
               )}

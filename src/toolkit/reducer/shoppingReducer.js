@@ -19,6 +19,7 @@ import {
   updateSubCategory,
   deleteAreas,
   createAreas,
+  createOrder,
 } from "../action/shoppingAction";
 
 const initialState = {
@@ -231,13 +232,24 @@ const shoppingReducer = createSlice({
 
     //................... order update
     builder.addCase(updateOrder.pending, (state) => {
-      state.fetchLoad = true;
+      state.loading = true;
     });
     builder.addCase(updateOrder.fulfilled, (state, action) => {
-      state.fetchLoad = false;
+      state.loading = false;
     });
     builder.addCase(updateOrder.rejected, (state) => {
-      state.fetchLoad = false;
+      state.loading = false;
+    });
+
+    //................... create order
+    builder.addCase(createOrder.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(createOrder.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(createOrder.rejected, (state) => {
+      state.loading = false;
     });
 
     //................. service area list
