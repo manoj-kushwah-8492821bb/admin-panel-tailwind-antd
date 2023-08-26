@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import ShowError from "../../common/ShowError";
 import ButtonLoader from "../../common/ButtonLoader";
 import { useDispatch, useSelector } from "react-redux";
 import SimpleReactValidator from "simple-react-validator";
-import { createAreas, fetchAreas } from "../../toolkit/action/shoppingAction";
+import {
+  createAreas,
+  fetchAreas,
+  updateAreas,
+} from "../../toolkit/action/shoppingAction";
 
 const Form = ({ handleCloseModal, isOpen, editData }) => {
   const dispatch = useDispatch();
@@ -39,21 +43,44 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validator.allValid()) {
-      dispatch(
-        createAreas({
-          payload: formInput,
-          callback: () => {
-            setFormInput({});
-            handleCloseModal();
-            dispatch(fetchAreas());
-          },
-        })
-      );
+      if (editData) {
+        dispatch(
+          updateAreas({
+            payload: { pinCodeId: editData._id, ...formInput },
+            callback: () => {
+              setFormInput({});
+              setErrors({});
+              handleCloseModal();
+              dispatch(fetchAreas());
+            },
+          })
+        );
+      } else {
+        dispatch(
+          createAreas({
+            payload: formInput,
+            callback: () => {
+              setFormInput({});
+              setErrors({});
+              handleCloseModal();
+              dispatch(fetchAreas());
+            },
+          })
+        );
+      }
     } else {
       validator.showMessages();
       setErrors(validator.errorMessages);
     }
   };
+
+  useEffect(() => {
+    if (editData) {
+      console.log(editData);
+      const { pinCode, deliveryCharge } = editData;
+      setFormInput({ pinCode, deliveryCharge });
+    }
+  }, [editData]);
 
   return (
     isOpen && (
@@ -67,6 +94,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
             <MdClose
               className="text-xl cursor-pointer"
               onClick={() => {
+                setErrors({});
                 setFormInput({});
                 handleCloseModal();
               }}

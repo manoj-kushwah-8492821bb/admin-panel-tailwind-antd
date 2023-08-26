@@ -304,7 +304,7 @@ export const updateAreas = createAsyncThunk(
   async ({ payload, callback }) => {
     try {
       const response = await API.put("service-area", payload);
-      const { Data, Remarks, ResponseStatus } = response.data;
+      const { Data } = response.data;
       callback();
       return Data;
     } catch (error) {

@@ -83,7 +83,10 @@ const ServiceArea = () => {
         <div>Service Area</div>
         <Button
           icon={<BsPlus />}
-          action={() => handleOpenModal("formModal")}
+          action={() => {
+            setEditData("");
+            handleOpenModal("formModal");
+          }}
           text="New Area"
         />
       </div>
@@ -127,6 +130,10 @@ const ServiceArea = () => {
                         handleDelete={() => {
                           setEditData(item);
                           handleOpenModal("deleteModal");
+                        }}
+                        handleEdit={() => {
+                          setEditData(item);
+                          handleOpenModal("formModal");
                         }}
                       />
                     </td>

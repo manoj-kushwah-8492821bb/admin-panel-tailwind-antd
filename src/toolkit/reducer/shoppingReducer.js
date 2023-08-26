@@ -20,6 +20,7 @@ import {
   deleteAreas,
   createAreas,
   createOrder,
+  updateAreas,
 } from "../action/shoppingAction";
 
 const initialState = {
@@ -283,6 +284,17 @@ const shoppingReducer = createSlice({
       state.loading = false;
     });
     builder.addCase(createAreas.rejected, (state) => {
+      state.loading = false;
+    });
+
+    //................. service area list
+    builder.addCase(updateAreas.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateAreas.fulfilled, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(updateAreas.rejected, (state) => {
       state.loading = false;
     });
   },
