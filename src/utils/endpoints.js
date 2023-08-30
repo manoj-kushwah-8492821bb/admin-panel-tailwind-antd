@@ -1,5 +1,6 @@
 export const IMAGE_URL = process.env.REACT_APP_IMAGE_BASEURL;
 // export const IMAGE_URL = "http://localhost:5000/";
+console.log(IMAGE_URL);
 
 // Authorization
 export const send = "admin/send";
