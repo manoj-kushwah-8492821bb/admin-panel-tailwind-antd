@@ -84,7 +84,7 @@ const KYC = () => {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2.5">
                         <img
-                          alt={item.userId.firstName}
+                          alt={item?.userId?.firstName}
                           src={
                             item.userId.avatar
                               ? `${IMAGE_URL}${item.userId.avatar}`
@@ -93,7 +93,7 @@ const KYC = () => {
                           className="w-8 h-8 rounded-full"
                         />{" "}
                         <div>
-                          {item.userId.firstName} {item.userId.lastName}
+                          {item?.userId?.firstName} {item?.userId?.lastName}
                         </div>
                       </div>
                     </td>
@@ -102,8 +102,8 @@ const KYC = () => {
                       <div className="flex gap-3">
                         {item.aadhaarFront ? (
                           <img
-                            alt={item.aadhaarFront}
-                            src={`${IMAGE_URL}${item.aadhaarFront}`}
+                            alt={item?.aadhaarFront}
+                            src={`${IMAGE_URL}${item?.aadhaarFront}`}
                             className="w-20 h-14 rounded"
                           />
                         ) : (
@@ -111,8 +111,8 @@ const KYC = () => {
                         )}
                         {item.aadhaarBack ? (
                           <img
-                            alt={item.aadhaarBack}
-                            src={`${IMAGE_URL}${item.aadhaarBack}`}
+                            alt={item?.aadhaarBack}
+                            src={`${IMAGE_URL}${item?.aadhaarBack}`}
                             className="w-20 h-14 rounded"
                           />
                         ) : (
@@ -122,10 +122,10 @@ const KYC = () => {
                     </td>
                     <td className="px-4 py-3">
                       {" "}
-                      {item.pan ? (
+                      {item?.pan ? (
                         <img
-                          alt={item.pan}
-                          src={`${IMAGE_URL}${item.pan}`}
+                          alt={item?.pan}
+                          src={`${IMAGE_URL}${item?.pan}`}
                           className="w-20 h-14 rounded"
                         />
                       ) : (
@@ -135,8 +135,8 @@ const KYC = () => {
                     <td className="px-4 py-3">
                       {item.photo ? (
                         <img
-                          alt={item.photo}
-                          src={`${IMAGE_URL}${item.photo}`}
+                          alt={item?.photo}
+                          src={`${IMAGE_URL}${item?.photo}`}
                           className="w-20 h-14 rounded"
                         />
                       ) : (
