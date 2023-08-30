@@ -20,11 +20,16 @@ export const notificationList = createAsyncThunk(
 //................ push notification
 export const pushNotification = createAsyncThunk(
   "pushNotification",
-  async (payload) => {
+  async ({ payload, callback }) => {
     try {
       const response = await API.post(notification_create, payload);
-      const { Remarks } = response.data;
-      toast.success(Remarks);
+      const { Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+      } else {
+        toast.error(Remarks);
+      }
       return response.data;
     } catch (error) {
       if (error.response.status === 500) {

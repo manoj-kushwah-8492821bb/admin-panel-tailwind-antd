@@ -14,7 +14,7 @@ const Form = ({ handleCloseModal, isOpen }) => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [formInput, setFormInput] = useState({});
-  const { loading } = useSelector((state) => state.serviceReducer);
+  const { loading } = useSelector((state) => state.notificationReducer);
 
   // validator
   const validator = new SimpleReactValidator();
@@ -31,11 +31,16 @@ const Form = ({ handleCloseModal, isOpen }) => {
     event.preventDefault();
 
     if (validator.allValid()) {
-      const response = await dispatch(pushNotification(formInput));
-      if (response?.payload?.Status) {
-        dispatch(notificationList());
-        handleCloseModal();
-      }
+      dispatch(
+        pushNotification({
+          payload: formInput,
+          callback: () => {
+            setFormInput({});
+            dispatch(notificationList());
+            handleCloseModal();
+          },
+        })
+      );
     } else {
       validator.showMessages();
       setErrors(validator.errorMessages);
@@ -100,7 +105,8 @@ const Form = ({ handleCloseModal, isOpen }) => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white">
+              className="bg-color justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 mt-2 rounded text-white"
+            >
               {loading ? <ButtonLoader /> : "Submit"}
             </button>
           </form>
