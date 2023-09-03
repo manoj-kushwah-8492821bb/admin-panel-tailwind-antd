@@ -86,8 +86,8 @@ const KYC = () => {
                         <img
                           alt={item?.userId?.firstName}
                           src={
-                            item.userId.avatar
-                              ? `${IMAGE_URL}${item.userId.avatar}`
+                            item?.userId?.avatar
+                              ? `${IMAGE_URL}${item?.userId?.avatar}`
                               : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
                           }
                           className="w-8 h-8 rounded-full"
