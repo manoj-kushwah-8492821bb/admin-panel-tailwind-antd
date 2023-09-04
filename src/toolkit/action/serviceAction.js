@@ -166,3 +166,85 @@ export const removeBanner = createAsyncThunk(
     }
   }
 );
+
+// -------------------------------AFFILLIATE BANNERS
+
+export const affiliateBannerList = createAsyncThunk(
+  "affiliateBannerList",
+  async () => {
+    try {
+      const response = await API.get("affiliate-banner/list");
+      const { Data } = response.data;
+      return Data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const createAffilliateBanner = createAsyncThunk(
+  "createAffilliateBanner",
+  async ({ payload, callback }) => {
+    try {
+      const response = await API.post("affiliate-banner/create", payload);
+      const { Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+      } else {
+        toast.error(Remarks);
+      }
+      return response.data;
+    } catch (error) {
+      if (error.response.status === 500) {
+        toast.error(error.message);
+      } else {
+        const { Remarks } = error?.response?.data;
+        toast.error(Remarks);
+      }
+    }
+  }
+);
+
+export const updateAffilliateBanner = createAsyncThunk(
+  "updateAffilliateBanner",
+  async ({ payload, bannerId, callback }) => {
+    try {
+      const response = await API.patch(`affiliate-banner/${bannerId}`, payload);
+      const { Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        callback();
+        toast.success(Remarks);
+      } else {
+        toast.error(Remarks);
+      }
+      return response.data;
+    } catch (error) {
+      if (error.response.status === 500) {
+        toast.error(error.message);
+      } else {
+        const { Remarks } = error?.response?.data;
+        toast.error(Remarks);
+      }
+    }
+  }
+);
+
+export const removeAffilliateBanner = createAsyncThunk(
+  "removeAffilliateBanner",
+  async (bannerId) => {
+    try {
+      const response = await API.delete(`affiliate-banner/${bannerId}`);
+      const { Remarks } = response.data;
+      toast.success(Remarks);
+      return response.data;
+    } catch (error) {
+      if (error.response.status === 500) {
+        toast.error(error.message);
+      } else {
+        const { Remarks } = error?.response?.data;
+        toast.error(Remarks);
+      }
+    }
+  }
+);

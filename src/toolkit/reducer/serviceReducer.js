@@ -7,6 +7,9 @@ import {
   removeBanner,
   removeService,
   updateService,
+  affiliateBannerList,
+  createAffilliateBanner,
+  removeAffilliateBanner,
 } from "../action/serviceAction";
 
 const initialState = {
@@ -14,6 +17,7 @@ const initialState = {
   loading: false,
   services: [],
   banners: [],
+  affilliateBanner: [],
 };
 
 const serviceReducer = createSlice({
@@ -101,6 +105,44 @@ const serviceReducer = createSlice({
       state.loading = false;
     });
     builder.addCase(removeBanner.rejected, (state) => {
+      state.loading = false;
+    });
+
+    //............... banner list
+    builder.addCase(affiliateBannerList.pending, (state) => {
+      state.fetchLoad = true;
+    });
+    builder.addCase(affiliateBannerList.fulfilled, (state, action) => {
+      state.affilliateBanner = action.payload;
+      state.fetchLoad = false;
+    });
+    builder.addCase(affiliateBannerList.rejected, (state) => {
+      state.fetchLoad = false;
+    });
+
+    //................. create banner
+    builder.addCase(createAffilliateBanner.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(createAffilliateBanner.fulfilled, (state, action) => {
+      state.affilliateBanner = [action.payload.Data, ...state.affilliateBanner];
+      state.loading = false;
+    });
+    builder.addCase(createAffilliateBanner.rejected, (state) => {
+      state.loading = false;
+    });
+
+    //.................. remove banner
+    builder.addCase(removeAffilliateBanner.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(removeAffilliateBanner.fulfilled, (state, action) => {
+      state.affilliateBanner = state.affilliateBanner.filter(
+        (item) => item._id != action.payload.Data._id
+      );
+      state.loading = false;
+    });
+    builder.addCase(removeAffilliateBanner.rejected, (state) => {
       state.loading = false;
     });
   },

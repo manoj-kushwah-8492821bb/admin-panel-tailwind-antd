@@ -10,6 +10,7 @@ import EarningAnalytics from "../pages/dashboard/EarningAnalytics";
 // --------------- Master Routes
 import Banners from "../pages/master/banners";
 import Services from "../pages/master/Services";
+import AffiliateBanners from "../pages/master/affiliate-banner";
 
 // --------------- Users Routes
 import KYC from "../pages/manage-users/KYC";
@@ -103,6 +104,13 @@ const AllRoutes = [
     name: "Master Banners",
     path: "/master/banners",
     element: <Banners />,
+    private: true,
+  },
+
+  {
+    name: "Master Affiliate Banners",
+    path: "/master/affilliate-banners",
+    element: <AffiliateBanners />,
     private: true,
   },
 

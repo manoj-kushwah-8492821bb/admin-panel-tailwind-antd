@@ -49,6 +49,7 @@ const Sidebar = (props) => {
       child: [
         { name: "Services", path: "/master/services" },
         { name: "Banners", path: "/master/banners" },
+        { name: "Affilliate Banners", path: "/master/affilliate-banners" },
       ],
     },
 
@@ -191,7 +192,8 @@ const Sidebar = (props) => {
                 className={`flex cursor-pointer font-medium  text-hover items-center gap-4 ${
                   (item.name === dropValue || item.path === pathname) &&
                   "text-color"
-                }`}>
+                }`}
+              >
                 <span className="text-lg">{item.icon}</span>
                 <span>{item.name}</span>
                 {item.child && (
@@ -215,7 +217,8 @@ const Sidebar = (props) => {
                         onClick={() => handleNavigate(subItem.path)}
                         className={`flex font-normal  cursor-pointer text-hover gap-3 ${
                           subItem.path === pathname && "text-color"
-                        }`}>
+                        }`}
+                      >
                         - <span>{subItem.name}</span>
                       </div>
                     );
