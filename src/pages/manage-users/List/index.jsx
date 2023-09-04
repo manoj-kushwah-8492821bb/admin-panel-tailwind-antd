@@ -8,7 +8,7 @@ import Loader from "../../../common/Loader";
 import Toggle from "../../../common/Toggle";
 import Pagination from "../../../common/Pagination";
 import { IMAGE_URL } from "../../../utils/endpoints";
-import { userList } from "../../../toolkit/action/userAction";
+import { userList, userStatus } from "../../../toolkit/action/userAction";
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -23,6 +23,12 @@ const Users = () => {
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
   const handleForw = () => {
     trimEnd <= totalItems && setCurrentPage(currentPage + 1);
+  };
+
+  // handle status
+  const handleStatus = (event) => {
+    const payload = { userId: event.target.id, status: event.target.checked };
+    dispatch(userStatus({ payload, callback: () => dispatch(userList()) }));
   };
 
   // useffect
@@ -97,7 +103,11 @@ const Users = () => {
                     <td className="px-4 py-3">{item.phone}</td>
                     <td className="px-4 py-3">{item.email}</td>
                     <td className="px-4 py-3">
-                      <Toggle value={item.status} />
+                      <Toggle
+                        value={item.status}
+                        _id={item._id}
+                        handleChange={handleStatus}
+                      />
                     </td>
                     <td className="px-4 py-3">
                       <div className=" flex-col flex">

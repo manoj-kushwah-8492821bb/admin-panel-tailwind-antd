@@ -20,6 +20,25 @@ export const userList = createAsyncThunk("getUser", async () => {
   }
 });
 
+//................. users status
+export const userStatus = createAsyncThunk(
+  "userStatus",
+  async ({ payload, callback }) => {
+    try {
+      const response = await API.patch("user/status-update", payload);
+      const { Remarks, ResponseStatus } = response.data;
+      if (ResponseStatus === 1) {
+        toast.success(Remarks);
+        callback();
+      } else {
+        toast.error(Remarks);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
 //................ kyc request list
 export const kycList = createAsyncThunk("getKYC", async () => {
   try {
