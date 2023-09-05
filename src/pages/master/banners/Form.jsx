@@ -16,7 +16,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
   const [preview, setPreview] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const validator = new SimpleReactValidator();
-  const [formInput, setFormInput] = useState({ ...editData });
+  const [formInput, setFormInput] = useState({});
   const { loading } = useSelector((state) => state.serviceReducer);
 
   // handle Change

@@ -91,7 +91,7 @@ const DthRecharge = () => {
               {dths?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-xs">
-                    <td className="px-4 py-3">{item.userId._id}</td>
+                    <td className="px-4 py-3">{item._id}</td>
                     <td className="px-4 py-3">{item.operator}</td>
                     <td className="px-4 py-3">{item.number}</td>
                     <td className="px-4 py-3">{item.amount}</td>
