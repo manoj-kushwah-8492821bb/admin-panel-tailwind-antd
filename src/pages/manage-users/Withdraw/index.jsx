@@ -82,34 +82,34 @@ const Withdraw = () => {
             <tbody className="divide-y">
               {withdraws?.slice(trimStart, trimEnd).map((item) => {
                 return (
-                  <tr key={item._id} className="text-sm ">
+                  <tr key={item?._id} className="text-sm ">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2.5">
                         <img
                           src={
-                            item.userId.avatar
-                              ? `${IMAGE_URL}${item.userId.avatar}`
+                            item?.userId?.avatar
+                              ? `${IMAGE_URL}${item?.userId?.avatar}`
                               : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
                           }
                           className="w-8 h-8 rounded-full"
                         />{" "}
                         <div>
-                          {item.userId.firstName} {item.userId.lastName}
+                          {item?.userId?.firstName} {item?.userId?.lastName}
                         </div>
                       </div>
                     </td>
                     <td className="px-4 flex flex-col text-xs py-3">
                       <div className="flex gap-3">
                         <span className="font-semibold">Bank :</span>
-                        <span>{item.bankId.bankName}</span>
+                        <span>{item?.bankId?.bankName}</span>
                       </div>
                       <div className="flex gap-3">
                         <span className="font-semibold">Account :</span>
-                        <span>{item.bankId.accountNo}</span>
+                        <span>{item?.bankId?.accountNo}</span>
                       </div>
                       <div className="flex gap-3">
                         <span className="font-semibold">Branch :</span>
-                        <span>{item.bankId.branchName}</span>
+                        <span>{item?.bankId?.branchName}</span>
                       </div>
                       {/* <div className="flex gap-3">
                           <span className="font-semibold">Holder :</span>
@@ -117,7 +117,7 @@ const Withdraw = () => {
                         </div> */}
                     </td>
                     <td className="px-4 py-3">
-                      <div className="flex gap-3">₹ {item.amount}</div>
+                      <div className="flex gap-3">₹ {item?.amount}</div>
                     </td>
 
                     {/* <td className="px-4 py-3 text-xs uppercase">{item.status}</td> */}

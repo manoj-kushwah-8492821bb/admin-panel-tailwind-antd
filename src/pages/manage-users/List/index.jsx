@@ -62,6 +62,9 @@ const Users = () => {
                   Email
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                  Prime
+                </th>
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Status
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr ">
@@ -102,6 +105,7 @@ const Users = () => {
                     </td>
                     <td className="px-4 py-3">{item.phone}</td>
                     <td className="px-4 py-3">{item.email}</td>
+                    <td className="px-4 py-3">{item.isPrime ? "Yes" : "No"}</td>
                     <td className="px-4 py-3">
                       <Toggle
                         value={item.status}
