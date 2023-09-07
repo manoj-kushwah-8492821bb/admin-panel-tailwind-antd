@@ -14,8 +14,6 @@ const Balance = () => {
     (state) => state.authReducer
   );
 
-  console.log(profileData);
-
   useEffect(() => {
     dispatch(adminProfile());
     dispatch(txn_list("Wallet"));
@@ -30,14 +28,16 @@ const Balance = () => {
             onClick={() => handleActive("credit")}
             className={` ${
               active === "credit" ? "bg-color" : "bg-white text-color"
-            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}>
+            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
+          >
             Credit
           </button>
           <button
             onClick={() => handleActive("debit")}
             className={` ${
               active === "debit" ? "bg-color" : "bg-white  text-color"
-            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}>
+            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
+          >
             Debit
           </button>
         </div>
@@ -93,7 +93,8 @@ const Balance = () => {
                       <td className="px-4 py-3">{item.txnAmount}</td>
                       <td className="px-4 py-3">{item.txnId}</td>
                       <td
-                        className={`px-4 py-3 text-green-500 uppercase font-bold`}>
+                        className={`px-4 py-3 text-green-500 uppercase font-bold`}
+                      >
                         {item.txnStatus}
                       </td>
                       <td className="px-4 py-3">

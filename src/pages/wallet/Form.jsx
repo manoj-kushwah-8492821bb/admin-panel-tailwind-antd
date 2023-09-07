@@ -38,11 +38,8 @@ const Form = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validator.allValid()) {
-      const payload = { type: title, ...formInput };
-      const response = await dispatch(sendMoney(payload));
-      if (response?.payload?.Status) {
-        window.location.reload();
-      }
+      const payload = { type: active, ...formInput };
+      dispatch(sendMoney(payload));
     } else {
       validator.showMessages();
       setErrors(validator.errorMessages);
@@ -55,7 +52,7 @@ const Form = (props) => {
   }, [dispatch]);
   return (
     <div className="bg-white my-3 shadow-md p-4 rounded">
-      <form onSubmit={handleSubmit} className="text-sm w-1/2 grid gap-3">
+      <form onSubmit={handleSubmit} className="text-sm sm:w-1/2 grid gap-3">
         {/* amount */}
         <div className="grid gap-1">
           <label htmlFor="username">Username</label>
@@ -64,14 +61,30 @@ const Form = (props) => {
             name="username"
             value={formInput?.username}
             onChange={handleChange}
-            className="block w-full px-3 appearance-none py-1.5 bg-transparent outline-none border rounded-md">
+            className="block w-full px-3 appearance-none py-1.5 bg-transparent outline-none border rounded-md"
+          >
             <option>Select User</option>
             {users.map((item) => {
-              return <option value={item._id}>{item._id}</option>;
+              return (
+                <option value={item._id}>
+                  {`${item.firstName} ${item.lastName} (${item.phone})`}
+                </option>
+              );
             })}
           </select>
           {validator.message("username", formInput?.username, "required")}
           <ShowError data={errors?.username} />
+          {users.map(
+            (item) =>
+              item._id === formInput?.username && (
+                <div>
+                  <span className="text-purple-600 font-semibold tracking-wider">
+                    Balance
+                  </span>
+                  : {item.wallet.balance}
+                </div>
+              )
+          )}
         </div>
 
         {/* amount */}
@@ -111,7 +124,8 @@ const Form = (props) => {
         <div className="grid grid-cols-3 mt-1 gap-5">
           <button
             type="submit"
-            className="w-full px-5 py-2 text-sm font-medium tracking-wide text-white capitalize  bg-color duration-300 flex items-center justify-center transform  rounded-md bg-button focus:outline-none ">
+            className="w-full px-5 py-2 text-sm font-medium tracking-wide text-white capitalize  bg-color duration-300 flex items-center justify-center transform  rounded-md bg-button focus:outline-none "
+          >
             {active}
           </button>
           {/* <button

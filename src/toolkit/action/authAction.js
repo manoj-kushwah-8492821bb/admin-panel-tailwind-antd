@@ -28,6 +28,7 @@ export const sendMoney = createAsyncThunk("sendMoney", async (payload) => {
     const response = await API.post(send, payload);
     const { Remarks } = response.data;
     toast.success(Remarks);
+    window.location.reload();
     return response.data;
   } catch (error) {
     const { Remarks } = error?.response?.data;
