@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ShowError from "../../common/ShowError";
 import SimpleReactValidator from "simple-react-validator";
 import { userList } from "../../toolkit/action/userAction";
-import { sendMoney } from "../../toolkit/action/authAction";
+import { sendMoney, txn_list } from "../../toolkit/action/authAction";
 
 const Form = (props) => {
   const dispatch = useDispatch();
@@ -39,7 +39,19 @@ const Form = (props) => {
     event.preventDefault();
     if (validator.allValid()) {
       const payload = { type: active, ...formInput };
-      dispatch(sendMoney(payload));
+      dispatch(
+        sendMoney({
+          payload,
+          callback: () => {
+            setFormInput({
+              amount: "",
+              remarks: "",
+              username: "",
+            });
+            dispatch(txn_list());
+          },
+        })
+      );
     } else {
       validator.showMessages();
       setErrors(validator.errorMessages);

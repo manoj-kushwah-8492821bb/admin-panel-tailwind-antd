@@ -23,18 +23,21 @@ export const authLogin = createAsyncThunk("Auth", async (payload) => {
 });
 
 //.............. send money
-export const sendMoney = createAsyncThunk("sendMoney", async (payload) => {
-  try {
-    const response = await API.post(send, payload);
-    const { Remarks } = response.data;
-    toast.success(Remarks);
-    window.location.reload();
-    return response.data;
-  } catch (error) {
-    const { Remarks } = error?.response?.data;
-    toast.error(Remarks);
+export const sendMoney = createAsyncThunk(
+  "sendMoney",
+  async ({ payload, callback }) => {
+    try {
+      const response = await API.post(send, payload);
+      const { Remarks } = response.data;
+      toast.success(Remarks);
+      callback();
+      return response.data;
+    } catch (error) {
+      const { Remarks } = error?.response?.data;
+      toast.error(Remarks);
+    }
   }
-});
+);
 
 //................. txn list
 export const txn_list = createAsyncThunk("txn_list", async (type) => {

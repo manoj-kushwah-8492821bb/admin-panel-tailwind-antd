@@ -1,6 +1,6 @@
 import Moment from "react-moment";
-import Loader from "../../common/Loader";
 import Layout from "../../layouts/index";
+import CopyText from "../../common/CopyText";
 import Pagination from "../../common/Pagination";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -90,7 +90,9 @@ const Transaction = () => {
               {transactions?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-xs capitalize">
-                    <td className="px-4 py-3">{item.recipientId}</td>
+                    <td className="px-4 py-3">
+                      <CopyText value={item.recipientId} />
+                    </td>
                     <td className="px-4 py-3">{item.txnType}</td>
                     <td className="px-4 py-3">{item.remarks}</td>
                     <td className="px-4 py-3">{item.txnAmount}</td>

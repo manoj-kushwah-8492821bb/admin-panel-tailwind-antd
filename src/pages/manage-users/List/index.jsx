@@ -1,14 +1,11 @@
-import { toast } from "react-hot-toast";
-import { BiSolidCopy } from "react-icons/bi";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
 import Layout from "../../../layouts/index";
-import Loader from "../../../common/Loader";
 import Toggle from "../../../common/Toggle";
+import React, { useEffect, useState } from "react";
 import Pagination from "../../../common/Pagination";
 import { IMAGE_URL } from "../../../utils/endpoints";
+import { useDispatch, useSelector } from "react-redux";
 import { userList, userStatus } from "../../../toolkit/action/userAction";
+import CopyText from "../../../common/CopyText";
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -78,13 +75,7 @@ const Users = () => {
                 return (
                   <tr key={item._id} className="text-xs ">
                     <td className="px-4 py-3">
-                      <BiSolidCopy
-                        onClick={() => {
-                          toast.success("copied to clipboard");
-                          navigator.clipboard.writeText(item._id);
-                        }}
-                        className="text-gray-500 text-xl cursor-pointer"
-                      />
+                      <CopyText value={item._id} />
                     </td>
 
                     <td className="px-4 py-3">

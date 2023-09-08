@@ -5,6 +5,9 @@ import Loader from "../../../common/Loader";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { adminProfile, txn_list } from "../../../toolkit/action/authAction";
+import { BiSolidCopy } from "react-icons/bi";
+import toast from "react-hot-toast";
+import CopyText from "../../../common/CopyText";
 
 const Balance = () => {
   const dispatch = useDispatch();
@@ -87,7 +90,9 @@ const Balance = () => {
                 {transactions?.slice(0, 5).map((item) => {
                   return (
                     <tr key={item._id} className="text-xs capitalize">
-                      <td className="px-4 py-3">{item.recipientId}</td>
+                      <td className="px-4 py-3">
+                        <CopyText value={item.recipientId} />
+                      </td>
                       <td className="px-4 py-3">{item.txnType}</td>
                       <td className="px-4 py-3">{item.remarks}</td>
                       <td className="px-4 py-3">{item.txnAmount}</td>
