@@ -20,7 +20,7 @@ const Form = (props) => {
         message: "The :attribute must be a number.",
         rule: function (val, params, validator) {
           return (
-            validator.helpers.testRegex(val, /^\d+$/) &&
+            validator.helpers.testRegex(val, /^\d+(\.\d+)?$/) &&
             params.indexOf(val) === -1
           );
         },

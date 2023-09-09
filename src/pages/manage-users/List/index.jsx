@@ -1,11 +1,11 @@
 import Layout from "../../../layouts/index";
 import Toggle from "../../../common/Toggle";
+import CopyText from "../../../common/CopyText";
 import React, { useEffect, useState } from "react";
 import Pagination from "../../../common/Pagination";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { userList, userStatus } from "../../../toolkit/action/userAction";
-import CopyText from "../../../common/CopyText";
 
 const Users = () => {
   const dispatch = useDispatch();
