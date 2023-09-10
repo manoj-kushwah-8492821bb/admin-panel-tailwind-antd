@@ -59,6 +59,9 @@ const Users = () => {
                   Email
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                  Refered By
+                </th>
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Prime
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
@@ -73,46 +76,59 @@ const Users = () => {
             <tbody className="divide-y">
               {users?.slice(trimStart, trimEnd).map((item) => {
                 return (
-                  <tr key={item._id} className="text-xs ">
-                    <td className="px-4 py-3">
-                      <CopyText value={item._id} />
-                    </td>
+                  item && (
+                    <tr key={item._id} className="text-xs ">
+                      <td className="px-4 py-3">
+                        <CopyText value={item._id} />
+                      </td>
 
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2.5">
-                        <img
-                          alt={item._id}
-                          src={
-                            item.avatar
-                              ? `${IMAGE_URL}${item.avatar}`
-                              : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
-                          }
-                          className="w-8 h-8 rounded-full"
-                        />
-                        <div>
-                          {item.firstName} {item.lastName}
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2.5">
+                          <img
+                            alt={item._id}
+                            src={
+                              item.avatar
+                                ? `${IMAGE_URL}${item.avatar}`
+                                : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
+                            }
+                            className="w-8 h-8 rounded-full"
+                          />
+                          <div>
+                            {item.firstName} {item.lastName}
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">{item.phone}</td>
-                    <td className="px-4 py-3">{item.email}</td>
-                    <td className="px-4 py-3">{item.isPrime ? "Yes" : "No"}</td>
-                    <td className="px-4 py-3">
-                      <Toggle
-                        value={item.status}
-                        _id={item._id}
-                        handleChange={handleStatus}
-                      />
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className=" flex-col flex">
-                        <span>Level : {item.level}</span>
-                        <span>
-                          Balance : ₹ {Math.floor(item.wallet.balance)}
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
+                      </td>
+                      <td className="px-4 py-3">{item.phone}</td>
+                      <td className="px-4 py-3">{item.email}</td>
+                      <td className="px-4 flex items-center gap-1 py-3">
+                        {item?.referBy ? (
+                          <CopyText value={item?.referBy?._id} />
+                        ) : (
+                          "---"
+                        )}
+                        {item?.referBy?.firstName}
+                        {item?.referBy?.lastName}
+                      </td>
+                      <td className="px-4 py-3">
+                        {item.isPrime ? "Yes" : "No"}
+                      </td>
+                      <td className="px-4 py-3">
+                        <Toggle
+                          value={item.status}
+                          _id={item._id}
+                          handleChange={handleStatus}
+                        />
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className=" flex-col flex">
+                          <span>Level : {item.level}</span>
+                          <span>
+                            Balance : ₹ {Math.floor(item.wallet.balance)}
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                  )
                 );
               })}
             </tbody>
