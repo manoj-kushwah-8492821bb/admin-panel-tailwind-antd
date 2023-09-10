@@ -38,7 +38,7 @@ const Form = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validator.allValid()) {
-      const payload = { type: active, ...formInput };
+      const payload = { type: active, title, ...formInput };
       dispatch(
         sendMoney({
           payload,
@@ -62,6 +62,7 @@ const Form = (props) => {
   useEffect(() => {
     dispatch(userList());
   }, [dispatch]);
+
   return (
     <div className="bg-white my-3 shadow-md p-4 rounded">
       <form onSubmit={handleSubmit} className="text-sm sm:w-1/2 grid gap-3">
@@ -93,7 +94,7 @@ const Form = (props) => {
                   <span className="text-purple-600 font-semibold tracking-wider">
                     Balance
                   </span>
-                  : {item.wallet.balance}
+                  : {item.wallet[title]}
                 </div>
               )
           )}

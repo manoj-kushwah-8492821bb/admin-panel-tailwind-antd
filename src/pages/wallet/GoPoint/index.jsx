@@ -28,20 +28,22 @@ const GoPoint = () => {
             onClick={() => handleActive("credit")}
             className={` ${
               active === "credit" ? "bg-color" : "bg-white text-color"
-            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}>
+            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
+          >
             Credit
           </button>
           <button
             onClick={() => handleActive("debit")}
             className={` ${
               active === "debit" ? "bg-color" : "bg-white  text-color"
-            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}>
+            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
+          >
             Debit
           </button>
         </div>
         <span>Total Go Points : {profileData?.wallet?.goPoints}</span>
       </section>
-      <Form active={active} title="GoPoints" profileData={profileData} />
+      <Form active={active} title="goPoints" profileData={profileData} />
 
       {/*...................... Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
@@ -91,7 +93,8 @@ const GoPoint = () => {
                       <td className="px-4 py-3">{item.txnAmount}</td>
                       <td className="px-4 py-3">{item.txnId}</td>
                       <td
-                        className={`px-4 py-3 text-green-500 uppercase font-bold`}>
+                        className={`px-4 py-3 text-green-500 uppercase font-bold`}
+                      >
                         {item.txnStatus}
                       </td>
                       <td className="px-4 py-3">

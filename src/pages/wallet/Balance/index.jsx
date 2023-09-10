@@ -46,7 +46,7 @@ const Balance = () => {
         </div>
         <span>Total Balance : {profileData?.wallet?.balance}</span>
       </section>
-      <Form active={active} title="Wallet" profileData={profileData} />
+      <Form active={active} title="balance" profileData={profileData} />
 
       {/*................... Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">

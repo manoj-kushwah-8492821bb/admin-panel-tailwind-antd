@@ -99,8 +99,8 @@ const Sidebar = (props) => {
       path: "",
       child: [
         { name: "Wallet", path: "/wallet/balance" },
-        // { name: "Go Point", path: "/wallet/go-points" },
-        // { name: "Prime Point", path: "/wallet/prime-points" },
+        { name: "GoPoints", path: "/wallet/go-points" },
+        { name: "PrimePoints", path: "/wallet/prime-points" },
         // { name: "ApkiStore Merchant", path: "/wallet/merchant" },
       ],
     },
