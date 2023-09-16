@@ -92,9 +92,13 @@ const Transaction = () => {
                   <tr key={item._id} className="text-xs capitalize">
                     <td className="px-4 py-3">
                       {item?.recipientId ? (
-                        <CopyText value={item?.recipientId?._id} />
+                        <div className="flex gap-2">
+                          <CopyText value={item?.recipientId?._id} />
+                          {item?.recipientId?.firstName}
+                          {item?.recipientId?.lastName}
+                        </div>
                       ) : (
-                        "--"
+                        "---"
                       )}
                     </td>
                     <td className="px-4 py-3">{item.txnType}</td>
