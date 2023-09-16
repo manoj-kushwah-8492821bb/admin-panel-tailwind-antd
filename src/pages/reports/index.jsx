@@ -1,19 +1,20 @@
-import Moment from "react-moment";
 import React, { useEffect, useState } from "react";
+import Layout from "../../layouts";
+import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";
+import { bbpsHistory } from "../../toolkit/action/reportAction";
+import Pagination from "../../common/Pagination";
 
-import Layout from "../../../layouts/index";
-import Pagination from "../../../common/Pagination";
-import { rechargeHistory } from "../../../toolkit/action/reportAction";
-
-const Recharge = () => {
+const Reports = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const { recharges, fetchLoad } = useSelector((state) => state.reportReducer);
+  const { bbps, fetchLoad } = useSelector((state) => state.reportReducer);
+
+  console.log(bbps);
 
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = recharges?.length;
+  const totalItems = bbps?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -43,14 +44,12 @@ const Recharge = () => {
 
   // useffect
   useEffect(() => {
-    dispatch(rechargeHistory());
+    dispatch(bbpsHistory());
   }, [dispatch]);
-
   return (
-    <>
-      {/* Top */}
+    <div>
       <div className="flex justify-between">
-        <div>Mobile Recharges</div>
+        <div>BBPS Reports</div>
       </div>
 
       {/* Table */}
@@ -86,7 +85,7 @@ const Recharge = () => {
               </tr>
             </thead>
             <tbody>
-              {recharges?.slice(trimStart, trimEnd).map((item) => {
+              {bbps?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-xs">
                     <td className="px-4 py-3">
@@ -95,7 +94,7 @@ const Recharge = () => {
                     <td className="px-4 py-3">{item.operator}</td>
                     <td className="px-4 py-3">{item.circle}</td>
                     <td className="px-4 py-3">{item.number}</td>
-                    <td className="px-4 py-3">{item.amount}</td>
+                    <td className="px-4 py-3">₹ {item.amount}</td>
                     <td className="px-4 py-3">{item.apiTransID}</td>
                     <td
                       className={`px-4 py-3 ${colors(
@@ -112,7 +111,7 @@ const Recharge = () => {
                   </tr>
                 );
               })}
-            </tbody>
+            </tbody>{" "}
           </table>
           <Pagination
             handlePrev={handlePrev}
@@ -124,8 +123,8 @@ const Recharge = () => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Layout(Recharge);
+export default Layout(Reports);

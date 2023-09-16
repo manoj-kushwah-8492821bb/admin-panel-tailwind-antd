@@ -54,6 +54,7 @@ import Admin from "../pages/admin";
 import Setting from "../pages/setting";
 
 // --------------- Reports Routes
+import Reports from "../pages/reports";
 import Recharge from "../pages/reports/recharge";
 import DthRecharge from "../pages/reports/dthRecharge";
 
@@ -281,6 +282,12 @@ const AllRoutes = [
     private: true,
   },
   // --------------- Reports Routes
+  {
+    name: "Service Reports",
+    path: "/reports",
+    element: <Reports />,
+    private: true,
+  },
   {
     name: "Recharge Report",
     path: "/report/recharge",

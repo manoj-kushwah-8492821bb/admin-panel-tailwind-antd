@@ -1,11 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   allTransaction,
+  bbpsHistory,
   dthHistory,
   rechargeHistory,
 } from "../action/reportAction";
 
-const initialState = { fetchLoad: false, recharges: [], dths: [], allTxn: [] };
+const initialState = {
+  fetchLoad: false,
+  recharges: [],
+  dths: [],
+  allTxn: [],
+  bbps: [],
+};
 
 const reportReducer = createSlice({
   name: "Report",
@@ -33,6 +40,18 @@ const reportReducer = createSlice({
       state.dths = action.payload;
     });
     builder.addCase(dthHistory.rejected, (state) => {
+      state.fetchLoad = false;
+    });
+
+    //................... bbps history
+    builder.addCase(bbpsHistory.pending, (state) => {
+      state.fetchLoad = true;
+    });
+    builder.addCase(bbpsHistory.fulfilled, (state, action) => {
+      state.fetchLoad = false;
+      state.bbps = action.payload;
+    });
+    builder.addCase(bbpsHistory.rejected, (state) => {
       state.fetchLoad = false;
     });
 

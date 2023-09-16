@@ -101,7 +101,6 @@ const Sidebar = (props) => {
         { name: "Wallet", path: "/wallet/balance" },
         { name: "GoPoints", path: "/wallet/go-points" },
         { name: "PrimePoints", path: "/wallet/prime-points" },
-        // { name: "ApkiStore Merchant", path: "/wallet/merchant" },
       ],
     },
 
@@ -111,19 +110,9 @@ const Sidebar = (props) => {
       icon: <TbReportSearch />,
       path: "",
       child: [
-        { name: "All Services", path: "" },
+        { name: "BBPS Reports", path: "/reports" },
         { name: "Dth Recharge", path: "/report/dth" },
         { name: "Mobile Recharge", path: "/report/recharge" },
-        // { name: "API Sales", path: "" },
-        // { name: "Pending Recharge", path: "" },
-        // { name: "Update Recharge", path: "" },
-        // { name: "SMS Report", path: "" },
-        // { name: "ApkiStore Wallet", path: "" },
-        // { name: "Go Point", path: "" },
-        // { name: "Prime Point", path: "" },
-        // { name: "Payment Gateway", path: "" },
-        // { name: "Bus Booking", path: "" },
-        // { name: "Flight Booking", path: "" },
       ],
     },
 
