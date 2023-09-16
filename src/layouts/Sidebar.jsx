@@ -111,9 +111,9 @@ const Sidebar = (props) => {
       icon: <TbReportSearch />,
       path: "",
       child: [
-        // { name: "Service", path: "" },
-        { name: "Mobile Recharge", path: "/report/recharge" },
+        { name: "All Services", path: "" },
         { name: "Dth Recharge", path: "/report/dth" },
+        { name: "Mobile Recharge", path: "/report/recharge" },
         // { name: "API Sales", path: "" },
         // { name: "Pending Recharge", path: "" },
         // { name: "Update Recharge", path: "" },
@@ -138,7 +138,11 @@ const Sidebar = (props) => {
     {
       name: "Transactions",
       icon: <AiOutlineTransaction />,
-      path: "/transaction",
+      path: "",
+      child: [
+        { name: "Transactions", path: "/transaction" },
+        { name: "Admin Transactions", path: "/transaction/admin" },
+      ],
     },
 
     // Notification

@@ -1,19 +1,19 @@
 import Moment from "react-moment";
-import Layout from "../../layouts/index";
-import CopyText from "../../common/CopyText";
-import Pagination from "../../common/Pagination";
+import Layout from "../../../layouts/index";
+import CopyText from "../../../common/CopyText";
+import Pagination from "../../../common/Pagination";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { allTransaction } from "../../toolkit/action/reportAction";
+import { txn_list } from "../../../toolkit/action/authAction";
 
-const Transaction = () => {
+const AdminTransaction = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const { allTxn, fetchLoad } = useSelector((state) => state.reportReducer);
+  const { transactions, fetchLoad } = useSelector((state) => state.authReducer);
 
   //................. Pagination Logic
   const perPageItems = 10;
-  const totalItems = allTxn?.length;
+  const totalItems = transactions?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -43,14 +43,14 @@ const Transaction = () => {
 
   //..................... useffect
   useEffect(() => {
-    dispatch(allTransaction());
+    dispatch(txn_list());
   }, [dispatch]);
 
   return (
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div>Transaction</div>
+        <div> Admin Transaction</div>
       </div>
 
       {/*................ Table */}
@@ -87,21 +87,14 @@ const Transaction = () => {
             </thead>
 
             <tbody>
-              {allTxn?.slice(trimStart, trimEnd).map((item) => {
+              {transactions?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-xs capitalize">
                     <td className="px-4 py-3">
-                      {item?.recipientId ? (
-                        <CopyText value={item?.recipientId?._id} />
-                      ) : (
-                        "--"
-                      )}
+                      <CopyText value={item.recipientId} />
                     </td>
                     <td className="px-4 py-3">{item.txnType}</td>
-                    <td className="px-4 py-3">
-                      {item.txnDesc.slice(0, 20)}
-                      {item.txnDesc.length > 20 && "..."}
-                    </td>
+                    <td className="px-4 py-3">{item.remarks}</td>
                     <td className="px-4 py-3">₹ {item.txnAmount} /-</td>
                     <td className="px-4 py-3">{item.txnResource}</td>
                     <td className="px-4 py-3">{item.txnId}</td>
@@ -134,4 +127,4 @@ const Transaction = () => {
   );
 };
 
-export default Layout(Transaction);
+export default Layout(AdminTransaction);

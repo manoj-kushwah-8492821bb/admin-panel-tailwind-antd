@@ -116,7 +116,7 @@ const ServiceArea = () => {
                 return (
                   <tr key={item._id} className="text-sm ">
                     <td className="px-4 py-3">{item.pinCode}</td>
-                    <td className="px-4 py-3">{item.deliveryCharge}</td>
+                    <td className="px-4 py-3">₹ {item.deliveryCharge}/-</td>
                     <td className="px-4 py-3">
                       <Toggle
                         _id={item._id}

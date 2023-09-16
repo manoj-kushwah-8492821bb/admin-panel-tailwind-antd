@@ -11,11 +11,13 @@ import TopBar from "../../../common/TopBar";
 import Pagination from "../../../common/Pagination";
 import Options from "../../../common/Options";
 import { useNavigate } from "react-router-dom";
+import Searchbox from "../../../common/Searchbox";
 
 const Products = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const { productsList, fetchLoad } = useSelector(
     (state) => state.shoppingReducer
@@ -27,9 +29,18 @@ const Products = () => {
     );
   };
 
+  // handleFilter
+  const filteredData = productsList.filter(
+    (item) =>
+      item.productName &&
+      item.productName?.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const data = searchValue ? filteredData : productsList;
+
   //..................... Pagination Logic
   const perPageItems = 10;
-  const totalItems = productsList?.length;
+  const totalItems = data?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -46,6 +57,11 @@ const Products = () => {
       <TopBar title="Products" />
       {/*................. Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+        <Searchbox
+          title="name"
+          value={searchValue}
+          handleChange={(event) => setSearchValue(event?.target?.value)}
+        />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead className="bg-gray-100 title-font tracking-wider text-sm">
@@ -59,7 +75,7 @@ const Products = () => {
               </tr>
             </thead>
             <tbody className="divide-y">
-              {productsList?.slice(trimStart, trimEnd).map((item) => {
+              {data?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-sm">
                     <td className="px-4 py-3">

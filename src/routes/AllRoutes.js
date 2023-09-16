@@ -45,6 +45,7 @@ import Notification from "../pages/notification";
 
 // --------------- Transaction Routes
 import Transactions from "../pages/transactions";
+import AdminTransaction from "../pages/transactions/adminTxn";
 
 // --------------- Admin Routes
 import Admin from "../pages/admin";
@@ -255,6 +256,12 @@ const AllRoutes = [
     name: "Transaction",
     path: "/transaction",
     element: <Transactions />,
+    private: true,
+  },
+  {
+    name: "AdminTransaction",
+    path: "/transaction/admin",
+    element: <AdminTransaction />,
     private: true,
   },
 

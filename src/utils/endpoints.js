@@ -6,6 +6,7 @@ console.log(IMAGE_URL);
 export const send = "admin/send";
 export const login_url = "admin/login";
 export const txnHistory = "admin/txn-list";
+export const allTxnHistory = "txn/list/all";
 export const profile_data = "admin/profile";
 
 // Services
