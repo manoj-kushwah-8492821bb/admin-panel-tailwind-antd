@@ -3,19 +3,19 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Form from "./Form";
-import Layout from "../../../layouts/index";
-import Button from "../../../common/Button";
 import {
   removeService,
   serviceList,
   updateService,
 } from "../../../toolkit/action/serviceAction";
+import Layout from "../../../layouts/index";
+import Button from "../../../common/Button";
 import Toggle from "../../../common/Toggle";
 import Options from "../../../common/Options";
-import { IMAGE_URL } from "../../../utils/endpoints";
+import Searchbox from "../../../common/Searchbox";
 import Pagination from "../../../common/Pagination";
+import { IMAGE_URL } from "../../../utils/endpoints";
 import Confrimation from "../../../common/Confirmation";
-import Loader from "../../../common/Loader";
 
 const Services = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ const Services = () => {
     deleteModal: false,
   });
   const [editData, setEditData] = useState();
+  const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const { services, fetchLoad, loading } = useSelector(
     (state) => state.serviceReducer
@@ -69,9 +70,17 @@ const Services = () => {
     );
   };
 
+  // handleFilter
+  const filteredData = services.filter(
+    (item) =>
+      item.name && item.name?.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const data = searchValue ? filteredData : services;
+
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = services?.length;
+  const totalItems = data?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -98,6 +107,11 @@ const Services = () => {
 
       {/* Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+        <Searchbox
+          title="service name"
+          value={searchValue}
+          handleChange={(event) => setSearchValue(event?.target?.value)}
+        />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
@@ -123,7 +137,7 @@ const Services = () => {
               </tr>
             </thead>
             <tbody className="divide-y text-sm">
-              {services?.slice(trimStart, trimEnd).map((item) => {
+              {data?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id}>
                     <td className="px-4 py-2">

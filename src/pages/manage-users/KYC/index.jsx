@@ -8,9 +8,11 @@ import Pagination from "../../../common/Pagination";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import ReasonModal from "../../../common/ReasonModal";
 import { kycList, manageKYC } from "../../../toolkit/action/userAction";
+import Searchbox from "../../../common/Searchbox";
 
 const KYC = () => {
   const dispatch = useDispatch();
+  const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState();
   const { kycs, fetchLoad } = useSelector((state) => state.userReducer);
@@ -28,9 +30,18 @@ const KYC = () => {
     }
   };
 
+  // handleFilter
+  const filteredData = kycs.filter(
+    (item) =>
+      item?.userId?.firstName &&
+      item?.userId?.firstName?.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const data = searchValue ? filteredData : kycs;
+
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = kycs?.length;
+  const totalItems = data?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -52,6 +63,11 @@ const KYC = () => {
 
       {/* Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+        <Searchbox
+          title="user's name"
+          value={searchValue}
+          handleChange={(event) => setSearchValue(event?.target?.value)}
+        />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap  w-full text-left">
             <thead>
@@ -78,7 +94,7 @@ const KYC = () => {
             </thead>
 
             <tbody className="divide-y">
-              {kycs?.slice(trimStart, trimEnd).map((item) => {
+              {data?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-sm ">
                     <td className="px-4 py-3">

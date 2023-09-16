@@ -15,10 +15,13 @@ import {
   affiliateRemove,
 } from "../../toolkit/action/affiliateAction";
 import { useNavigate } from "react-router-dom";
+import Searchbox from "../../common/Searchbox";
 
 const Affiliate = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [searchValue, setSearchValue] = useState("");
 
   const [modals, setModals] = useState({
     formModal: false,
@@ -45,9 +48,17 @@ const Affiliate = () => {
     }
   };
 
+  // handleFilter
+  const filteredData = affiliates.filter(
+    (item) =>
+      item.name && item.name?.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const data = searchValue ? filteredData : affiliates;
+
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = affiliates?.length;
+  const totalItems = data?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -74,6 +85,11 @@ const Affiliate = () => {
 
       {/* Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+        <Searchbox
+          title="name"
+          value={searchValue}
+          handleChange={(event) => setSearchValue(event?.target?.value)}
+        />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
@@ -97,7 +113,7 @@ const Affiliate = () => {
               </tr>
             </thead>
             <tbody className="divide-y">
-              {affiliates?.slice(trimStart, trimEnd).map((item) => {
+              {data?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-sm ">
                     <td className="px-4 py-3">

@@ -6,15 +6,26 @@ import Pagination from "../../../common/Pagination";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { userList, userStatus } from "../../../toolkit/action/userAction";
+import Searchbox from "../../../common/Searchbox";
 
 const Users = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
   const { users, fetchLoad } = useSelector((state) => state.userReducer);
+
+  // handleFilter
+  const filteredData = users.filter(
+    (item) =>
+      item.firstName &&
+      item.firstName?.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const data = searchValue ? filteredData : users;
 
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = users?.length;
+  const totalItems = data?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -42,6 +53,11 @@ const Users = () => {
 
       {/* Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+        <Searchbox
+          title="user's name"
+          value={searchValue}
+          handleChange={(event) => setSearchValue(event?.target?.value)}
+        />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y w-full text-left whitespace-nowrap">
             <thead>
@@ -74,7 +90,7 @@ const Users = () => {
             </thead>
 
             <tbody className="divide-y">
-              {users?.slice(trimStart, trimEnd).map((item) => {
+              {data?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   item && (
                     <tr key={item._id} className="text-xs ">

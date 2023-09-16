@@ -11,9 +11,11 @@ import {
   manageWithdraw,
   withdrawList,
 } from "../../../toolkit/action/userAction";
+import Searchbox from "../../../common/Searchbox";
 
 const Withdraw = () => {
   const dispatch = useDispatch();
+  const [searchValue, setSearchValue] = useState("");
   const [showModal, setShowModal] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const { withdraws, fetchLoad } = useSelector((state) => state.userReducer);
@@ -31,9 +33,18 @@ const Withdraw = () => {
     }
   };
 
+  // handleFilter
+  const filteredData = withdraws.filter(
+    (item) =>
+      item?.userId?.firstName &&
+      item?.userId?.firstName?.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const data = searchValue ? filteredData : withdraws;
+
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = withdraws?.length;
+  const totalItems = data?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -55,6 +66,11 @@ const Withdraw = () => {
 
       {/* Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+        <Searchbox
+          title="user's name"
+          value={searchValue}
+          handleChange={(event) => setSearchValue(event?.target?.value)}
+        />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap  w-full text-left">
             <thead>
@@ -80,7 +96,7 @@ const Withdraw = () => {
             </thead>
 
             <tbody className="divide-y">
-              {withdraws?.slice(trimStart, trimEnd).map((item) => {
+              {data?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item?._id} className="text-sm ">
                     <td className="px-4 py-3">

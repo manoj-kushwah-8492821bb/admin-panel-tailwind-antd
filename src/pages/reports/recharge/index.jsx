@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "../../../layouts/index";
-import Loader from "../../../common/Loader";
 import Pagination from "../../../common/Pagination";
 import { rechargeHistory } from "../../../toolkit/action/reportAction";
 

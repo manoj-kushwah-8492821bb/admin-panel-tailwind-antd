@@ -9,16 +9,27 @@ import Options from "../../common/Options";
 import Pagination from "../../common/Pagination";
 import { IMAGE_URL } from "../../utils/endpoints";
 import { merchantList } from "../../toolkit/action/userAction";
+import Searchbox from "../../common/Searchbox";
 
 const Merchants = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const { merchants, fetchLoad } = useSelector((state) => state.userReducer);
 
+  // handleFilter
+  const filteredData = merchants.filter(
+    (item) =>
+      item?.userId?.firstName &&
+      item?.userId?.firstName?.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const data = searchValue ? filteredData : merchants;
+
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = merchants?.length;
+  const totalItems = data?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -35,6 +46,11 @@ const Merchants = () => {
     <div>
       <TopBar title="Merchants" />
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+        <Searchbox
+          title="marchant's name"
+          value={searchValue}
+          handleChange={(event) => setSearchValue(event?.target?.value)}
+        />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y w-full text-left whitespace-nowrap">
             <thead>
@@ -61,7 +77,7 @@ const Merchants = () => {
             </thead>
 
             <tbody className="divide-y">
-              {merchants?.slice(trimStart, trimEnd).map((item) => {
+              {data?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-xs ">
                     <td className="px-4 py-3">

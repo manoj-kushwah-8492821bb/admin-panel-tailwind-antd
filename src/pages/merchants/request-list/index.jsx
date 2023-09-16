@@ -6,22 +6,32 @@ import {
   merchantList,
   merchantSatusUpdate,
 } from "../../../toolkit/action/userAction";
-import Pagination from "../../../common/Pagination";
-import Loader from "../../../common/Loader";
-import { IMAGE_URL } from "../../../utils/endpoints";
 import { useNavigate } from "react-router-dom";
+import Searchbox from "../../../common/Searchbox";
+import Pagination from "../../../common/Pagination";
+import { IMAGE_URL } from "../../../utils/endpoints";
 
 const RequestList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const { merchants, fetchLoad } = useSelector((state) => state.userReducer);
 
   const list = merchants.filter((item) => item.status !== "accept");
 
+  // handleFilter
+  const filteredData = list.filter(
+    (item) =>
+      item?.userId?.firstName &&
+      item?.userId?.firstName?.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const data = searchValue ? filteredData : list;
+
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = list?.length;
+  const totalItems = data?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -47,6 +57,11 @@ const RequestList = () => {
     <div>
       <TopBar title="Request List" />
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+        <Searchbox
+          title="merchant's name"
+          value={searchValue}
+          handleChange={(event) => setSearchValue(event?.target?.value)}
+        />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y w-full text-left whitespace-nowrap">
             <thead>
@@ -73,7 +88,7 @@ const RequestList = () => {
             </thead>
 
             <tbody className="divide-y">
-              {list?.slice(trimStart, trimEnd).map((item) => {
+              {data?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-xs ">
                     <td className="px-4 py-3">
