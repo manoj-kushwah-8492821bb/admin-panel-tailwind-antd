@@ -9,12 +9,30 @@ import { txn_list } from "../../../toolkit/action/authAction";
 
 const AdminTransaction = () => {
   const dispatch = useDispatch();
+  const [formInput, setFormInput] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const { transactions, fetchLoad } = useSelector((state) => state.authReducer);
 
+  // handle change
+  const handleChange = (event) => {
+    setFormInput({ ...formInput, [event.target.name]: event.target.value });
+  };
+
+  // handleFilter
+  const result = formInput.from
+    ? transactions.filter((item) => {
+        const to = formInput.to
+          ? new Date(formInput.to).getTime()
+          : new Date().getTime();
+        const from = new Date(formInput.from).getTime();
+        const createdAt = new Date(item.createdAt).getTime();
+        return from <= createdAt && to >= createdAt;
+      })
+    : transactions;
+
   //................. Pagination Logic
   const perPageItems = 10;
-  const totalItems = transactions?.length;
+  const totalItems = result?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -56,7 +74,11 @@ const AdminTransaction = () => {
 
       {/*................ Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
-        <DateRange />
+        <DateRange
+          formInput={formInput}
+          handleChange={(event) => handleChange(event)}
+          handleReset={() => setFormInput({ from: "", to: "" })}
+        />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
@@ -89,7 +111,7 @@ const AdminTransaction = () => {
             </thead>
 
             <tbody>
-              {transactions?.slice(trimStart, trimEnd).map((item) => {
+              {result?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-xs capitalize">
                     <td className="px-4 py-3">

@@ -6,28 +6,34 @@ import Pagination from "../../common/Pagination";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { allTransaction } from "../../toolkit/action/reportAction";
+import toast from "react-hot-toast";
 
 const Transaction = () => {
   const dispatch = useDispatch();
+  const [formInput, setFormInput] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const { allTxn, fetchLoad } = useSelector((state) => state.reportReducer);
 
-  const handleFilter = (data) => {
-    if (data.from) {
-      const rs = allTxn.filter((item) => {
-        const to = data.to ? new Date(data.to).getTime() : new Date().getTime();
-        const from = new Date(data.from).getTime();
+  // handle change
+  const handleChange = (event) => {
+    setFormInput({ ...formInput, [event.target.name]: event.target.value });
+  };
+
+  // handleFilter
+  const result = formInput.from
+    ? allTxn.filter((item) => {
+        const to = formInput.to
+          ? new Date(formInput.to).getTime()
+          : new Date().getTime();
+        const from = new Date(formInput.from).getTime();
         const createdAt = new Date(item.createdAt).getTime();
         return from <= createdAt && to >= createdAt;
-      });
-    } else {
-      return allTxn;
-    }
-  };
+      })
+    : allTxn;
 
   //................. Pagination Logic
   const perPageItems = 10;
-  const totalItems = allTxn?.length;
+  const totalItems = result?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -69,7 +75,11 @@ const Transaction = () => {
 
       {/*................ Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
-        <DateRange handleFilter={(data) => handleFilter(data)} />
+        <DateRange
+          formInput={formInput}
+          handleChange={(event) => handleChange(event)}
+          handleReset={() => setFormInput({ from: "", to: "" })}
+        />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
@@ -102,7 +112,7 @@ const Transaction = () => {
             </thead>
 
             <tbody>
-              {allTxn?.slice(trimStart, trimEnd).map((item) => {
+              {result?.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-xs capitalize">
                     <td className="px-4 py-3">
