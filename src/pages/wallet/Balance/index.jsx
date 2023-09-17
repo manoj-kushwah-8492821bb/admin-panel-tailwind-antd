@@ -90,8 +90,19 @@ const Balance = () => {
                 {transactions?.slice(0, 5).map((item) => {
                   return (
                     <tr key={item._id} className="text-xs capitalize">
-                      <td className="px-4 py-3">
-                        <CopyText value={item.recipientId} />
+                      <td className="px-4 flex items-center gap-2 py-3">
+                        <CopyText
+                          value={
+                            item.txnType === "credit"
+                              ? item.recipientId
+                              : item?.recipientId?._id
+                          }
+                        />
+                        <span>
+                          {item.txnType === "credit"
+                            ? "Admin"
+                            : `${item?.recipientId?.firstName} ${item?.recipientId?.lastName}`}
+                        </span>
                       </td>
                       <td className="px-4 py-3">{item.txnType}</td>
                       <td className="px-4 py-3">{item.remarks}</td>
