@@ -9,9 +9,21 @@ import { allTransaction } from "../../toolkit/action/reportAction";
 
 const Transaction = () => {
   const dispatch = useDispatch();
-
   const [currentPage, setCurrentPage] = useState(1);
   const { allTxn, fetchLoad } = useSelector((state) => state.reportReducer);
+
+  const handleFilter = (data) => {
+    if (data.from) {
+      const rs = allTxn.filter((item) => {
+        const to = data.to ? new Date(data.to).getTime() : new Date().getTime();
+        const from = new Date(data.from).getTime();
+        const createdAt = new Date(item.createdAt).getTime();
+        return from <= createdAt && to >= createdAt;
+      });
+    } else {
+      return allTxn;
+    }
+  };
 
   //................. Pagination Logic
   const perPageItems = 10;
@@ -57,7 +69,7 @@ const Transaction = () => {
 
       {/*................ Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
-        <DateRange />
+        <DateRange handleFilter={(data) => handleFilter(data)} />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>

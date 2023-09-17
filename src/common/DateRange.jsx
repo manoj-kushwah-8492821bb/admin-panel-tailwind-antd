@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const DateRange = ({}) => {
+const DateRange = ({ handleFilter }) => {
   const [formInput, setFormInput] = useState({});
 
   // handleChange
@@ -8,8 +8,6 @@ const DateRange = ({}) => {
     setFormInput({ [event.target.name]: event.target.value });
   };
 
-  // handleSubmit
-  const handleSubmit = async () => {};
   return (
     <div className="flex text-sm items-center pb-4 justify-end">
       <div className="py-1 border-b flex flex-wrap gap-2">
@@ -34,7 +32,10 @@ const DateRange = ({}) => {
           className="outline-none"
         />
 
-        <button onClick={handleSubmit} className="text-blue-500">
+        <button
+          onClick={() => handleFilter(formInput)}
+          className="text-blue-500"
+        >
           Apply
         </button>
       </div>

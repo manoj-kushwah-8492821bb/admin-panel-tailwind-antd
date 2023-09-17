@@ -6,6 +6,7 @@ import {
   withdrawList,
   merchantList,
   manageWithdraw,
+  giftCardList,
 } from "../action/userAction";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   users: [],
   withdraws: [],
   merchants: [],
+  giftCardsList: [],
 };
 
 const userReducer = createSlice({
@@ -90,6 +92,18 @@ const userReducer = createSlice({
     });
     builder.addCase(manageWithdraw.rejected, (state) => {
       state.loading = false;
+    });
+
+    //..................... gift card list
+    builder.addCase(giftCardList.pending, (state) => {
+      state.fetchLoad = true;
+    });
+    builder.addCase(giftCardList.fulfilled, (state, action) => {
+      state.giftCardsList = action.payload;
+      state.fetchLoad = false;
+    });
+    builder.addCase(giftCardList.rejected, (state) => {
+      state.fetchLoad = false;
     });
   },
 });

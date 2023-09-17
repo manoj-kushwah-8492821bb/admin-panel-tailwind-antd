@@ -1,6 +1,4 @@
 export const IMAGE_URL = process.env.REACT_APP_IMAGE_BASEURL;
-// export const IMAGE_URL = "http://localhost:5000/";
-console.log(IMAGE_URL);
 
 // Authorization
 export const send = "admin/send";
@@ -21,6 +19,7 @@ export const notification_list = "notification/list/admin";
 export const kyc_list = "kyc/list";
 export const user_list = "user/list";
 export const kyc_manage = "kyc/manage";
+export const giftCard_list = "admin/gift-cards";
 export const withdraw_manage = "wallet/manage-withdraw-request";
 export const withdraw_list = "wallet/withdraw-request-list-admin";
 

@@ -5,6 +5,7 @@ import {
   kyc_manage,
   withdraw_list,
   withdraw_manage,
+  giftCard_list,
 } from "../../utils/endpoints";
 import { API } from "../../utils/interceptor";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -132,3 +133,14 @@ export const merchantSatusUpdate = createAsyncThunk(
     }
   }
 );
+
+// ----------------------------------- GIFT CARDS
+export const giftCardList = createAsyncThunk("giftCardList", async (query) => {
+  try {
+    const response = await API.get(giftCard_list);
+    const { Data } = response.data;
+    return Data;
+  } catch (error) {
+    throw error;
+  }
+});

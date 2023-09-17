@@ -9,7 +9,12 @@ import { FaUsers, FaWallet } from "react-icons/fa";
 import { BsChevronDown, BsChevronUp, BsGear } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BiSolidHome } from "react-icons/bi";
-import { MdClose, MdNotifications, MdTouchApp } from "react-icons/md";
+import {
+  MdCardGiftcard,
+  MdClose,
+  MdNotifications,
+  MdTouchApp,
+} from "react-icons/md";
 import { PiUsersThreeThin } from "react-icons/pi";
 import { SiInternetexplorer } from "react-icons/si";
 
@@ -150,6 +155,12 @@ const Sidebar = (props) => {
       name: "IP Address",
       icon: <SiInternetexplorer />,
       path: "/whitelist-address",
+    },
+
+    {
+      name: "Gift Cards",
+      icon: <MdCardGiftcard />,
+      path: "/gift-cards",
     },
 
     {

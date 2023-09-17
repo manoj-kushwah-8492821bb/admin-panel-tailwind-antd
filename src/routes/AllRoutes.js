@@ -64,6 +64,7 @@ import View from "../pages/affiliate/View";
 
 // --------------- IP Address Routes
 import WhitelistIp from "../pages/whitelist-ip";
+import GiftCards from "../pages/giftCards";
 
 const AllRoutes = [
   // --------------- Auth Routes
@@ -320,6 +321,14 @@ const AllRoutes = [
     name: "Whitelist IPs",
     path: "/whitelist-address",
     element: <WhitelistIp />,
+    private: true,
+  },
+
+  // --------------- Gift Cards Routes
+  {
+    name: "Gift Cards",
+    path: "/gift-cards",
+    element: <GiftCards />,
     private: true,
   },
 ];

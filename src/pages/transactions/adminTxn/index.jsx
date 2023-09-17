@@ -1,6 +1,7 @@
 import Moment from "react-moment";
 import Layout from "../../../layouts/index";
 import CopyText from "../../../common/CopyText";
+import DateRange from "../../../common/DateRange";
 import Pagination from "../../../common/Pagination";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,6 +56,7 @@ const AdminTransaction = () => {
 
       {/*................ Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
+        <DateRange />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
