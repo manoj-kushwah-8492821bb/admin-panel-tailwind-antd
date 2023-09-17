@@ -6,30 +6,36 @@ import Pagination from "../../common/Pagination";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { allTransaction } from "../../toolkit/action/reportAction";
-import toast from "react-hot-toast";
 
 const Transaction = () => {
   const dispatch = useDispatch();
   const [formInput, setFormInput] = useState({});
+  const [activeTab, setActiveTab] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const { allTxn, fetchLoad } = useSelector((state) => state.reportReducer);
 
   // handle change
   const handleChange = (event) => {
+    setActiveTab("All");
     setFormInput({ ...formInput, [event.target.name]: event.target.value });
   };
 
   // handleFilter
-  const result = formInput.from
-    ? allTxn.filter((item) => {
-        const to = formInput.to
-          ? new Date(formInput.to).getTime()
-          : new Date().getTime();
-        const from = new Date(formInput.from).getTime();
-        const createdAt = new Date(item.createdAt).getTime();
-        return from <= createdAt && to >= createdAt;
-      })
-    : allTxn;
+  const result =
+    formInput.from || activeTab !== "All"
+      ? allTxn.filter((item) => {
+          const to = formInput.to
+            ? new Date(formInput.to).getTime()
+            : new Date().getTime();
+          const from = new Date(formInput.from).getTime();
+          const createdAt = new Date(item.createdAt).getTime();
+          if (formInput.from) {
+            return from <= createdAt && to >= createdAt;
+          } else {
+            return activeTab.toLowerCase() === item.txnResource.toLowerCase();
+          }
+        })
+      : allTxn;
 
   //................. Pagination Logic
   const perPageItems = 10;
@@ -81,6 +87,25 @@ const Transaction = () => {
           handleReset={() => setFormInput({ from: "", to: "" })}
         />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
+          {/* Tabs */}
+          <div className="flex gap-3 px-4 py-2">
+            {["All", "Wallet", "GoPoints", "PrimePoints", "Online"].map(
+              (item) => (
+                <div
+                  onClick={() => {
+                    setFormInput({ from: "", to: "" });
+                    setActiveTab(item);
+                  }}
+                  className={`cursor-pointer ${
+                    activeTab === item &&
+                    "text-blue-500 border-b border-blue-500"
+                  } hover:text-blue-500 hover:border-b hover:border-blue-500`}
+                >
+                  {item}
+                </div>
+              )
+            )}
+          </div>
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
               <tr>

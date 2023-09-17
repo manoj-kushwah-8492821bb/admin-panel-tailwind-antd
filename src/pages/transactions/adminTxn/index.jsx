@@ -9,26 +9,33 @@ import { txn_list } from "../../../toolkit/action/authAction";
 
 const AdminTransaction = () => {
   const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = useState("All");
   const [formInput, setFormInput] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const { transactions, fetchLoad } = useSelector((state) => state.authReducer);
 
   // handle change
   const handleChange = (event) => {
+    setActiveTab("All");
     setFormInput({ ...formInput, [event.target.name]: event.target.value });
   };
 
   // handleFilter
-  const result = formInput.from
-    ? transactions.filter((item) => {
-        const to = formInput.to
-          ? new Date(formInput.to).getTime()
-          : new Date().getTime();
-        const from = new Date(formInput.from).getTime();
-        const createdAt = new Date(item.createdAt).getTime();
-        return from <= createdAt && to >= createdAt;
-      })
-    : transactions;
+  const result =
+    formInput.from || activeTab !== "All"
+      ? transactions.filter((item) => {
+          const to = formInput.to
+            ? new Date(formInput.to).getTime()
+            : new Date().getTime();
+          const from = new Date(formInput.from).getTime();
+          const createdAt = new Date(item.createdAt).getTime();
+          if (formInput.from) {
+            return from <= createdAt && to >= createdAt;
+          } else {
+            return activeTab.toLowerCase() === item.txnResource.toLowerCase();
+          }
+        })
+      : transactions;
 
   //................. Pagination Logic
   const perPageItems = 10;
@@ -80,6 +87,22 @@ const AdminTransaction = () => {
           handleReset={() => setFormInput({ from: "", to: "" })}
         />
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
+          {/* Tabs */}
+          <div className="flex gap-3 px-4 py-2">
+            {["All", "Wallet", "GoPoints", "PrimePoints"].map((item) => (
+              <div
+                onClick={() => {
+                  setFormInput({ from: "", to: "" });
+                  setActiveTab(item);
+                }}
+                className={`cursor-pointer ${
+                  activeTab === item && "text-blue-500 border-b border-blue-500"
+                } hover:text-blue-500 hover:border-b hover:border-blue-500`}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
               <tr>
