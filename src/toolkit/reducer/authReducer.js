@@ -11,6 +11,7 @@ const initialState = {
   fetchLoad: false,
   transactions: [],
   profileData: {},
+  responseStatus: 10,
 };
 
 const authReducer = createSlice({
@@ -33,8 +34,10 @@ const authReducer = createSlice({
     builder.addCase(sendMoney.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(sendMoney.fulfilled, (state) => {
+    builder.addCase(sendMoney.fulfilled, (state, action) => {
+      console.log(action);
       state.loading = false;
+      state.responseStatus = action.payload.ResponseStatus;
     });
     builder.addCase(sendMoney.rejected, (state) => {
       state.loading = false;

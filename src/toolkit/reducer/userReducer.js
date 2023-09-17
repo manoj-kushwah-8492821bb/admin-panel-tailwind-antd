@@ -17,6 +17,7 @@ const initialState = {
   withdraws: [],
   merchants: [],
   giftCardsList: [],
+  responseStatus: 10,
 };
 
 const userReducer = createSlice({

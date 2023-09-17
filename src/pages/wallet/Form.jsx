@@ -12,6 +12,7 @@ const Form = (props) => {
   const [errors, setErrors] = useState({});
   const [formInput, setFormInput] = useState({});
   const { users } = useSelector((state) => state.userReducer);
+  const { responseStatus } = useSelector((state) => state.authReducer);
 
   // validator
   const validator = new SimpleReactValidator({
@@ -34,6 +35,7 @@ const Form = (props) => {
     setFormInput({ ...formInput, [event.target.name]: event.target.value });
   };
 
+  console.log(responseStatus);
   // handle submit
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -132,6 +134,24 @@ const Form = (props) => {
           {validator.message("remarks", formInput?.remarks, "required")}
           <ShowError data={errors?.remarks} />
         </div>
+
+        {(responseStatus === 3 || responseStatus === 0) && (
+          <div className="grid gap-1">
+            <label htmlFor="otp" className="capitalize">
+              OTP
+            </label>
+            <input
+              type="text"
+              id="otp"
+              name="otp"
+              value={formInput?.otp}
+              onChange={handleChange}
+              className="block w-full px-3 py-1.5 bg-transparent outline-none border rounded-md"
+            />
+            {validator.message("otp", formInput?.otp, "required|number")}
+            <ShowError data={errors?.otp} />
+          </div>
+        )}
 
         {/* buttons */}
         <div className="grid grid-cols-3 mt-1 gap-5">

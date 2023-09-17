@@ -28,13 +28,16 @@ export const sendMoney = createAsyncThunk(
   async ({ payload, callback }) => {
     try {
       const response = await API.post(send, payload);
-      const { Remarks } = response.data;
+      const { Remarks, ResponseStatus } = response.data;
       toast.success(Remarks);
-      callback();
+      if (ResponseStatus === 1) {
+        callback();
+      }
       return response.data;
     } catch (error) {
       const { Remarks } = error?.response?.data;
       toast.error(Remarks);
+      return error?.response?.data;
     }
   }
 );

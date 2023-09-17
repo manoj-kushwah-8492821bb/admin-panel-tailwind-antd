@@ -5,8 +5,6 @@ import Loader from "../../../common/Loader";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { adminProfile, txn_list } from "../../../toolkit/action/authAction";
-import { BiSolidCopy } from "react-icons/bi";
-import toast from "react-hot-toast";
 import CopyText from "../../../common/CopyText";
 
 const Balance = () => {
