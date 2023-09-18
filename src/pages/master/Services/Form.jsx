@@ -218,6 +218,7 @@ const Form = ({ handleCloseModal, isOpen, editData }) => {
               >
                 <option>Select Type</option>
                 <option value="Discount">Discount</option>
+                <option value="GCB">Go Points Cashback</option>
                 <option value="Cashback">Cashback</option>
               </select>
               {validator.message("type", formInput?.type, "required")}

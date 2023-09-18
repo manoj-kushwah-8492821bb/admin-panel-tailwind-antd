@@ -151,7 +151,11 @@ const Services = () => {
                     <td className="px-4 py-2">
                       <div class="inline px-3 py-1 text-xs font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 ">
                         {item.percent && `${item.percent}%`}
-                        {item.type === "Cashback" ? "CB" : "DC"}
+                        {item.type === "Cashback"
+                          ? "CB"
+                          : item.type === "Discount"
+                          ? "DC"
+                          : "GCB"}
                       </div>
                     </td>
                     <td className="px-4 py-2">
