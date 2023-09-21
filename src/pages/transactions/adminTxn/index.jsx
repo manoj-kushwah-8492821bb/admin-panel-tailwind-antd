@@ -153,7 +153,12 @@ const AdminTransaction = () => {
                     </td>
                     <td className="px-4 py-3">{item.txnType}</td>
                     <td className="px-4 py-3">{item.remarks}</td>
-                    <td className="px-4 py-3">₹ {item.txnAmount} /-</td>
+                    <td className="px-4 py-3">
+                      {(item.txnResource === "Wallet" ||
+                        item.txnResource === "Foundation") &&
+                        "₹"}{" "}
+                      {item.txnAmount}
+                    </td>
                     <td className="px-4 py-3">{item.txnResource}</td>
                     <td className="px-4 py-3">{item.txnId}</td>
                     <td

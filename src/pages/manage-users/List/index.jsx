@@ -33,6 +33,10 @@ const Users = () => {
     trimEnd <= totalItems && setCurrentPage(currentPage + 1);
   };
 
+  const balances = data.map((item) => (item.status ? item.wallet.balance : 0));
+  const sum = balances.reduce((total, price) => total + price, 0);
+  console.log(sum);
+
   // handle status
   const handleStatus = (event) => {
     const payload = { userId: event.target.id, status: event.target.checked };
@@ -49,6 +53,7 @@ const Users = () => {
       {/* Top */}
       <div className="flex justify-between">
         <div>Users</div>
+        <div className="text-sm">User's Total Balance : ₹ {sum}</div>
       </div>
 
       {/* Table */}
@@ -90,7 +95,7 @@ const Users = () => {
             </thead>
 
             <tbody className="divide-y">
-              {data?.slice(trimStart, trimEnd).map((item) => {
+              {data?.slice(trimStart, trimEnd).map((item, index) => {
                 return (
                   item && (
                     <tr key={item._id} className="text-xs ">

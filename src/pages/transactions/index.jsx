@@ -156,7 +156,12 @@ const Transaction = () => {
                       {item.txnDesc.slice(0, 20)}
                       {item.txnDesc.length > 20 && "..."}
                     </td>
-                    <td className="px-4 py-3">₹ {item.txnAmount} /-</td>
+                    <td className="px-4 py-3">
+                      {(item.txnResource === "Wallet" ||
+                        item.txnResource === "Online") &&
+                        "₹"}{" "}
+                      {item.txnAmount}
+                    </td>
                     <td className="px-4 py-3">{item.txnResource}</td>
                     <td className="px-4 py-3">{item.txnId}</td>
                     <td
