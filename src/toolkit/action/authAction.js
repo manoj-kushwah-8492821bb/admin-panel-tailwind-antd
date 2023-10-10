@@ -65,3 +65,31 @@ export const adminProfile = createAsyncThunk("adminProfile", async () => {
     toast.error(Remarks);
   }
 });
+//................... update setting
+export const updateSetting = createAsyncThunk(
+  "updateSetting",
+  async ({ payload, callback }) => {
+    try {
+      const response = await API.patch("setting", payload);
+      const { Remarks } = response.data;
+      toast.success(Remarks);
+      callback();
+      return true;
+    } catch (error) {
+      const { Remarks } = error?.response?.data;
+      toast.error(Remarks);
+    }
+  }
+);
+//................... app setting
+export const getSetting = createAsyncThunk("getSetting", async (callback) => {
+  try {
+    const response = await API.get("setting");
+    const { Data } = response.data;
+    callback(Data);
+    return Data;
+  } catch (error) {
+    const { Remarks } = error?.response?.data;
+    toast.error(Remarks);
+  }
+});

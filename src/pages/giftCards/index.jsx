@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Moment from "react-moment";
 
 import Layout from "../../layouts/index";
 import Options from "../../common/Options";
@@ -80,7 +81,12 @@ const GiftCards = () => {
                     <td className="px-4 py-3">{item.code}</td>
                     <td className="px-4 py-3">{item.redeem ? "Yes" : "No"}</td>
                     <td className="px-4 py-3">{item.amount}</td>
-                    <td className="px-4 py-3">{item.expiryDate}</td>
+                    <td className="px-4 py-3">
+                      {" "}
+                      <Moment format="YYYY/MM/DD HH:mm:ss">
+                        {item.expiryDate}
+                      </Moment>
+                    </td>
                   </tr>
                 );
               })}

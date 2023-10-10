@@ -4,6 +4,7 @@ import {
   sendMoney,
   authLogin,
   adminProfile,
+  getSetting,
 } from "../action/authAction";
 
 const initialState = {
@@ -64,6 +65,17 @@ const authReducer = createSlice({
       state.fetchLoad = false;
     });
     builder.addCase(adminProfile.rejected, (state) => {
+      state.fetchLoad = false;
+    });
+    //................ settingData
+    builder.addCase(getSetting.pending, (state) => {
+      state.fetchLoad = true;
+    });
+    builder.addCase(getSetting.fulfilled, (state, action) => {
+      state.settingData = action.payload;
+      state.fetchLoad = false;
+    });
+    builder.addCase(getSetting.rejected, (state) => {
       state.fetchLoad = false;
     });
   },
