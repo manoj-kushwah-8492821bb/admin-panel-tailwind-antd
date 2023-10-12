@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import Select from "react-select";
 import ShowError from "../../common/ShowError";
 import SimpleReactValidator from "simple-react-validator";
 import { userList } from "../../toolkit/action/userAction";
@@ -35,12 +36,16 @@ const Form = (props) => {
     setFormInput({ ...formInput, [event.target.name]: event.target.value });
   };
 
-  console.log(responseStatus);
   // handle submit
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validator.allValid()) {
-      const payload = { type: active, title, ...formInput };
+      const payload = {
+        type: active,
+        title,
+        ...formInput,
+        username: formInput?.username?.value,
+      };
       dispatch(
         sendMoney({
           payload,
@@ -48,7 +53,7 @@ const Form = (props) => {
             setFormInput({
               amount: "",
               remarks: "",
-              username: "",
+              username: {},
             });
             dispatch(txn_list());
           },
@@ -59,6 +64,13 @@ const Form = (props) => {
       setErrors(validator.errorMessages);
     }
   };
+
+  const options = users.map((item) => {
+    return {
+      value: item._id,
+      label: `${item.firstName} ${item.lastName} (${item.phone})`,
+    };
+  });
 
   // useffect
   useEffect(() => {
@@ -71,7 +83,15 @@ const Form = (props) => {
         {/* amount */}
         <div className="grid gap-1">
           <label htmlFor="username">Username</label>
-          <select
+          <Select
+            options={options}
+            name="username"
+            value={formInput?.username}
+            onChange={(event) =>
+              handleChange({ target: { name: "username", value: event } })
+            }
+          />
+          {/* <select
             id="username"
             name="username"
             value={formInput?.username}
@@ -86,12 +106,12 @@ const Form = (props) => {
                 </option>
               );
             })}
-          </select>
+          </select> */}
           {validator.message("username", formInput?.username, "required")}
           <ShowError data={errors?.username} />
           {users.map(
             (item) =>
-              item._id === formInput?.username && (
+              item._id === formInput?.username?.value && (
                 <div>
                   <span className="text-purple-600 font-semibold tracking-wider">
                     Balance
