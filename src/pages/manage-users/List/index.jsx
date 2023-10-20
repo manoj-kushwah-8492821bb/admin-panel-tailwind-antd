@@ -18,7 +18,9 @@ const Users = () => {
   const filteredData = users.filter(
     (item) =>
       item.firstName &&
-      item.firstName?.toLowerCase().includes(searchValue.toLowerCase())
+      `${item.firstName} ${item.phone}`
+        ?.toLowerCase()
+        .includes(searchValue.toLowerCase())
   );
 
   const data = searchValue ? filteredData : users;
@@ -59,7 +61,7 @@ const Users = () => {
       {/* Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <Searchbox
-          title="user's name"
+          title="user's name & phone"
           value={searchValue}
           handleChange={(event) => setSearchValue(event?.target?.value)}
         />
