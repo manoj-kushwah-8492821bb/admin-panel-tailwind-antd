@@ -61,7 +61,7 @@ const Users = () => {
       {/* Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
         <Searchbox
-          title="user's name & phone"
+          title="user's name & phone & email"
           value={searchValue}
           handleChange={(event) => setSearchValue(event?.target?.value)}
         />
