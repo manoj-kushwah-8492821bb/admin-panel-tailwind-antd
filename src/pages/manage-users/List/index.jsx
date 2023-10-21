@@ -18,7 +18,7 @@ const Users = () => {
   const filteredData = users.filter(
     (item) =>
       item.firstName &&
-      `${item.firstName} ${item.phone}`
+      `${item.firstName} ${item.phone} ${item.email}`
         ?.toLowerCase()
         .includes(searchValue.toLowerCase())
   );
