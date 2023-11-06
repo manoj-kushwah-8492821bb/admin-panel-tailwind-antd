@@ -75,7 +75,7 @@ const WhitelistIp = () => {
     <>
       {/*.......... Top */}
       <div className="flex justify-between">
-        <div>Whitelist IPs</div>
+        <div className="text-[#DC8D00]">Whitelist IPs</div>
         <Button
           icon={<BsPlus />}
           action={() => handleOpenModal("formModal")}

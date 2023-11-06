@@ -12,6 +12,7 @@ import Pagination from "../../../common/Pagination";
 import Options from "../../../common/Options";
 import { useNavigate } from "react-router-dom";
 import Searchbox from "../../../common/Searchbox";
+import { BsArrowDown, BsArrowUp } from "react-icons/bs";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Products = () => {
 
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [userDateList, setData] = useState();
   const { productsList, fetchLoad } = useSelector(
     (state) => state.shoppingReducer
   );
@@ -29,18 +31,49 @@ const Products = () => {
     );
   };
 
-  // handleFilter
-  const filteredData = productsList.filter(
-    (item) =>
-      item.productName &&
-      item.productName?.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  // sort unction
+  const handleSort = () => {
+    const sortedWords = productsList
+      .filter((item) => item?.name)
+      .slice()
+      .sort((a, b) => {
+        return a.name.localeCompare(b.name, undefined, {
+          sensitivity: "base",
+        });
+      });
 
-  const data = searchValue ? filteredData : productsList;
+    productsList.filter((item) => item?.name === null);
+    setData(sortedWords);
+  };
+
+  const reverseHandleSort = () => {
+    const sortedWords = productsList
+      .filter((item) => item.name)
+      .slice()
+      .sort((a, b) => {
+        return b.name.localeCompare(a.name, undefined, {
+          sensitivity: "base",
+        });
+      });
+
+    productsList.filter((item) => item?.name === null);
+    setData(sortedWords);
+  };
+  //...................... filter
+  const filteredData =
+    searchValue.length === 0
+      ? userDateList
+        ? userDateList
+        : productsList
+      : productsList.filter((item) =>
+          `${item.name} `
+            .toLocaleLowerCase()
+            .includes(searchValue?.toLocaleLowerCase())
+        );
 
   //..................... Pagination Logic
   const perPageItems = 10;
-  const totalItems = data?.length;
+  const totalItems = filteredData?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -67,7 +100,23 @@ const Products = () => {
             <thead className="bg-gray-100 title-font tracking-wider text-sm">
               <tr>
                 <th className="px-4 py-3 rounded-tl">Image</th>
-                <th className="px-4 py-3">Name</th>
+                <td className="p-4 title-font tracking-wider font-medium text-sm  text-gray-900  bg-gray-100 flex-row items-center flex ">
+                  <span className="title-font tracking-wider font-medium text-sm mr-3">
+                    Name
+                  </span>
+                  <BsArrowUp
+                    className="cursor-pointer"
+                    onClick={() => {
+                      reverseHandleSort();
+                    }}
+                  />
+                  <BsArrowDown
+                    className="cursor-poinsubCategoriester"
+                    onClick={() => {
+                      handleSort();
+                    }}
+                  />
+                </td>
                 <th className="px-4 py-3">Description</th>
                 <th className="px-4 py-3">Price</th>
                 <th className="px-4 py-3">Publish</th>
@@ -75,7 +124,7 @@ const Products = () => {
               </tr>
             </thead>
             <tbody className="divide-y">
-              {data?.slice(trimStart, trimEnd).map((item) => {
+              {filteredData.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-sm">
                     <td className="px-4 py-3">

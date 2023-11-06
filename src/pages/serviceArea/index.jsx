@@ -80,7 +80,7 @@ const ServiceArea = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div>Service Area</div>
+        <div className="text-[#DC8D00]">Service Area</div>
         <Button
           icon={<BsPlus />}
           action={() => {

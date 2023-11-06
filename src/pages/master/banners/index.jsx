@@ -63,7 +63,7 @@ const Banners = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div> Banners</div>
+        <div className="text-[#DC8D00]"> Banners</div>
         <Button
           icon={<BsPlus />}
           action={() => handleOpenModal("formModal")}

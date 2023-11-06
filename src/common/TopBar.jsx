@@ -4,7 +4,7 @@ const TopBar = (props) => {
   const { text, title, action, icon } = props;
   return (
     <div className="mb-5 flex justify-between">
-      <div>{title}</div>
+      <div className="text-[#DC8D00]">{title}</div>
       {text && (
         <button
           onClick={action}

@@ -76,7 +76,7 @@ const Transaction = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div>Transaction</div>
+        <div className="text-[#DC8D00]">Transaction</div>
       </div>
 
       {/*................ Table */}
@@ -125,6 +125,9 @@ const Transaction = () => {
                   Amount Type
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                  IP Address
+                </th>
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Txn Id
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
@@ -163,6 +166,7 @@ const Transaction = () => {
                       {item.txnAmount}
                     </td>
                     <td className="px-4 py-3">{item.txnResource}</td>
+                    <td className="px-4 py-3">{item.ipAddress}</td>
                     <td className="px-4 py-3">{item.txnId}</td>
                     <td
                       className={`px-4 py-3 text-green-500 uppercase font-bold`}

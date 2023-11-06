@@ -9,12 +9,14 @@ import { IMAGE_URL } from "../../../utils/endpoints";
 import ReasonModal from "../../../common/ReasonModal";
 import { kycList, manageKYC } from "../../../toolkit/action/userAction";
 import Searchbox from "../../../common/Searchbox";
+import { BsArrowDown, BsArrowUp } from "react-icons/bs";
 
 const KYC = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState();
+  const [userDateList, setData] = useState();
   const { kycs, fetchLoad } = useSelector((state) => state.userReducer);
 
   // handle status update
@@ -30,18 +32,57 @@ const KYC = () => {
     }
   };
 
-  // handleFilter
-  const filteredData = kycs.filter(
-    (item) =>
-      item?.userId?.firstName &&
-      item?.userId?.firstName?.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  // sort unction
+  const handleSort = () => {
+    const sortedWords = kycs
+      .filter((item) => `${item?.userId?.firstName} ${item?.userId?.lastName} `)
+      .slice()
+      .sort((a, b) => {
+        return a.name.localeCompare(b.name, undefined, {
+          sensitivity: "base",
+        });
+      });
 
-  const data = searchValue ? filteredData : kycs;
+    kycs.filter(
+      (item) => `${item?.userId?.firstName} ${item?.userId?.lastName} ` === null
+    );
+    setData(sortedWords);
+  };
+
+  const reverseHandleSort = () => {
+    const sortedWords = kycs
+      .filter((item) => item.name)
+      .slice()
+      .sort((a, b) => {
+        return `${b?.userId?.firstName} ${b?.userId?.lastName} `.localeCompare(
+          `${a?.userId?.firstName} ${a?.userId?.lastName} `,
+          undefined,
+          {
+            sensitivity: "base",
+          }
+        );
+      });
+
+    kycs.filter(
+      (item) => `${item?.userId?.firstName} ${item?.userId?.lastName} ` === null
+    );
+    setData(sortedWords);
+  };
+  //...................... filter
+  const filteredData =
+    searchValue.length === 0
+      ? userDateList
+        ? userDateList
+        : kycs
+      : kycs.filter((item) =>
+          `${item?.userId?.firstName} ${item?.userId?.lastName} `
+            .toLocaleLowerCase()
+            .includes(searchValue?.toLocaleLowerCase())
+        );
 
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = data?.length;
+  const totalItems = filteredData?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -58,7 +99,7 @@ const KYC = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div>KYC Request</div>
+        <div className="text-[#DC8D00]">KYC Request</div>
       </div>
 
       {/* Table */}
@@ -72,9 +113,23 @@ const KYC = () => {
           <table className="table-auto divide-y whitespace-nowrap  w-full text-left">
             <thead>
               <tr>
-                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
-                  User
-                </th>
+                <td className="p-4 title-font tracking-wider font-medium text-sm  text-gray-900  bg-gray-100 flex-row items-center flex ">
+                  <span className="title-font tracking-wider font-medium text-sm mr-3">
+                    User
+                  </span>
+                  <BsArrowUp
+                    className="cursor-pointer"
+                    onClick={() => {
+                      reverseHandleSort();
+                    }}
+                  />
+                  <BsArrowDown
+                    className="cursor-poinsubCategoriester"
+                    onClick={() => {
+                      handleSort();
+                    }}
+                  />
+                </td>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Aadhaar
                 </th>
@@ -94,7 +149,7 @@ const KYC = () => {
             </thead>
 
             <tbody className="divide-y">
-              {data?.slice(trimStart, trimEnd).map((item) => {
+              {filteredData.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-sm ">
                     <td className="px-4 py-3">

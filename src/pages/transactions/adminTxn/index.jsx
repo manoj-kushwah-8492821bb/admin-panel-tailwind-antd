@@ -76,7 +76,7 @@ const AdminTransaction = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div> Admin Transaction</div>
+        <div className="text-[#DC8D00]"> Admin Transaction</div>
       </div>
 
       {/*................ Table */}

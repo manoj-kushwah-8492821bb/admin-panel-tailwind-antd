@@ -43,7 +43,7 @@ const RechargeRefund = () => {
 
   return (
     <div>
-      <div>Recharges Refund Requests</div>
+      <div className="text-[#DC8D00]">Recharges Refund Requests</div>
 
       {/* Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">

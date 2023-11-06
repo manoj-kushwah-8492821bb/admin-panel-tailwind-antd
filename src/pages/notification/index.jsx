@@ -46,7 +46,7 @@ const Notifications = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div> Notifications</div>
+        <div className="text-[#DC8D00]"> Notifications</div>
         <Button
           icon={<BsPlus />}
           action={() => handleOpenModal("formModal")}

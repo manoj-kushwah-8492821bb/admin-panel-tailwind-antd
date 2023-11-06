@@ -61,7 +61,7 @@ const Withdraw = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div>Withdraw Request</div>
+        <div className="text-[#DC8D00]">Withdraw Request</div>
       </div>
 
       {/* Table */}

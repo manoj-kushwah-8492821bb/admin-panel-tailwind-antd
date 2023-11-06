@@ -75,7 +75,7 @@ const Affiliate = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div>Affiliate Stores</div>
+        <div className="text-[#DC8D00]">Affiliate Stores</div>
         <Button
           icon={<BsPlus />}
           action={() => handleOpenModal("formModal")}

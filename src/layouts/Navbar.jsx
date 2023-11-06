@@ -3,7 +3,6 @@ import { BsChatDots, BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 
-import Logo from "../assets/Logo.png";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
@@ -21,21 +20,23 @@ const Navbar = (props) => {
       <div
         className={`sm:ml-5 ml-2.5 ${
           drawer ? "hidden md:flex" : "flex md:hidden"
-        }`}>
-        <img src={Logo} alt="navbar-logo" className=" w-32 sm:w-36" />
+        }`}
+      >
+        <img
+          src="https://ik.imagekit.io/43tomntsa/Hori_Logo.png"
+          alt="navbar-logo"
+          className=" w-32 sm:w-36"
+        />
       </div>
 
       {/* Left Portion */}
       <section className="flex ml-auto gap-3 sm:gap-4 md:gap-5">
         <div className="icon-bg text-color text-lg sm:text-xl  w-8 h-8 md:w-9 md:h-9 flex justify-center items-center rounded-full p-1.5 cursor-pointer">
-          <HiOutlineSearch />
-        </div>
-        <div className="icon-bg text-color text-lg sm:text-xl  w-8 h-8 md:w-9 md:h-9 flex justify-center items-center rounded-full p-1.5 cursor-pointer">
           <MdOutlineNotificationsActive />
         </div>
-        <div className="icon-bg text-color text-lg sm:text-xl  w-8 h-8 md:w-9 md:h-9 flex justify-center items-center rounded-full p-1.5 cursor-pointer">
+        {/* <div className="icon-bg text-color text-lg sm:text-xl  w-8 h-8 md:w-9 md:h-9 flex justify-center items-center rounded-full p-1.5 cursor-pointer">
           <BsChatDots />
-        </div>
+        </div> */}
         {/* Profile */}
         <section className="flex items-center gap-1.5 sm:gap-3">
           <img
@@ -66,7 +67,8 @@ const Navbar = (props) => {
                 navigate("/");
                 toast.success("LogOut Success!");
               }}
-              className="cursor-pointer">
+              className="cursor-pointer"
+            >
               Sign Out
             </span>
           </div>

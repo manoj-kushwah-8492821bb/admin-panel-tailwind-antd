@@ -12,9 +12,12 @@ import {
 } from "../../toolkit/action/affiliateAction";
 import Toggle from "../../common/Toggle";
 import { giftCardList } from "../../toolkit/action/userAction";
+import { BsArrowDown, BsArrowUp } from "react-icons/bs";
 
 const GiftCards = () => {
   const dispatch = useDispatch();
+  const [userDateList, setData] = useState();
+  const [searchValue, setSearchValue] = useState("");
   const [modals, setModals] = useState({
     formModal: false,
     deleteModal: false,
@@ -24,9 +27,56 @@ const GiftCards = () => {
     (state) => state.userReducer
   );
 
+  // sort unction
+  const handleSort = () => {
+    const sortedWords = giftCardsList
+      .filter((item) => `${item?.userId?.firstName} ${item?.userId?.lastName} `)
+      .slice()
+      .sort((a, b) => {
+        return a.name.localeCompare(b.name, undefined, {
+          sensitivity: "base",
+        });
+      });
+
+    giftCardsList.filter(
+      (item) => `${item?.userId?.firstName} ${item?.userId?.lastName} ` === null
+    );
+    setData(sortedWords);
+  };
+
+  const reverseHandleSort = () => {
+    const sortedWords = giftCardsList
+      .filter((item) => item.name)
+      .slice()
+      .sort((a, b) => {
+        return `${b?.userId?.firstName} ${b?.userId?.lastName} `.localeCompare(
+          `${a?.userId?.firstName} ${a?.userId?.lastName} `,
+          undefined,
+          {
+            sensitivity: "base",
+          }
+        );
+      });
+
+    giftCardsList.filter(
+      (item) => `${item?.userId?.firstName} ${item?.userId?.lastName} ` === null
+    );
+    setData(sortedWords);
+  };
+  //...................... filter
+  const filteredData =
+    searchValue.length === 0
+      ? userDateList
+        ? userDateList
+        : giftCardsList
+      : giftCardsList.filter((item) =>
+          `${item?.userId?.firstName} ${item?.userId?.lastName} `
+            .toLocaleLowerCase()
+            .includes(searchValue?.toLocaleLowerCase())
+        );
   //............... Pagination Logic
   const perPageItems = 10;
-  const totalItems = giftCardsList?.length;
+  const totalItems = filteredData.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -43,7 +93,7 @@ const GiftCards = () => {
     <>
       {/*.......... Top */}
       <div className="flex justify-between">
-        <div>Gift Cards</div>
+        <div className="text-[#DC8D00]">Gift Cards</div>
       </div>
 
       {/*............. Table */}
@@ -52,9 +102,23 @@ const GiftCards = () => {
           <table className="table-auto divide-y whitespace-nowrap w-full text-left">
             <thead>
               <tr>
-                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
-                  User Name
-                </th>
+                <td className="p-4 title-font tracking-wider font-medium text-sm  text-gray-900  bg-gray-100 flex-row items-center flex ">
+                  <span className="title-font tracking-wider font-medium text-sm mr-3">
+                    User Name
+                  </span>
+                  <BsArrowUp
+                    className="cursor-pointer"
+                    onClick={() => {
+                      reverseHandleSort();
+                    }}
+                  />
+                  <BsArrowDown
+                    className="cursor-poinsubCategoriester"
+                    onClick={() => {
+                      handleSort();
+                    }}
+                  />
+                </td>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Code
                 </th>
@@ -71,7 +135,7 @@ const GiftCards = () => {
             </thead>
 
             <tbody className="divide-y">
-              {giftCardsList?.slice(trimStart, trimEnd).map((item) => {
+              {filteredData.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id} className="text-sm ">
                     <td className="px-4 py-3">

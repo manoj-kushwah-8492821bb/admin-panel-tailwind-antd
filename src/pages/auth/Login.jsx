@@ -67,7 +67,11 @@ const Login = () => {
         className="max-w-lg mx-auto itemc w-full px-6 py-8 flex flex-col justify-center md:px-8 lg:w-1/3"
       >
         <div className="flex justify-center mx-auto">
-          <img className="w-auto h-10 sm:h-12" src={Logo} alt="" />
+          <img
+            className="w-auto h-10 sm:h-12"
+            src="https://ik.imagekit.io/43tomntsa/Hori_Logo.png"
+            alt=""
+          />
         </div>
 
         <p className="mt-3 text-xl text-center  ">Welcome back</p>
@@ -86,7 +90,11 @@ const Login = () => {
             name="phone"
             onChange={handleChange}
           />
-          {validator.message("phone", formInput?.phone, "required|number")}
+          {validator.message(
+            "phone",
+            formInput?.phone,
+            "required|number|max:10"
+          )}
           <ShowError data={errors.phone} />
         </div>
 
@@ -110,7 +118,7 @@ const Login = () => {
                 onChange={handleChange}
               />
             </div>
-            {validator.message("otp", formInput?.otp, "required|number")}
+            {validator.message("otp", formInput?.otp, "required|number|max:6")}
             <ShowError data={errors.otp} />
           </div>
         )}

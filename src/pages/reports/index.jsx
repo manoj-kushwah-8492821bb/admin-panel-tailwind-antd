@@ -49,7 +49,7 @@ const Reports = () => {
   return (
     <div>
       <div className="flex justify-between">
-        <div>BBPS Reports</div>
+        <div className="text-[#DC8D00]">BBPS Reports</div>
       </div>
 
       {/* Table */}

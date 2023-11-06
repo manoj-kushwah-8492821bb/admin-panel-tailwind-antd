@@ -7,27 +7,58 @@ import { IMAGE_URL } from "../../../utils/endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { userList, userStatus } from "../../../toolkit/action/userAction";
 import Searchbox from "../../../common/Searchbox";
+import { BsArrowDown, BsArrowUp } from "react-icons/bs";
 
 const Users = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
+  const [userDateList, setData] = useState();
   const { users, fetchLoad } = useSelector((state) => state.userReducer);
 
-  // handleFilter
-  const filteredData = users.filter(
-    (item) =>
-      item.firstName &&
-      `${item.firstName} ${item.phone} ${item.email}`
-        ?.toLowerCase()
-        .includes(searchValue.toLowerCase())
-  );
+  // sort unction
+  const handleSort = () => {
+    const sortedWords = users
+      .filter((item) => item?.name)
+      .slice()
+      .sort((a, b) => {
+        return a.name.localeCompare(b.name, undefined, {
+          sensitivity: "base",
+        });
+      });
 
-  const data = searchValue ? filteredData : users;
+    users.filter((item) => item?.name === null);
+    setData(sortedWords);
+  };
+
+  const reverseHandleSort = () => {
+    const sortedWords = users
+      .filter((item) => item.name)
+      .slice()
+      .sort((a, b) => {
+        return b.name.localeCompare(a.name, undefined, {
+          sensitivity: "base",
+        });
+      });
+
+    users.filter((item) => item?.name === null);
+    setData(sortedWords);
+  };
+  //...................... filter
+  const filteredData =
+    searchValue.length === 0
+      ? userDateList
+        ? userDateList
+        : users
+      : users.filter((item) =>
+          `${item.name} `
+            .toLocaleLowerCase()
+            .includes(searchValue?.toLocaleLowerCase())
+        );
 
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = data?.length;
+  const totalItems = filteredData?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -35,7 +66,9 @@ const Users = () => {
     trimEnd <= totalItems && setCurrentPage(currentPage + 1);
   };
 
-  const balances = data.map((item) => (item.status ? item.wallet.balance : 0));
+  const balances = filteredData.map((item) =>
+    item.status ? item.wallet.balance : 0
+  );
   const sum = balances.reduce((total, price) => total + price, 0);
   console.log(sum);
 
@@ -54,7 +87,7 @@ const Users = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div>Users</div>
+        <div className="text-[#DC8D00]">Users</div>
         <div className="text-sm">User's Total Balance : ₹ {sum}</div>
       </div>
 
@@ -72,9 +105,23 @@ const Users = () => {
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
                   #id
                 </th>
-                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Name
-                </th>
+                <td className="p-4 title-font tracking-wider font-medium text-sm  text-gray-900  bg-gray-100 flex-row items-center flex ">
+                  <span className="title-font tracking-wider font-medium text-sm mr-3">
+                    Name
+                  </span>
+                  <BsArrowUp
+                    className="cursor-pointer"
+                    onClick={() => {
+                      reverseHandleSort();
+                    }}
+                  />
+                  <BsArrowDown
+                    className="cursor-poinsubCategoriester"
+                    onClick={() => {
+                      handleSort();
+                    }}
+                  />
+                </td>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Phone
                 </th>
@@ -97,7 +144,7 @@ const Users = () => {
             </thead>
 
             <tbody className="divide-y">
-              {data?.slice(trimStart, trimEnd).map((item, index) => {
+              {filteredData.slice(trimStart, trimEnd).map((item, index) => {
                 return (
                   item && (
                     <tr key={item._id} className="text-xs ">

@@ -55,7 +55,7 @@ const DthRecharge = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div>DTH Recharges</div>
+        <div className="text-[#DC8D00]">DTH Recharges</div>
       </div>
 
       {/* Table */}

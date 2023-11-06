@@ -16,7 +16,8 @@ const App = () => {
           return (
             <Route
               key={name}
-              element={item.private ? <PrivateRoute /> : <PublicRoute />}>
+              element={item.private ? <PrivateRoute /> : <PublicRoute />}
+            >
               <Route name={name} path={path} element={element} exact={true} />
             </Route>
           );

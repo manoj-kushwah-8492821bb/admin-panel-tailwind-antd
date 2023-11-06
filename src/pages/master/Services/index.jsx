@@ -1,4 +1,4 @@
-import { BsPlus } from "react-icons/bs";
+import { BsArrowDown, BsArrowUp, BsPlus } from "react-icons/bs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -26,9 +26,39 @@ const Services = () => {
   const [editData, setEditData] = useState();
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [userDateList, setData] = useState();
   const { services, fetchLoad, loading } = useSelector(
     (state) => state.serviceReducer
   );
+
+  // sort unction
+  const handleSort = () => {
+    const sortedWords = services
+      .filter((item) => item?.name)
+      .slice()
+      .sort((a, b) => {
+        return a.name.localeCompare(b.name, undefined, {
+          sensitivity: "base",
+        });
+      });
+
+    services.filter((item) => item?.name === null);
+    setData(sortedWords);
+  };
+
+  const reverseHandleSort = () => {
+    const sortedWords = services
+      .filter((item) => item.name)
+      .slice()
+      .sort((a, b) => {
+        return b.name.localeCompare(a.name, undefined, {
+          sensitivity: "base",
+        });
+      });
+
+    services.filter((item) => item?.name === null);
+    setData(sortedWords);
+  };
 
   // handle modals
   const handleOpenModal = (name) => setModals({ ...modals, [name]: true });
@@ -70,17 +100,21 @@ const Services = () => {
     );
   };
 
-  // handleFilter
-  const filteredData = services.filter(
-    (item) =>
-      item.name && item.name?.toLowerCase().includes(searchValue.toLowerCase())
-  );
-
-  const data = searchValue ? filteredData : services;
+  // filtered data
+  const filteredData =
+    searchValue.length === 0
+      ? userDateList
+        ? userDateList
+        : services
+      : services.filter((item) =>
+          `${item.name} `
+            .toLocaleLowerCase()
+            .includes(searchValue?.toLocaleLowerCase())
+        );
 
   // Pagination Logic
   const perPageItems = 10;
-  const totalItems = data?.length;
+  const totalItems = filteredData?.length;
   const trimStart = (currentPage - 1) * perPageItems;
   const trimEnd = trimStart + perPageItems;
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
@@ -97,7 +131,7 @@ const Services = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div> Services</div>
+        <div className="text-[#DC8D00]"> Services</div>
         <Button
           icon={<BsPlus />}
           action={() => handleOpenModal("formModal")}
@@ -119,9 +153,23 @@ const Services = () => {
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl">
                   Image
                 </th>
-                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Name
-                </th>
+                <td className="p-4 title-font tracking-wider font-medium text-sm  text-gray-900  bg-gray-100 flex-row items-center flex ">
+                  <span className="title-font tracking-wider font-medium text-sm mr-3">
+                    Name
+                  </span>
+                  <BsArrowUp
+                    className="cursor-pointer"
+                    onClick={() => {
+                      reverseHandleSort();
+                    }}
+                  />
+                  <BsArrowDown
+                    className="cursor-poinsubCategoriester"
+                    onClick={() => {
+                      handleSort();
+                    }}
+                  />
+                </td>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Offer
                 </th>
@@ -137,7 +185,7 @@ const Services = () => {
               </tr>
             </thead>
             <tbody className="divide-y text-sm">
-              {data?.slice(trimStart, trimEnd).map((item) => {
+              {filteredData.slice(trimStart, trimEnd).map((item) => {
                 return (
                   <tr key={item._id}>
                     <td className="px-4 py-2">

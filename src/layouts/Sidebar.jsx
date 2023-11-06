@@ -38,12 +38,12 @@ const Sidebar = (props) => {
     {
       name: "Dashboard",
       icon: <BiSolidHome />,
-      path: "",
-      child: [
-        { name: "User Analytics", path: "/dashboard/user-analytics" },
-        { name: "Services", path: "/dashboard/service-analytics" },
-        { name: "Earnings", path: "/dashboard/earning-analytics" },
-      ],
+      path: "/dashboard",
+      // child: [
+      //   { name: "User Analytics", path: "/dashboard/user-analytics" },
+      //   { name: "Services", path: "/dashboard/service-analytics" },
+      //   { name: "Earnings", path: "/dashboard/earning-analytics" },
+      // ],
     },
 
     // Master
@@ -173,8 +173,12 @@ const Sidebar = (props) => {
   return (
     <div>
       {/* Top Logo & Close */}
-      <section className="flex py-2 px-4 items-center md:justify-center justify-between">
-        <img src={Logo} alt="sidebar-logo" className="w-36" />
+      <section className="flex py-2 items-center md:justify-center justify-between">
+        <img
+          src="https://ik.imagekit.io/43tomntsa/Hori_Logo.png"
+          alt="sidebar-logo"
+          className="w-36"
+        />
         <MdClose
           onClick={handleToggle}
           className="text-color text-xl md:hidden cursor-pointer"
@@ -182,7 +186,7 @@ const Sidebar = (props) => {
       </section>
 
       {/* NavLinks */}
-      <nav className="my-7 grid gap-4 tracking-wide text-sm px-4 text-[rgb(145,145,145)]">
+      <nav className="my-7 grid gap-1 tracking-wide text-sm px-4 text-[rgb(145,145,145)]">
         {navLinks.map((item) => {
           return (
             <div key={item.name}>
@@ -193,10 +197,10 @@ const Sidebar = (props) => {
                     ? handleNavigate(item.path)
                     : handleDrop(item.name)
                 }
-                className={`flex cursor-pointer font-medium  text-hover items-center gap-4 ${
+                className={`flex cursor-pointer font-medium   items-center gap-2 ${
                   (item.name === dropValue || item.path === pathname) &&
-                  "text-color"
-                }`}
+                  "text-white bg-[#DC8D00]"
+                } lg:text-base cursor-pointer py-1.5 md:px-3 rounded items-center relative gap-2 `}
               >
                 <span className="text-lg">{item.icon}</span>
                 <span>{item.name}</span>

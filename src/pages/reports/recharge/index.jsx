@@ -50,7 +50,7 @@ const Recharge = () => {
     <>
       {/* Top */}
       <div className="flex justify-between">
-        <div>Mobile Recharges</div>
+        <div className="text-[#DC8D00]">Mobile Recharges</div>
       </div>
 
       {/* Table */}

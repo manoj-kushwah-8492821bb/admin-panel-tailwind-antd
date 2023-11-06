@@ -64,8 +64,8 @@ const Setting = () => {
               onClick={() => navigate("/dashboard")}
               className="  sm:text-lg  gap-2 sm:gap-2.5 items-center flex "
             >
-              <IoIosArrowBack className="bg-button rounded text-gray-900 p-1 sm:p-1.5  cursor-pointer text-2xl sm:text-3xl" />
-              App Setting
+              <IoIosArrowBack className="bg-button rounded text-[#DC8D00] p-1 sm:p-1.5  cursor-pointer text-2xl sm:text-3xl" />
+              <p className="text-[#DC8D00]"> App Setting</p>
             </div>
           </span>
         </section>
@@ -75,7 +75,7 @@ const Setting = () => {
           <img
             src={preview ? preview : `${IMAGE_URL}${settingData?.logo}`}
             alt={settingData?.name}
-            className="object-cover h-20 sm:w-32 sm:h-32 bg-blue-500 p-0.5 border-color border-2 -top-10  mx-auto rounded-full aspect-square"
+            className="object-cover h-20 sm:w-32 sm:h-32 bg-white p-0.5 border-color border-2 -top-10  mx-auto rounded-full aspect-square"
           />
 
           {/* Form */}
@@ -138,7 +138,7 @@ const Setting = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-blue-500 text-white justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 rounded "
+                className="bg-[#DC8D00] text-white justify-center flex items-center cursor-pointer tracking-wider py-2 px-4 rounded "
               >
                 {loading ? <ButtonLoader /> : "Update"}
               </button>

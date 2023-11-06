@@ -6,7 +6,7 @@ const Searchbox = ({ title, value, handleChange }) => {
       <input
         autoComplete="off"
         type="text"
-        className="border py-1.5 px-3 outline-none placeholder:text-sm rounded-full"
+        className="border border-orange-400 py-1.5 px-3 outline-none placeholder:text-sm rounded-full"
         placeholder={`Search by ${title}`}
         value={value}
         onChange={handleChange}

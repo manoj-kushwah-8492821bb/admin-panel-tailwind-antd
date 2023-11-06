@@ -1,15 +1,15 @@
 .text-color {
-  color: rgb(60, 57, 212);
+  color: rgb(236, 157, 11);
 }
 .bg-color {
-  background-color: rgb(60, 57, 212);
+  background-color: rgb(236, 157, 11);
   color: white;
 }
 .icon-bg {
   background: rgb(248, 248, 252);
 }
 .text-hover:hover {
-  color: rgb(60, 57, 212);
+  color: rgb(236, 157, 11);
 }
 
 .bg-secondary {
