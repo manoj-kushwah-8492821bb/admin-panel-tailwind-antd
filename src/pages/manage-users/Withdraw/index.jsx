@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdCancel, MdOutlineCheckCircle } from "react-icons/md";
 
 import Layout from "../../../layouts/index";
-import Loader from "../../../common/Loader";
 import Pagination from "../../../common/Pagination";
 import { IMAGE_URL } from "../../../utils/endpoints";
 import ReasonModal from "../../../common/ReasonModal";

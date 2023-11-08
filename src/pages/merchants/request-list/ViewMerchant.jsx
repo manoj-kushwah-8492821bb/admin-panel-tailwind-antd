@@ -6,8 +6,8 @@ import Layout from "../../../layouts";
 import TopBar from "../../../common/TopBar";
 import Button from "../../../common/Button";
 import { useDispatch } from "react-redux";
-import { merchantSatusUpdate } from "../../../toolkit/action/userAction";
 import { IMAGE_URL } from "../../../utils/endpoints";
+import { merchantSatusUpdate } from "../../../toolkit/action/userAction";
 
 const ViewMerchant = () => {
   const dispatch = useDispatch();

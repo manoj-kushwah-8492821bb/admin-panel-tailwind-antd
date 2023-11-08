@@ -1,6 +1,5 @@
 import Form from "./Form";
 import Layout from "../../../layouts";
-import { BsArrowDown, BsArrowUp, BsPlus } from "react-icons/bs";
 import TopBar from "../../../common/TopBar";
 import Options from "../../../common/Options";
 import React, { useEffect, useState } from "react";
@@ -9,10 +8,11 @@ import {
   categoryList,
   removeCategory,
 } from "../../../toolkit/action/shoppingAction";
-import { IMAGE_URL } from "../../../utils/endpoints";
-import Pagination from "../../../common/Pagination";
-import Confrimation from "../../../common/Confirmation";
 import Searchbox from "../../../common/Searchbox";
+import Pagination from "../../../common/Pagination";
+import { IMAGE_URL } from "../../../utils/endpoints";
+import Confrimation from "../../../common/Confirmation";
+import { BsArrowDown, BsArrowUp, BsPlus } from "react-icons/bs";
 
 const Categories = () => {
   const dispatch = useDispatch();

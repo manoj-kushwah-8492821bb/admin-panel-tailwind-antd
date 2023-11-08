@@ -3,14 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Moment from "react-moment";
 
 import Layout from "../../layouts/index";
-import Options from "../../common/Options";
 import Pagination from "../../common/Pagination";
-import {
-  ipList,
-  ipRemove,
-  ipStatusUpdate,
-} from "../../toolkit/action/affiliateAction";
-import Toggle from "../../common/Toggle";
+
 import { giftCardList } from "../../toolkit/action/userAction";
 import { BsArrowDown, BsArrowUp } from "react-icons/bs";
 

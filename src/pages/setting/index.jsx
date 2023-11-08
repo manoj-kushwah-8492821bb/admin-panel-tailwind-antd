@@ -1,12 +1,12 @@
 import Layout from "../../layouts";
+import { useNavigate } from "react-router-dom";
+import { MdCloudUpload } from "react-icons/md";
+import { IoIosArrowBack } from "react-icons/io";
+import { IMAGE_URL } from "../../utils/endpoints";
 import React, { useEffect, useState } from "react";
+import ButtonLoader from "../../common/ButtonLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { getSetting, updateSetting } from "../../toolkit/action/authAction";
-import { useNavigate } from "react-router-dom";
-import { IoIosArrowBack } from "react-icons/io";
-import { MdCloudUpload } from "react-icons/md";
-import ButtonLoader from "../../common/ButtonLoader";
-import { IMAGE_URL } from "../../utils/endpoints";
 
 const Setting = () => {
   const navigate = useNavigate();
@@ -49,7 +49,9 @@ const Setting = () => {
       navigate("/dashboard");
     }
   };
-
+  {
+    /* Useeffect */
+  }
   useEffect(() => {
     dispatch(getSetting((e) => setFormInput(e)));
   }, [dispatch]);

@@ -1,23 +1,18 @@
-import { BsPlus } from "react-icons/bs";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
 import Form from "./Form";
-import Layout from "../../layouts/index";
+import { BsPlus } from "react-icons/bs";
 import Button from "../../common/Button";
+import Layout from "../../layouts/index";
+import Toggle from "../../common/Toggle";
 import Options from "../../common/Options";
-import { IMAGE_URL } from "../../utils/endpoints";
 import Pagination from "../../common/Pagination";
+import React, { useEffect, useState } from "react";
 import Confrimation from "../../common/Confirmation";
-import Loader from "../../common/Loader";
-import { affiliateRemove } from "../../toolkit/action/affiliateAction";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deleteAreas,
   fetchAreas,
   updateAreas,
 } from "../../toolkit/action/shoppingAction";
-import Toggle from "../../common/Toggle";
 
 const ServiceArea = () => {
   const dispatch = useDispatch();

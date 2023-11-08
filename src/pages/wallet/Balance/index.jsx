@@ -29,7 +29,7 @@ const Balance = () => {
             onClick={() => handleActive("credit")}
             className={` ${
               active === "credit" ? "bg-color" : "bg-white text-color"
-            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
+            } text-sm  border border-[#DC8D00] text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
           >
             Credit
           </button>
@@ -37,7 +37,7 @@ const Balance = () => {
             onClick={() => handleActive("debit")}
             className={` ${
               active === "debit" ? "bg-color" : "bg-white  text-color"
-            } text-sm  border border-blue-500 text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
+            } text-sm  border border-[#DC8D00] text-color flex items-center gap-0.5 p-1.5 px-3 rounded`}
           >
             Debit
           </button>

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "../../layouts";
 import TopBar from "../../common/TopBar";
-import Loader from "../../common/Loader";
 import Options from "../../common/Options";
 import Pagination from "../../common/Pagination";
 import { IMAGE_URL } from "../../utils/endpoints";

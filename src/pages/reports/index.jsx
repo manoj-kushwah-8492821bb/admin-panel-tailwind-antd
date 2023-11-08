@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../layouts";
 import Moment from "react-moment";
+import Pagination from "../../common/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { bbpsHistory } from "../../toolkit/action/reportAction";
-import Pagination from "../../common/Pagination";
 
 const Reports = () => {
   const dispatch = useDispatch();
@@ -48,6 +48,7 @@ const Reports = () => {
   }, [dispatch]);
   return (
     <div>
+      {/* Top */}
       <div className="flex justify-between">
         <div className="text-[#DC8D00]">BBPS Reports</div>
       </div>
@@ -111,7 +112,7 @@ const Reports = () => {
                   </tr>
                 );
               })}
-            </tbody>{" "}
+            </tbody>
           </table>
           <Pagination
             handlePrev={handlePrev}

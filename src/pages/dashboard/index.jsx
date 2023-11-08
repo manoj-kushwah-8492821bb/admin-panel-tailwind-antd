@@ -45,6 +45,7 @@ const Dashboard = () => {
   }, [dispatch]);
   return (
     <div className="tracking-wider pt-4  notification-container pb-12 overflow-auto h-full">
+      {/* Top Heading */}
       <Heading title="Dashboard" />
 
       <div className="grid grid-cols-1 md:grid-cols-3 py-5 gap-4 lg:gap-8">

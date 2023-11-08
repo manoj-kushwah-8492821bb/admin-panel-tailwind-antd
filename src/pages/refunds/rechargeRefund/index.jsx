@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../../layouts";
+import Moment from "react-moment";
 import {
   rechargeRefundAccept,
   rechargeRefundList,
 } from "../../../toolkit/action/rechargeAction";
-import { useDispatch, useSelector } from "react-redux";
-import Pagination from "../../../common/Pagination";
-import Loader from "../../../common/Loader";
-import Moment from "react-moment";
 import Button from "../../../common/Button";
+import Pagination from "../../../common/Pagination";
+import { useDispatch, useSelector } from "react-redux";
 
 const RechargeRefund = () => {
   const dispatch = useDispatch();
@@ -43,6 +42,7 @@ const RechargeRefund = () => {
 
   return (
     <div>
+      {/* Top */}
       <div className="text-[#DC8D00]">Recharges Refund Requests</div>
 
       {/* Table */}

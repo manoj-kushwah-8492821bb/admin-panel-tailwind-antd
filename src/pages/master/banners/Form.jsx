@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { MdClose, MdOutlineCloudUpload } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
-import SimpleReactValidator from "simple-react-validator";
 import ShowError from "../../../common/ShowError";
-import ButtonLoader from "../../../common/ButtonLoader";
+import React, { useEffect, useState } from "react";
 import { IMAGE_URL } from "../../../utils/endpoints";
+import { useDispatch, useSelector } from "react-redux";
+import ButtonLoader from "../../../common/ButtonLoader";
+import SimpleReactValidator from "simple-react-validator";
+import { MdClose, MdOutlineCloudUpload } from "react-icons/md";
 import {
   createBanner,
   updateBanner,

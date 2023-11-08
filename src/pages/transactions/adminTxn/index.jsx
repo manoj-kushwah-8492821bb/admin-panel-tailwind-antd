@@ -96,8 +96,8 @@ const AdminTransaction = () => {
                   setActiveTab(item);
                 }}
                 className={`cursor-pointer ${
-                  activeTab === item && "text-blue-500 border-b border-blue-500"
-                } hover:text-blue-500 hover:border-b hover:border-blue-500`}
+                  activeTab === item && "text-[#DC8D00] border-b border-[#DC8D00]"
+                } hover:text-[#DC8D00] hover:border-b hover:border-[#DC8D00]`}
               >
                 {item}
               </div>

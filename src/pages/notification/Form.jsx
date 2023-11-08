@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
-import SimpleReactValidator from "simple-react-validator";
-
 import ShowError from "../../common/ShowError";
 import ButtonLoader from "../../common/ButtonLoader";
+import { useDispatch, useSelector } from "react-redux";
+import SimpleReactValidator from "simple-react-validator";
 import {
   notificationList,
   pushNotification,

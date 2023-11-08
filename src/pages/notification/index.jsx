@@ -1,11 +1,10 @@
-import { BsPlus } from "react-icons/bs";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
 import Form from "./Form";
+import { BsPlus } from "react-icons/bs";
 import Layout from "../../layouts/index";
 import Button from "../../common/Button";
 import Pagination from "../../common/Pagination";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { notificationList } from "../../toolkit/action/notificationAction";
 
 const Notifications = () => {

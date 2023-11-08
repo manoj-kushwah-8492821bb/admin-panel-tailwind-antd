@@ -162,14 +162,14 @@ const KYC = () => {
                               : "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
                           }
                           className="w-8 h-8 rounded-full"
-                        />{" "}
+                        />
                         <div>
                           {item?.userId?.firstName} {item?.userId?.lastName}
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      {" "}
+                      
                       <div className="flex gap-3">
                         {item.aadhaarFront ? (
                           <img

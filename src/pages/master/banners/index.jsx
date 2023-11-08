@@ -10,10 +10,9 @@ import {
   removeBanner,
 } from "../../../toolkit/action/serviceAction";
 import Options from "../../../common/Options";
-import { IMAGE_URL } from "../../../utils/endpoints";
 import Pagination from "../../../common/Pagination";
+import { IMAGE_URL } from "../../../utils/endpoints";
 import Confrimation from "../../../common/Confirmation";
-import Loader from "../../../common/Loader";
 
 const Banners = () => {
   const dispatch = useDispatch();
