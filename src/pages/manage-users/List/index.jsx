@@ -19,29 +19,37 @@ const Users = () => {
   // sort unction
   const handleSort = () => {
     const sortedWords = users
-      .filter((item) => item?.name)
+      .filter((item) => ` ${item?.firstName} ${item?.lastName}`)
       .slice()
       .sort((a, b) => {
-        return a.name.localeCompare(b.name, undefined, {
-          sensitivity: "base",
-        });
+        return ` ${a?.firstName} ${a?.lastName}`.localeCompare(
+          ` ${b?.firstName} ${b?.lastName}`,
+          undefined,
+          {
+            sensitivity: "base",
+          }
+        );
       });
 
-    users.filter((item) => item?.name === null);
+    users.filter((item) => ` ${item?.firstName} ${item?.lastName}` === null);
     setData(sortedWords);
   };
 
   const reverseHandleSort = () => {
     const sortedWords = users
-      .filter((item) => item.name)
+      .filter((item) => ` ${item?.firstName} ${item?.lastName}`)
       .slice()
       .sort((a, b) => {
-        return b.name.localeCompare(a.name, undefined, {
-          sensitivity: "base",
-        });
+        return ` ${b?.firstName} ${b?.lastName}`.localeCompare(
+          ` ${a?.firstName} ${a?.lastName}`,
+          undefined,
+          {
+            sensitivity: "base",
+          }
+        );
       });
 
-    users.filter((item) => item?.name === null);
+    users.filter((item) => ` ${item?.firstName} ${item?.lastName}` === null);
     setData(sortedWords);
   };
   //...................... filter
@@ -51,7 +59,7 @@ const Users = () => {
         ? userDateList
         : users
       : users.filter((item) =>
-          `${item.name} `
+          ` ${item?.firstName} ${item?.lastName}`
             .toLocaleLowerCase()
             .includes(searchValue?.toLocaleLowerCase())
         );
