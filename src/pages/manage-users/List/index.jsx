@@ -59,7 +59,7 @@ const Users = () => {
         ? userDateList
         : users
       : users.filter((item) =>
-          ` ${item?.firstName} ${item?.lastName}`
+          `${item?.firstName} ${item?.lastName} ${item?.email} ${item?.phone}`
             .toLocaleLowerCase()
             .includes(searchValue?.toLocaleLowerCase())
         );
@@ -78,7 +78,6 @@ const Users = () => {
     item.status ? item.wallet.balance : 0
   );
   const sum = balances.reduce((total, price) => total + price, 0);
-  console.log(sum);
 
   // handle status
   const handleStatus = (event) => {

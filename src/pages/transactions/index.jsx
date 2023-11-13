@@ -1,6 +1,7 @@
 import Moment from "react-moment";
 import Layout from "../../layouts/index";
 import CopyText from "../../common/CopyText";
+import Searchbox from "../../common/Searchbox";
 import DateRange from "../../common/DateRange";
 import Pagination from "../../common/Pagination";
 import React, { useEffect, useState } from "react";
@@ -11,6 +12,7 @@ const Transaction = () => {
   const dispatch = useDispatch();
   const [formInput, setFormInput] = useState({});
   const [activeTab, setActiveTab] = useState("All");
+  const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const { allTxn, fetchLoad } = useSelector((state) => state.reportReducer);
 
@@ -22,20 +24,26 @@ const Transaction = () => {
 
   // handleFilter
   const result =
-    formInput.from || activeTab !== "All"
-      ? allTxn.filter((item) => {
-          const to = formInput.to
-            ? new Date(formInput.to).getTime()
-            : new Date().getTime();
-          const from = new Date(formInput.from).getTime();
-          const createdAt = new Date(item.createdAt).getTime();
-          if (formInput.from) {
-            return from <= createdAt && to >= createdAt;
-          } else {
-            return activeTab.toLowerCase() === item.txnResource.toLowerCase();
-          }
-        })
-      : allTxn;
+    searchValue.length === 0
+      ? formInput.from || activeTab !== "All"
+        ? allTxn.filter((item) => {
+            const to = formInput.to
+              ? new Date(formInput.to).getTime()
+              : new Date().getTime();
+            const from = new Date(formInput.from).getTime();
+            const createdAt = new Date(item.createdAt).getTime();
+            if (formInput.from) {
+              return from <= createdAt && to >= createdAt;
+            } else {
+              return activeTab.toLowerCase() === item.txnResource.toLowerCase();
+            }
+          })
+        : allTxn
+      : allTxn.filter((item) =>
+          `${item?.recipientId?.firstName} ${item?.recipientId?.lastName} ${item?.recipientId?.email} ${item?.recipientId?.phone}`
+            .toLocaleLowerCase()
+            .includes(searchValue?.toLocaleLowerCase())
+        );
 
   //................. Pagination Logic
   const perPageItems = 10;
@@ -45,26 +53,6 @@ const Transaction = () => {
   const handlePrev = () => currentPage !== 1 && setCurrentPage(currentPage - 1);
   const handleForw = () => {
     trimEnd <= totalItems && setCurrentPage(currentPage + 1);
-  };
-
-  //................... text color
-  const colors = (value) => {
-    switch (value) {
-      case "Failure":
-        return "text-red-500";
-
-      case "FAILURE":
-        return "text-red-500";
-
-      case "Success":
-        return "text-green-500";
-
-      case "Pending":
-        return "text-yellow-500";
-
-      default:
-        break;
-    }
   };
 
   //..................... useffect
@@ -81,11 +69,18 @@ const Transaction = () => {
 
       {/*................ Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
-        <DateRange
-          formInput={formInput}
-          handleChange={(event) => handleChange(event)}
-          handleReset={() => setFormInput({ from: "", to: "" })}
-        />
+        <div className="flex justify-between">
+          <Searchbox
+            title="user's name & phone & email"
+            value={searchValue}
+            handleChange={(event) => setSearchValue(event?.target?.value)}
+          />
+          <DateRange
+            formInput={formInput}
+            handleChange={(event) => handleChange(event)}
+            handleReset={() => setFormInput({ from: "", to: "" })}
+          />
+        </div>
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           {/* Tabs */}
           <div className="flex gap-3 px-4 py-2">
