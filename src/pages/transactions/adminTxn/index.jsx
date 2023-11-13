@@ -6,11 +6,13 @@ import Pagination from "../../../common/Pagination";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { txn_list } from "../../../toolkit/action/authAction";
+import Searchbox from "../../../common/Searchbox";
 
 const AdminTransaction = () => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("All");
   const [formInput, setFormInput] = useState({});
+  const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const { transactions, fetchLoad } = useSelector((state) => state.authReducer);
 
@@ -22,20 +24,28 @@ const AdminTransaction = () => {
 
   // handleFilter
   const result =
-    formInput.from || activeTab !== "All"
-      ? transactions.filter((item) => {
-          const to = formInput.to
-            ? new Date(formInput.to).getTime()
-            : new Date().getTime();
-          const from = new Date(formInput.from).getTime();
-          const createdAt = new Date(item.createdAt).getTime();
-          if (formInput.from) {
-            return from <= createdAt && to >= createdAt;
-          } else {
-            return activeTab.toLowerCase() === item.txnResource.toLowerCase();
-          }
-        })
-      : transactions;
+    searchValue.length === 0
+      ? formInput.from || activeTab !== "All"
+        ? transactions.filter((item) => {
+            const to = formInput.to
+              ? new Date(formInput.to).getTime()
+              : new Date().getTime();
+            const from = new Date(formInput.from).getTime();
+            const createdAt = new Date(item.createdAt).getTime();
+            if (formInput.from) {
+              return from <= createdAt && to >= createdAt;
+            } else {
+              return activeTab.toLowerCase() === item.txnResource.toLowerCase();
+            }
+          })
+        : transactions
+      : transactions.filter((item) =>
+          item.txnType === "credit"
+            ? "Admin"
+            : `${item?.recipientId?.firstName} ${item?.recipientId?.lastName} ${item?.recipientId?.email} ${item?.recipientId?.phone}`
+                .toLocaleLowerCase()
+                .includes(searchValue?.toLocaleLowerCase())
+        );
 
   //................. Pagination Logic
   const perPageItems = 10;
@@ -81,11 +91,18 @@ const AdminTransaction = () => {
 
       {/*................ Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
-        <DateRange
-          formInput={formInput}
-          handleChange={(event) => handleChange(event)}
-          handleReset={() => setFormInput({ from: "", to: "" })}
-        />
+        <div className="flex justify-between">
+          <Searchbox
+            title="user's name & phone & email"
+            value={searchValue}
+            handleChange={(event) => setSearchValue(event?.target?.value)}
+          />
+          <DateRange
+            formInput={formInput}
+            handleChange={(event) => handleChange(event)}
+            handleReset={() => setFormInput({ from: "", to: "" })}
+          />
+        </div>
         <div className="rounded text-left whitespace-no-wrap w-full border overflow-auto">
           {/* Tabs */}
           <div className="flex gap-3 px-4 py-2">
@@ -96,7 +113,8 @@ const AdminTransaction = () => {
                   setActiveTab(item);
                 }}
                 className={`cursor-pointer ${
-                  activeTab === item && "text-[#DC8D00] border-b border-[#DC8D00]"
+                  activeTab === item &&
+                  "text-[#DC8D00] border-b border-[#DC8D00]"
                 } hover:text-[#DC8D00] hover:border-b hover:border-[#DC8D00]`}
               >
                 {item}
