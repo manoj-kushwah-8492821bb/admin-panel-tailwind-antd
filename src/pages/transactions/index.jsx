@@ -69,9 +69,9 @@ const Transaction = () => {
 
       {/*................ Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
-        <div className="flex justify-between">
+        <div className="flex-wrap flex justify-between">
           <Searchbox
-            title="user's name & phone & email"
+            title="user's name "
             value={searchValue}
             handleChange={(event) => setSearchValue(event?.target?.value)}
           />
