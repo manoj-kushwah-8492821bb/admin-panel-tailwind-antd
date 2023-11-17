@@ -91,7 +91,7 @@ const AdminTransaction = () => {
 
       {/*................ Table */}
       <div className="w-full bg-white my-3 rounded shadow-md p-3 mx-auto overflow-auto">
-        <div className="flex flex-wrap justify-between">
+        <div className="flex flex-wrapss justify-between">
           <Searchbox
             title="user's name "
             value={searchValue}
